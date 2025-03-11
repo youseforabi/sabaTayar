@@ -1,0 +1,139 @@
+.booking-container {
+    width: 60%;
+    padding: 20px;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    color: #007bff;
+    font-size: 24px;
+}
+
+strong {
+    color: #007bff;
+    font-weight: 400;
+}
+
+/* تخطيط عام */
+.booking-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* يجعل المحتوى يتكيف في الشاشات الصغيرة */
+    gap: 20px;
+}
+
+/* قسم المعلومات */
+.user-info {
+    flex: 1;
+    min-width: 250px;
+}
+
+.user-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* لجعل الأفاتار يسار والزر يمين */
+    gap: 10px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* الأزرار */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.cancel, .delete {
+    background: #007bff;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    border: 2px solid #007bff;
+}
+
+.booking-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.booking-img {
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.status {
+    background: #007bff;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+@media (min-width: 1024px){
+    .booking-container {
+        width: 80%;
+        margin: auto;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .booking-container {
+        width: 80%;
+        margin: auto;
+    }
+
+    .booking-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .user-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .booking-right {
+        justify-content: center;
+    }
+    .buttons{
+        margin: 10px 45px;
+    }
+    .title {
+        text-align: center;
+    }
+    p{
+        margin: 15px 0;
+    }
+
+}

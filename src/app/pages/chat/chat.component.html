@@ -1,0 +1,24 @@
+<div class="chat-container">
+    <h2 class="chat-title">Chat</h2>
+
+    <div class="messages">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender">
+        <img [src]="msg.avatar" class="avatar" alt="User Avatar">
+        <div class="message-content">
+          <p class="text">{{ msg.text }}</p>
+          <span class="timestamp">{{ msg.time }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-container">
+        <input type="text" [value]="newMessage" 
+            (input)="onInputChange($event)" 
+            placeholder="Type Message" 
+            (keyup.enter)="sendMessage()">
+
+        <button (click)="sendMessage()">
+            <span class="send-icon">➤</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: #f8f9fa;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  transition: width 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  overflow: hidden;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 55px 0 0 0;
+}
+
+.sidebar ul li {
+  padding: 15px;
+  transition: background 0.3s;
+}
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar.collapsed ul li a .menu-text {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.sidebar.open ul li a .menu-text {
+  display: inline;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+/* زر التبديل */
+.toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1100;
+}
+.sidebar ul li.active {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  width:80%;
+  margin: auto;
+}
+
+.sidebar ul li.active a {
+  color: white;
+}
+/* تحسين الاستجابة على الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 62px;
+    z-index: 1050;
+  }
+
+  .sidebar.open {
+    width: 200px;
+    left: 0;
+    position: absolute;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (min-width: 769px) {
+  .toggle-btn {
+    display: none;
+  }
+}

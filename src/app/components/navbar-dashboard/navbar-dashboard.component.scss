@@ -1,0 +1,178 @@
+.navbar {
+  width: calc(100% - 230px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 203px;
+  right: 0;
+  z-index: 1000;
+  transition: left 0.3s, width 0.3s;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h2 {
+  font-size: 22px;
+  color: #1e1e2d;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* ✅ صندوق البحث */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #F5F7FA;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 25px;
+  width: 180px;
+  transition: width 0.3s;
+}
+
+.search-box .search-icon {
+  color: #adb5bd;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #495057;
+}
+
+/* ✅ أيقونات */
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  font-size: 18px;
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.icon:hover {
+  color: #2d60ff;
+}
+
+/* ✅ زر العودة للصفحة الرئيسية */
+.backToHome {
+  background-color: #2d60ff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 1px solid #2d60ff;
+  cursor: pointer;
+}
+
+.backToHome a {
+  text-decoration: none;
+  color: white;
+}
+
+.notification-icon {
+  color: #e83e8c;
+}
+
+/* ✅ صورة البروفايل */
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ عند تصغير السايدبار */
+.sidebar.collapsed + .navbar {
+  left: 60px;
+  width: calc(100% - 60px);
+}
+
+/* ✅ الميديا كويري للشاشات المتوسطة */
+@media (max-width: 1024px) {
+  .navbar {
+    left: 60px;
+    width: calc(100% - 60px);
+  }
+
+  .search-box {
+    width: 150px;
+  }
+}
+
+/* ✅ الميديا كويري للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .navbar {
+    left: 0;
+    width: 100%;
+    padding: 10px 15px;
+  }
+
+  .navbar h2 {
+    font-size: 18px;
+    margin-left: 50px;
+  }
+
+  .search-box {
+    width: 120px;
+  }
+
+  .backToHome {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .icon {
+    font-size: 16px;
+  }
+
+  .profile-img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .icons {
+    margin-right: 10px;
+    gap: 10px;
+  }
+}
+
+/* ✅ الميديا كويري للجوال */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 8px 10px;
+  }
+
+  .navbar h2 {
+    font-size: 16px;
+  }
+
+  .search-box {
+    width: 100px;
+  }
+
+  .icon {
+    font-size: 14px;
+  }
+
+  .profile-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .icons {
+    gap: 8px;
+  }
+}

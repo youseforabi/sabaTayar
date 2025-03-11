@@ -1,0 +1,16 @@
+<button class="toggle-btn" (click)="toggleSidebar()">
+  <fa-icon [icon]="isOpen ? 'times' : 'bars'"></fa-icon>
+</button>
+
+
+<!-- القائمة الجانبية -->
+<aside class="sidebar" [ngClass]="{'collapsed': isCollapsed, 'open': isOpen}" >
+  <ul>
+    <li *ngFor="let item of menuItems" [ngClass]="{'active': isActive(item.route)}" (click)="sendTitle(item.label)">
+      <a [routerLink]="item.route" >
+        <fa-icon [icon]="item.icon"></fa-icon>
+        <span class="menu-text">{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</aside>

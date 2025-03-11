@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <h2>{{pageTitle}}</h2>
+<!-- 
+  <div class="">
+    <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+  </div> -->
+
+  <div class="icons">
+    <input class="search-box" type="text" placeholder="Search for something..." />
+    <button class="backToHome">
+      <a href="/">Back To Home</a>
+    </button>
+
+    <fa-icon [icon]="['fas', 'bell']" class="icon notification-icon"></fa-icon>
+    <img [src]="profileImage" alt="Profile" class="profile-img" />
+  </div>
+</nav>
+
+

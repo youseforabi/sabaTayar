@@ -1,0 +1,50 @@
+<div class="overview">
+    <div class="stats">
+      <div class="stat-card">
+        <div>
+          <h4>My Balance</h4>
+          <h2>$27,750</h2>
+        </div>
+        <fa-icon [icon]="['fas', 'sack-dollar']"></fa-icon>
+      </div>
+      <div class="stat-card">
+        <div>
+          <h4>My Ads</h4>
+          <h2>$10,500</h2>
+        </div>
+        <fa-icon [icon]="['fas', 'ad']"></fa-icon>
+      </div>
+      <div class="stat-card">
+        <div>
+          <h4>My Total</h4>
+          <h2>$8,000</h2>
+        </div>
+        <fa-icon [icon]="['fas', 'hand-holding-dollar']"></fa-icon>
+      </div>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Method</th>
+          <th>To</th>
+          <th>Date Submitted</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.method }}</td>
+          <td>{{ transaction.to }}</td>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

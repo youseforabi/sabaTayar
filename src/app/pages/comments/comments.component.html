@@ -1,0 +1,18 @@
+<div class="comments-container">
+  <h2>Comments</h2>
+
+  <owl-carousel-o [options]="customOptions" class="carousel">
+    <ng-container *ngFor="let comment of comments">
+      <ng-template carouselSlide>
+        <div class="comment-card">
+          <img [src]="comment.img" class="avatar" alt="User">
+          <div class="comment-content">
+            <h3>{{ comment.name }}</h3>
+            <p>{{ comment.text }}</p>
+            <div class="date">{{ comment.date }}</div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>

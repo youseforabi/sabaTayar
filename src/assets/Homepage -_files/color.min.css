@@ -1,0 +1,544 @@
+/*--
+	Color styles
+--*/
+.color-text,
+.listing-feature-wrap input[type=checkbox]:checked:after, .listing-feature-wrap input[type=radio]:checked:after,
+.add-feature-checkbox input[type=checkbox]:checked:after,
+.add-feature-radio input[type=radio]:checked:after,
+.listing-features-loader,
+.account-box a, .room-available, .room-adults,
+.comment-date i, .main-register h3 span,
+.pager a i, .widget-posts-wrap .widget-posts .widget-posts-link i,
+.sticky .list-single-main-item-title h3 a,
+.info-button:hover, .footer-social li a, .lost_password a:hover, .nav-holder nav li a.act-link, .testi-text:before, .testi-text:after, .easybook-tweet .timePosted a:before, .map-popup-contact-infos i, .main-register h3 span strong, .main-register label i, .listsearch-header h3 span, .listing-view-layout li a.active, .listsearch-input-text label i, .distance-title i, .listsearch-input-item i, .filter-tags input:checked:after, .more-filter-option:hover, .distance-title span, .selectbox li.selected, .listsearch-input-text span.loc-act, .list-single-header-contacts li i, .list-single-header-column .custom-scroll-link i, .list-single-header-cat span i, .listing-features li i, .list-author-widget-contacts li span i, .list-author-widget-contacts li a:hover, .current-status i, .scroll-nav-wrapper .save-btn i, .list-single-contacts li i, .list-post-counter.single-list-post-counter i, .reviews-comments-item-date i,
+.list-single-main-item-title span,
+.section-title-left span, .room-title a:hover,
+.custom-form label i, .custom-form .quantity span i, .box-widget .widget-posts .widget-posts-descr a:hover, .team-social li a, .team-info h3 a:hover, .section-title h2 a, section.color-bg .header-sec-link a:hover, .user-profile-menu li a.user-profile-act, .user-profile-menu li a.active, .user-profile-menu li a:hover, .pass-input-wrap span, .header-user-name:before, .header-user-menu ul li a:hover, .reply-mail a, .dashboard-message-text h4 span, .profile-edit-page-header .breadcrumbs span, .profile-edit-page-header .breadcrumbs a:hover, .reviews-comments-item-link, .radio input[type=radio]:checked + span:before,
+.main-register-holder .move-modal-login a, .wishlist-wrap .geodir-category-location i,
+.message-details a, .message-details span.msg-text,
+.list-single-main-item-title h3 a:hover, .post-opt li a:hover, .post-link i, .post-link:hover, .tl-text i, .tl-text h3, .features-box .time-line-icon i, .features-box h3, .images-collage-title, .process-item .time-line-icon i, .card-post-content h3 a:hover,
+.card-listing .list-post-counter i, .section-subtitle, .process-item:hover .process-count, .main-search-input-item.location a,
+.show-search-button i, .menusb li a i, .menusb a.back:before, .menusb a.act-link, .sp-cont, .list-single-tags a:hover,
+.card-listing .geodir-category-content h3 a:hover, .easybook-tweet a:hover, .subscribe-message.error a, .share-holder.hid-share .share-container .share-icon, .footer-contacts li a:hover, .listing-title a,
+.listings-loader, .dasboard-menu li a.user-profile-act i,
+.no-results-search a,
+.logo-text h2, .map-view-wrap_item .box-widget-list li i,
+.claim-widget-link a, .review-item-reply:before,
+.claim-success, .map-view-wrap_item .list-single-main-item-title:before,
+.sidebar-ad-widget .list-post-counter i, .cart-listi li span, .cart-listi li h3,
+.cart-dtright, .cart-room-item,
+.sidebar-ad-widget .geodir-category-location i,
+.sidebar-ad-widget .geodir-category-content h3 a:hover, #map-osm-main .ol-zoom-out,
+.asked-question .list-single-main-item-title:before, .box-widget-item-header:before,
+ul.cart_list li .quantity .amount, .woocommerce ul.product_list_widget li .quantity .amount,
+ul.cart_list li a:hover, .woocommerce ul.product_list_widget li a:hover,
+.woocommerce-mini-cart__buttons .button:hover,
+.home-btn a i,
+.au-name-li .au-role, .wishlist-link, .faq-nav li a.act-faq-link,
+.wkhour-opening, .card-listing .avatar-tooltip strong, .tabs-menu li.current a,
+.mb-open-filter:hover, .testimonials-carousel .slick-current .testimonials-carousel-item:before,
+.testimonials-carousel .slick-current .testimonials-carousel-item:after,
+.mb-open-filter.active, .inline-facts i, .card-post-content h3:before, .box-widget-content .widget-posts-descr a:hover, .box-widget-content .widget-posts-descr a:hover,
+.weather-grid .flatWeatherPlugin .wiToday .wiIconGroup div.wi,
+.single-event-date, .qty-dropdown-content .quantity-item-header label i,
+.remove-date-time i, .cs-mumber, .subfooter-lang-tooltip li a, .wishlist-link:hover,
+.flatWeatherPlugin ul.wiForecasts li.wi, .card-listing .geodir-category-price span,
+.qty-dropdown-header:before, .main-search-input-item_small:before, .bookdate-container-dayscounter i, .total-coast span,
+.header-search-input-item .date-parent:before, .section-title-left:before,
+.header-search-input-item.location .get-current-city .fa, .comment-reply-title:before,
+.col-list-search-input-item :before, .breadcrumb-current, .comment-reply:before, .list-main-wrap-titles h1 span,
+.header-search-input-item:before, .list-single-main-item-title:before, .cat-item li a,
+.widget_categories li a, .widget_recent_entries li a:hover, .widget_recent_comments li a:hover, .widget_archive li a, .widget_meta li a:hover,
+.widget_pages li a, .widget_rss li a, .widget_nav_menu li a, .widget_calendar li a, .widget_text li a, .easybook_recent_posts li a,
+.easybook_instagram_feed li a, .open-table-widget li a, .reviews-total-score, .map-modal-container h3 a:hover,
+.show-currency-tooltip i, .currency-tooltip li i, .show-lang i, .show-more-filters i, .list-main-wrap-title h2 span,
+.video-box-btn,
+.chat-date, .breadcrumbs-hero-buttom .breadcrumb-link:before, .share-container .share-icon,
+.your-reply .reply-text:before, .list-single-header-inside .list-single-hero-price span,
+.message-input button, .chat-widget-button i, .chat-widget-button.show i, .tfp-det p a,
+.dashboard-message-text p a, .fc-button i, .proom-guests h5 span, .tfp-btn strong, .down-btn i,
+.submit-sec-title:before, .map-popup-location-price, .listing-title h4, .ajax-modal-list li i,
+.show-reg-form i, .in-out-count i,
+.attr-nav .cart-link, #wp-calendar a, #wp-calendar #today,
+.activity-details a,
+.team-mem-socials a,
+.total-cost-input,
+.wpml-ls-legacy-dropdown-click a.wpml-ls-item-toggle:after,
+.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle:after {
+  color: #3AACED;
+}
+
+.tagcloud a, .bt-details,
+.navslide-wrap, .slide-progress, nav li a.act-link:before, .hs-nav .navslide-wrap.next-slide-wrap a, .folio-counter, .add-list,
+.listing-carousel-wrap .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .card-btn:hover, .footer-widget #subscribe-button,
+.add-list, .sw-btn, .infoBox-close,
+.ctb-modal-close, .listsearch-input-item .selectbox, .rangeslider__fill, .fs-map-btn, .lfilter-submit, .more-filter-option span,
+.back-to-filters, .back-to-filters span, .pin, .load-more-button, .footer-menu li:before,
+.pagination a.current-page, .pagination .nav-links > span.current, .section-title .breadcrumbs a:before,
+.section-title .woocommerce-breadcrumb a:before,
+.scroll-nav-wrapper .scroll-nav li a:before, .list-single-main-wrapper .breadcrumbs, .list-widget-social li a,
+.btn.transparent-btn:hover, .accordion a.toggle.act-accordion, .custom-form .quantity input.qty, .widget-posts-link span,
+.box-item a.gal-link, .custom-form .selectbox, .photoUpload, .user-profile-menu li a span,
+.header-social li a:hover, .selectbox li:hover, .color-overlay, .trs-btn, .testi-counter, .to-top, .header-sec-link a,
+.card-btn, .profile-edit-page-header .breadcrumbs a:before,
+.box-widget-item .list-single-tags a, .reviews-comments-item-text .new-dashboard-item:hover, .step-item, .slick-dots li.slick-active button,
+.time-line-container:before, .error-wrap form .search-submit, .testimonials-carousel .slick-current .testimonilas-text, .cs-social li a,
+.cs-countdown-item:before, .price-head, .price-link, .sp-cont:hover, .lg-actions .lg-next, .lg-actions .lg-prev,
+.log-out-btn:hover, .map-popup-category, .mapnavigation a:hover,
+.addfield, .tabs-menu li a,
+.list-author-widget-socials a, .scroll-nav-wrapper .scroll-nav li a.act-scrlink,
+.main-register-holder .move-modal-reg a, .color-bg,
+.section-separator.section-separator-dk-blue:before,
+.nav-holder nav li.current-menu-item > a:before,
+.nav-holder nav li.current-menu-parent > a:before,
+.nav-holder nav li.current-menu-ancestor > a:before,
+.author-social a,
+.protected-wrap input[type=submit],
+.listsearch-input-item .nice-select .list li.selected.focus,
+.listsearch-input-item .nice-select .list li:hover,
+.listsearch-input-item .nice-select .list li.selected,
+.custom-form .nice-select .list li:hover,
+.custom-form .nice-select .list li.selected,
+.custom-form .nice-select, .header-search-select-item .nice-select .list li:hover,
+.header-search-select-item .nice-select .list li.selected,
+.main-search-input-item .nice-select .list li:hover,
+.main-search-input-item .nice-select .list li.selected,
+.pac-item:hover,
+.listing-verified, .price-num.col-dec-1:before, .price-num:before,
+.tooltipwrap .tooltiptext,
+.cart-count, .sale-window.big-sale, .map-modal-close,
+.mb-btns-wrap, .search-input-item .irs-line,
+.mb-open-filter, .geodir-opt-list a:hover,
+.remove-date-time:hover, .main-search-button:hover,
+.cs-mumber-button:hover, .dashboard-header,
+.close-header-search:hover, .recomm-price i,
+.daterangepicker .drp-buttons .btn, .cluster div:hover, .cth-cluster:hover,
+.del-btn, .list-single-header h2:before,
+.chat-counter, .lisd-link:hover,
+.chat-item:after,
+.reply-time span:before, .review-range-container .irs-bar-edge,
+.your-reply .reply-text, .review-range-container .irs-bar,
+.typing-indicator,
+.typing-indicator:after,
+.jspDrag, .ck-tab-item.active:before, .ck-tab-item.active:after,
+.chat-replies-loading span, .color-bgs,
+.chat-replies-lmore span, .twiit-button,
+.chat-error-message, .accordion a.toggle span,
+.loading-indicator span,
+.easybook-tweet p.tweet:before,
+.nav-button span,
+.available-cal-months .cal-date-checked,
+.available_counter {
+  background: #3AACED;
+}
+
+.available-cal-months .cal-date-checked:hover {
+  background: #1496e0;
+}
+
+.available-cal-months .cal-date-inside {
+  background: #69c0f1;
+}
+
+.tooltipwrap .tooltiptext:after {
+  border-color: #3AACED transparent transparent transparent;
+}
+
+.rangeslider__handle, .list-author-widget-text .btn, .btn.transparent-btn, .log-out-btn, blockquote, .cluster div:before, .cth-cluster:before,
+.header-search-select-item .nice-select:after,
+.main-search-input-item .nice-select:after,
+.mb-open-filter:hover,
+.mb-open-filter.active {
+  border-color: #3AACED;
+}
+
+.cth-cluster {
+  background-color: #F9B90F;
+}
+
+/* //https://stackoverflow.com/questions/28362601/how-to-calculate-color-difference-in-percentage-for-less
+// hex -> rgb -> hsl
+//#4DB7FE -> 77,183,254 -> 204,98.9,64.9
+//#5ECFB1 -> 94,207,177 -> 164,54.1,59.0
+
+//#49CEFF -> 73, 206, 255 -> 196,100,64.3
+// 204 - 196 / 204
+//#3EAAFD -> 62,170,253 -> 206,97.9,61.8
+// 206 - 204 / 206 */
+.gradient-bg,
+.listing-geodir-category,
+.list-single-header-cat a,
+.box-widget-item .list-single-tags a:hover,
+.nav-holder nav li a:before,
+.tagcloud a:hover {
+  background-color: #3EAAFD;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3EAAFD), to(#49CEFF));
+  background: -webkit-linear-gradient(top, #3EAAFD, #49CEFF);
+  background: -o-linear-gradient(top, #3EAAFD, #49CEFF);
+}
+
+.slick-carouse-wrap .swiper-button-next,
+.slick-carouse-wrap .swiper-button-prev {
+  background-color: #3AACED;
+}
+
+#footer-twiit .timePosted a:after {
+  border-top-color: #3AACED;
+}
+
+.sale-window.big-sale:before {
+  border-top: 20px solid #3AACED;
+}
+
+.sale-window.big-sale:after {
+  border-bottom: 20px solid #3AACED;
+}
+
+.nice-select:after {
+  border-bottom: 2px solid #3AACED;
+  border-right: 2px solid #3AACED;
+}
+
+.ajax-loader {
+  border-color: #3AACED;
+}
+
+.body-easybook div.datedropper.primary .pick-lg-b .pick-sl:before,
+.body-easybook div.datedropper.primary .pick-lg-h,
+.body-easybook div.datedropper.primary .pick-m,
+.body-easybook div.datedropper.primary .pick-submit,
+.body-easybook div.datedropper.primary:before {
+  background-color: #3AACED;
+}
+.body-easybook div.datedropper.primary .pick li span,
+.body-easybook div.datedropper.primary .pick-btn,
+.body-easybook div.datedropper.primary .pick-lg-b .pick-wke,
+.body-easybook div.datedropper.primary .pick-y.pick-jump {
+  color: #3AACED;
+}
+.body-easybook .td-clock {
+  -webkit-box-shadow: 0 0 0 1px #3AACED, 0 0 0 8px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 0 1px #3AACED, 0 0 0 8px rgba(0, 0, 0, 0.05);
+}
+.body-easybook .td-clock:before {
+  border-left: 1px solid #3AACED;
+  border-top: 1px solid #3AACED;
+}
+.body-easybook .td-select:after {
+  -webkit-box-shadow: 0 0 0 1px #3AACED;
+          box-shadow: 0 0 0 1px #3AACED;
+}
+.body-easybook .td-clock .td-time span.on {
+  color: #3AACED;
+}
+
+.body-easybook.woocommerce span.onsale,
+.body-easybook span.onsale {
+  background: #3AACED;
+}
+.body-easybook.woocommerce a.button,
+.body-easybook.woocommerce button.button,
+.body-easybook a.button,
+.body-easybook button.button {
+  color: #3AACED;
+  border-color: #3AACED;
+}
+.body-easybook.woocommerce a.button:hover, .body-easybook.woocommerce a.button:focus,
+.body-easybook.woocommerce button.button:hover,
+.body-easybook.woocommerce button.button:focus,
+.body-easybook a.button:hover,
+.body-easybook a.button:focus,
+.body-easybook button.button:hover,
+.body-easybook button.button:focus {
+  background: #3AACED;
+  color: #fff;
+  border-color: #3AACED;
+}
+.body-easybook.woocommerce ul.products li.product a:hover,
+.body-easybook ul.products li.product a:hover {
+  color: #3AACED;
+}
+.body-easybook.woocommerce ul.products li.product .onsale,
+.body-easybook ul.products li.product .onsale {
+  background: #3AACED;
+}
+.body-easybook.woocommerce ul.products li.product .cth-add-to-cart a,
+.body-easybook ul.products li.product .cth-add-to-cart a {
+  background: #3AACED;
+  border-color: #3AACED;
+}
+.body-easybook.woocommerce ul.products li.product .cth-add-to-cart a:hover,
+.body-easybook ul.products li.product .cth-add-to-cart a:hover {
+  background: #F9B90F;
+  border-color: #F9B90F;
+}
+.body-easybook.woocommerce ul.products li.product .cth-add-to-cart a.added_to_cart,
+.body-easybook ul.products li.product .cth-add-to-cart a.added_to_cart {
+  background: transparent;
+  color: #3AACED;
+}
+.body-easybook.woocommerce ul.products li.product .cth-add-to-cart a.added_to_cart:hover,
+.body-easybook ul.products li.product .cth-add-to-cart a.added_to_cart:hover {
+  border-color: #3AACED;
+}
+.body-easybook.woocommerce .woocommerce-mini-cart__buttons .button,
+.body-easybook .woocommerce-mini-cart__buttons .button {
+  background: #3AACED;
+  border-color: #3AACED;
+}
+.body-easybook.woocommerce .woocommerce-mini-cart__buttons .button:hover,
+.body-easybook .woocommerce-mini-cart__buttons .button:hover {
+  background: #F9B90F;
+  border-color: #F9B90F;
+  color: #fff;
+}
+.body-easybook.woocommerce .woocommerce-mini-cart__buttons .button.checkout,
+.body-easybook .woocommerce-mini-cart__buttons .button.checkout {
+  color: #3AACED;
+}
+.body-easybook.woocommerce .woocommerce-mini-cart__buttons .button.checkout:hover,
+.body-easybook .woocommerce-mini-cart__buttons .button.checkout:hover {
+  background: #3AACED;
+  color: #fff;
+  border-color: #3AACED;
+}
+.body-easybook.woocommerce nav.woocommerce-pagination .page-numbers:hover, .body-easybook.woocommerce nav.woocommerce-pagination .page-numbers.current,
+.body-easybook nav.woocommerce-pagination .page-numbers:hover,
+.body-easybook nav.woocommerce-pagination .page-numbers.current {
+  background: #F9B90F;
+  border-color: #F9B90F;
+  color: #fff;
+}
+.body-easybook.woocommerce ul.products li.product .price,
+.body-easybook.woocommerce ul.products li.product p.price,
+.body-easybook.woocommerce div.product .price,
+.body-easybook.woocommerce div.product p.price,
+.body-easybook ul.products li.product .price,
+.body-easybook ul.products li.product p.price,
+.body-easybook div.product .price,
+.body-easybook div.product p.price {
+  color: #3AACED;
+}
+.body-easybook.woocommerce #respond input#submit,
+.body-easybook.woocommerce a.button.alt,
+.body-easybook.woocommerce button.button.alt,
+.body-easybook.woocommerce input.button.alt,
+.body-easybook #respond input#submit,
+.body-easybook a.button.alt,
+.body-easybook button.button.alt,
+.body-easybook input.button.alt {
+  color: #fff;
+  background: #3AACED;
+}
+.body-easybook.woocommerce #respond input#submit:hover, .body-easybook.woocommerce #respond input#submit:focus,
+.body-easybook.woocommerce a.button.alt:hover,
+.body-easybook.woocommerce a.button.alt:focus,
+.body-easybook.woocommerce button.button.alt:hover,
+.body-easybook.woocommerce button.button.alt:focus,
+.body-easybook.woocommerce input.button.alt:hover,
+.body-easybook.woocommerce input.button.alt:focus,
+.body-easybook #respond input#submit:hover,
+.body-easybook #respond input#submit:focus,
+.body-easybook a.button.alt:hover,
+.body-easybook a.button.alt:focus,
+.body-easybook button.button.alt:hover,
+.body-easybook button.button.alt:focus,
+.body-easybook input.button.alt:hover,
+.body-easybook input.button.alt:focus {
+  background: #F9B90F;
+  border-color: #F9B90F;
+}
+.body-easybook.woocommerce .woocommerce-info,
+.body-easybook.woocommerce .woocommerce-message,
+.body-easybook .woocommerce-info,
+.body-easybook .woocommerce-message {
+  border-top-color: #3AACED;
+}
+.body-easybook.woocommerce .woocommerce-info:before,
+.body-easybook.woocommerce .woocommerce-message:before,
+.body-easybook .woocommerce-info:before,
+.body-easybook .woocommerce-message:before {
+  color: #3AACED;
+}
+.body-easybook.woocommerce .widget_price_filter .price_slider_wrapper .ui-widget-content,
+.body-easybook .widget_price_filter .price_slider_wrapper .ui-widget-content {
+  background-color: #F9B90F;
+}
+.body-easybook.woocommerce .widget_price_filter .ui-slider .ui-slider-range,
+.body-easybook.woocommerce .widget_price_filter .ui-slider .ui-slider-handle,
+.body-easybook .widget_price_filter .ui-slider .ui-slider-range,
+.body-easybook .widget_price_filter .ui-slider .ui-slider-handle {
+  background-color: #3AACED;
+}
+.body-easybook.woocommerce .box-widget .woocommerce-Price-amount,
+.body-easybook .box-widget .woocommerce-Price-amount {
+  color: #3AACED;
+}
+.body-easybook.woocommerce ul.woocommerce-widget-layered-nav-list li a, .body-easybook.woocommerce ul.product-categories li a,
+.body-easybook ul.woocommerce-widget-layered-nav-list li a,
+.body-easybook ul.product-categories li a {
+  color: #3AACED;
+}
+.body-easybook.woocommerce ul.woocommerce-widget-layered-nav-list li span, .body-easybook.woocommerce ul.product-categories li span,
+.body-easybook ul.woocommerce-widget-layered-nav-list li span,
+.body-easybook ul.product-categories li span {
+  color: #F9B90F;
+}
+.body-easybook.woocommerce .woocommerce-grouped-product-list-item__price,
+.body-easybook .woocommerce-grouped-product-list-item__price {
+  color: #3AACED;
+}
+
+section.products > h2:after {
+  background: #3AACED;
+}
+
+.products > h2, .dashboard-listing-table-address i,
+.wc-tab > h2, .cat-item li span,
+.woocommerce div.product .product_title,
+.collage-image-input i,
+.woocommerce-Reviews-title,
+.section-title-separator span i:nth-child(2), .faq-nav li a.act-faq-link:before,
+.header-search-input-item-icon i:before, .qty-dropdown-header i, .header-user-name:hover, .nice-select:before, .tfp-btn:before,
+.daterangepicker .calendar-table th, .footer-social li a:hover, .inpt_dec, .process-item h4:hover, .star-rating-item_wrap i,
+.dark-header .nav-holder nav li ul a:hover, .post-opt li i, .post-nav .post-link, .light-carousel .sw-btn.swiper-button-prev i:hover,
+.home-btn a i:hover, .nav-holder nav li.current-menu-item > a, .breadcrumb-current a:after, .light-carousel .sw-btn.swiper-button-next i:hover,
+.nav-holder nav li.current-menu-parent > a, .breadcrumb-link:before, .widget_archive li span, .widget_categories li span,
+.nav-holder nav li.current-menu-ancestor > a, .nav-holder nav li a:hover,
+.main-register .custom-form label span, #admin-listing-app .lfield-icon, #map-osm-main .ol-zoom-in,
+.custom-form label i, .proom-guests h5, .azp_preview_address .geodir-category-location i,
+.ctb-modal-inner .custom-form label span, .map-modal-container h3 i, .map-card-rainting i,
+.listing-rating i, .map-popup-location-info i, .mapzoom-in, .cart-total strong, .room-available strong, .room-adults strong,
+.box-widget .widget-posts .widget-posts-date i, .listing-view-layout li a:hover, .listing-view-layout li a:hover,
+.geodir-category-location a i, .col-list-search-input-item .listing-rating i:before,
+.footer-contacts li i, .geodir-category-location a i, .subfooter-show-lang i,
+.easybook-tweet p.timePosted a:before, .testimonials-carousel-item a.testim-link:hover, .page-links span,
+.team-info h4, .color-three,
+.easybook-lang-switcher .wpml-ls-legacy-list-vertical a:hover,
+.easybook-lang-switcher .wpml-ls-legacy-list-vertical .wpml-ls-current-language a,
+.easybook-lang-switcher .wpml-ls-legacy-list-horizontal a:hover,
+.easybook-lang-switcher .wpml-ls-legacy-list-horizontal .wpml-ls-current-language a,
+.cth-daterange-picker .lfield-icon i:before,
+.tpick-icon, .bkfuser-fields .lbl-hasIcon i {
+  color: #F9B90F;
+}
+
+.woocommerce-product-search button {
+  background: #3AACED;
+}
+.woocommerce-product-search button:hover {
+  background: #F9B90F;
+}
+
+/* .bt-details, */
+.mb-btn:hover, .main-search-button, .header-sec-link a:hover, .testimonials-carousel .sw-btn.swiper-button-prev,
+.testimonials-carousel .sw-btn.swiper-button-next, .color2-bg, .section-separator:before, .irs-slider, .dasboard-menu li a span,
+input:checked + .switchbtn-label, .close-header-search, .add-list:hover, .header-search-button, .cs-mumber-button, .dasboard-menu li ul li span,
+.daterangepicker .drp-buttons .btn.btn-default, .widget_search .search-submit, .subscribe-form .subscribe-button:hover,
+.scroll-nav-wrapper .show-hidden-map, .cluster div, .infoBox-close:hover, .dashboard-listing-table-opt li a.del-btn,
+.price-desc form input.price-link:hover, .pagination a:hover, .show-more-filters.active-hidden-opt-btn, .ajax-loader-cirle:before,
+.cth-dropdown-options input[type=checkbox]:checked + label,
+.count-select-ser {
+  background: #F9B90F;
+}
+
+.bt-details:hover, .subscribe-form .subscribe-button, .contact-btn:hover, .color3-bg, .testimonials-carousel .sw-btn.swiper-button-prev:hover,
+.custom-form .log-submit-btn, .listing-counter, .testimonials-carousel .sw-btn.swiper-button-next:hover, .images-collage-title, .team-social, .sw-btn.swiper-button-prev,
+.sw-btn.swiper-button-next, .card-listing span.geodir-opt-tooltip, .mlc, .dasboard-sidebar-content, .more-photos-button, .accordion a.toggle.act-accordion,
+.banner-wdget-content a, .typing-indicator:before,
+.lang-tooltip a:hover, .currency-tooltip a:hover,
+.easybook-lang-switcher .wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu a:hover,
+.easybook-lang-switcher .wpml-ls-legacy-dropdown .wpml-ls-sub-menu a:hover {
+  background: #18458B;
+}
+
+.inline-facts .num, .section-title-dk-blue h2, .mapzoom-out, .map-modal-container h3 a, .testimonials-carousel-item a.testim-link {
+  color: #18458B;
+}
+
+.body-easybook #respond input#submit {
+  color: #fff;
+  background: #F9B90F;
+}
+.body-easybook #respond input#submit:hover, .body-easybook #respond input#submit:focus {
+  background: #3AACED;
+  border-color: #3AACED;
+}
+
+.dashboard-list-box.activities .dashboard-message-text i,
+.fuzone .fu-text i,
+.uplzone .upltext i,
+.mdimgs-wrap ul .fu-text i,
+.lfield-icon,
+.booking-listing-address i,
+.show-reg-form:hover {
+  color: #F9B90F;
+}
+
+.cancel-btn, .goBack-btn {
+  background: #F9B90F;
+}
+
+.del-activity {
+  background: #5ECFB1;
+}
+.del-activity:hover {
+  background: #F9B90F;
+}
+
+.cart-room-item .room-quantity,
+.cart-room-item .room-price {
+  color: #5ECFB1;
+}
+
+.bk-price strong,
+.bk-fees strong,
+.bk-taxes strong {
+  color: #5ECFB1;
+}
+
+/* Single */
+section.single-section {
+  background: #ECF6F8;
+}
+
+.color-white {
+  color: rgba(255, 255, 255, 0.71);
+}
+
+.btn-unlock-month {
+  background: #3AACED;
+}
+
+.btn-link {
+  color: #3AACED;
+}
+
+.card-listing .preview-title h3 a {
+  color: #46a5dc;
+}
+
+.per-night-price {
+  color: #3AACED;
+}
+
+.list-single-hero-price .per-night-price,
+.rooms-price .per-night-price,
+.bkdates-date-detail strong {
+  color: #5ECFB1;
+}
+
+.list-single-header-inside .list-single-hero-price .per-night-price {
+  color: #3AACED;
+}
+
+.ajax-modal-photos-btn span {
+  color: #3AACED;
+}
+
+.widget_recent_comments li a {
+  color: #3AACED;
+}
+.widget_recent_comments li a:hover {
+  color: #1076b1;
+}

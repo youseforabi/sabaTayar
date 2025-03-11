@@ -1,0 +1,101 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #5a4cd4;
+  
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+  
+      h2 {
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+  
+      p {
+        color: gray;
+        font-size: 14px;
+      }
+  
+      form {
+        .input-group {
+          position: relative;
+          margin: 15px 0;
+  
+          input {
+            width: 90%;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+          }
+  
+          i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: black;
+          }
+        }
+  .btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+        .btn {
+          width: auto;
+          padding: 10px;
+          border: none;
+          background: blue;
+          color: white;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+  
+        .btn:hover {
+          background: black;
+        }
+        a{
+          text-decoration: none;
+          color: #5a4cd4;
+        }
+        a:hover{
+          text-decoration: underline;
+        }
+      }
+  
+     
+    }
+  
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      display: block;
+    }
+
+}
+
+button i {
+    font-size: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 500px) {
+    .login-box {
+      width: 90%;
+      padding: 20px;
+    }
+  }
+  

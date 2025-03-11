@@ -1,0 +1,64 @@
+    <div class="overview">
+        <div class="stats">
+          <div class="stat-card">
+            <div>
+              <h4>My Tours</h4>
+              <h2>27,750</h2>
+            </div>
+            <fa-icon [icon]="['fas', 'list']"></fa-icon>
+          </div>
+          <div class="stat-card">
+            <div>
+              <h4>Booking</h4>
+              <h2>10,500</h2>
+            </div>
+            <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+          </div>
+          <div class="stat-card">
+            <div>
+              <h4>Comments</h4>
+              <h2>5,000</h2>
+            </div>
+            <fa-icon [icon]="['fas', 'comment']"></fa-icon>
+          </div>
+        </div>
+      </div>
+  
+      <div class="chart-container">
+        <div class="chart-header">
+          <h3>Performance</h3>
+          <select id="chart-select">
+            <option>Week</option>
+            <option>Month</option>
+          </select>
+        </div>
+        <ngx-charts-line-chart
+          [results]="chartData"
+          [scheme]="'cool'"
+          [legend]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          
+          [autoScale]="true">
+
+        </ngx-charts-line-chart>
+      </div>
+  
+      <div class="activities">
+        <div class="recent-activities">
+          <h3>Recent Activities</h3>
+          <ul>
+            <li *ngFor="let activity of recentActivities">
+              ✅ {{ activity }}
+            </li>
+          </ul>
+        </div>
+        <div class="history">
+          <h3>History</h3>
+          <ul>
+            <li *ngFor="let item of history">
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+      </div>

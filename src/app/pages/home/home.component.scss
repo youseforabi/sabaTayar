@@ -1,0 +1,758 @@
+/* 🌟 ضبط خلفية الصورة مع Overlay */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* جعل الخلفية تمتد لكامل الشاشة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    
+    /* 🔹 استخدام صورة الخلفية */
+    background: url('../../../assets/giza-pyramids-sphinx-evening-egypt-e1669109796704.jpg') no-repeat center center;
+    background-size: cover; /* لجعل الصورة تغطي الشاشة بالكامل */
+}
+
+/* 🌓 تأثير التعتيم (Overlay) */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* زيادة التعتيم لتحسين وضوح النص */
+}
+
+/* 📌 تنسيق النصوص داخل الهيرو */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+    font-size: 1.0rem;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* 🔍 تصميم صندوق البحث */
+.search-box {
+    display: flex;
+    background: rgba(255, 255, 255, 0.9); /* شبه شفاف لتحسين التصميم */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: auto;
+}
+
+/* 🔎 تنسيق العناصر داخل صندوق البحث */
+.search-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+    border-right: 1px solid #ddd;
+    width: auto;
+    flex: 1;
+}
+
+.search-item:last-child {
+    border-right: none; /* إزالة الخط الفاصل للعنصر الأخير */
+}
+
+.search-item i {
+    margin-right: 10px;
+    color: #18458B;
+    font-size: 1.2rem;
+}
+
+/* 🎯 تنسيق المدخلات */
+.search-item input, 
+.search-item select {
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+}
+
+/* 🎯 زر البحث */
+.search-btn {
+    background: #F9B90F;
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+    background: #e6a700;
+}
+
+/* 📍 تأثير خاص عند الضغط على أيقونة الموقع */
+.location-icon {
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #F9B90F;
+}
+
+.location-icon:hover {
+    color: red;
+}
+
+/* 🌍 جعل التصميم ريسبونسيف */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.3rem;
+    }
+
+    .search-box {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: 100vh;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .search-box {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-item {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    .search-item:last-child {
+        border-bottom: none;
+    }
+
+    .search-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .search-box {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .search-item {
+        padding: 8px;
+    }
+
+    .search-btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+
+
+
+
+// tour 
+
+/* ✨ ضبط القسم */
+.tours-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0;
+    background: #fff;
+    height: 100vh;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #18458B;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 30px 0;
+}
+
+/* 🖼️ تصميم الكارت */
+.tour-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.tour-card:hover {
+    transform: scale(1.05);
+}
+
+.tour-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 🔥 التداخل على الصورة */
+.tour-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 165, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* 📌 الشعار */
+.tour-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.tour-title {
+    position: absolute;
+    top: 10px; /* المسافة من الأعلى */
+    right: 10px; /* المسافة من اليمين */
+    background: rgba(255, 165, 0, 0.9); /* لون الخلفية */
+    color: white;
+    padding: 8px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    .tours-section{
+        margin-top: 50px;
+    }
+    .tour-image {
+        height: auto;
+    }
+
+    .tour-overlay {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tour-image {
+    }
+
+    .tour-overlay {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+}
+
+.featured-sectionNow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+    background-color: black;
+    color: white;
+  
+    .text-contentNow {
+      flex: 1;
+  
+      h2 {
+        font-size: 28px;
+        font-weight: bold;
+      }
+  
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+  
+      .explore-btnNow {
+        color: black;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+    }
+  
+    .cards-containerNow {
+      flex: 2;
+      display: flex;
+      gap: 20px;
+  
+      .tour-cardNow {
+        background: #1e1e1e;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+        transition: 0.3s;
+        max-width: 350px;
+        position: relative;
+  
+        &:hover {
+          transform: translateY(-5px);
+        }
+  
+        .tour-image-containerNow {
+          position: relative;
+          width: 100%;
+          height: 200px;
+          overflow: hidden;
+  
+          .tour-imageNow {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+  
+          .tour-price-badgeNow {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 255, 0.8);
+            color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            font-weight: bold;
+          }
+        }
+  
+        .tour-detailsNow {
+          padding: 15px;
+          text-align: left;
+          position: relative;
+  
+          .tour-titleNow {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+          }
+  
+          /* ✅ ✅ ✅ تعديل هذا الجزء ليطابق الصورة ✅ ✅ ✅ */
+          .tour-infoNow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+          }
+  
+          .location-boxNow {
+            display: flex;
+            flex-direction: column;
+            color: #ffb800;
+  
+            .tour-locationNow {
+              font-size: 10px;
+              font-weight: bold;
+            }
+  
+            .tour-addressNow {
+              font-size: 10px;
+              color: #ddd;
+            }
+          }
+  
+          .rating-boxNow {
+            display: flex;
+            align-items: center;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+  
+            .rating-labelNow {
+              font-size: 10px;
+              font-weight: bold;
+              margin-right: 5px;
+            }
+  
+            .rating-valueNow {
+              padding: 3px 7px;
+              border-radius: 3px;
+              font-size: 10px;
+              font-weight: bold;
+            }
+          }
+  
+          .tour-commentsNow {
+            font-size: 12px;
+            color: #ccc;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+  
+  /* 🔹 ✅ تصميم متجاوب */
+  @media (max-width: 1024px) {
+    .featured-sectionNow {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 200px;
+      margin-bottom: 550px;
+  
+      .text-contentNow {
+        max-width: 100%;
+      }
+  
+      .cards-containerNow {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  
+
+
+
+//   why
+
+.why-saba-tours {
+    text-align: center;
+    padding: 50px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f9fafe;
+  
+    .section-titlewhy {
+      font-size: 28px;
+      font-weight: bold;
+      color: #003366;
+  
+      .underlinewhy {
+        width: 50px;
+        height: 4px;
+        background: #007bff;
+        margin: 5px auto;
+      }
+    }
+  
+    /* ✅ البطاقات العلوية */
+    .features-containerwhy {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+  
+      .feature-cardwhy{
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 250px;
+        text-align: center;
+        transition: transform 0.3s;
+  
+        &:hover {
+          transform: translateY(-5px);
+        }
+  
+        i {
+          font-size: 30px;
+          color: #007bff;
+          margin-bottom: 10px;
+        }
+  
+        h3 {
+          font-size: 18px;
+          color: #003366;
+          font-weight: bold;
+        }
+  
+        p {
+          font-size: 14px;
+          color: #666;
+        }
+      }
+    }
+  
+    /* ✅ إحصائيات */
+    .stats-containerwhy {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 40px;
+  
+      .stat-cardwhy {
+        background: #e6f2ff;
+        padding: 15px;
+        border-radius: 8px;
+        min-width: 180px;
+        text-align: center;
+        transition: transform 0.3s;
+  
+        &:hover {
+          transform: translateY(-5px);
+        }
+  
+        i {
+          font-size: 24px;
+          color: #007bff;
+          margin-bottom: 5px;
+        }
+  
+        h3 {
+          font-size: 22px;
+          color: #003366;
+          font-weight: bold;
+        }
+  
+        p {
+          font-size: 14px;
+          color: #555;
+        }
+      }
+    }
+  
+    /* ✅ تصميم متجاوب */
+    @media (max-width: 1024px) {
+      
+      .features-containerwhy, .stats-containerwhy {
+        flex-direction: column;
+        align-items: center;
+      }
+  
+      .feature-cardwhy, .stat-cardwhy {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  }
+
+  
+
+//   app 
+
+.app-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px;
+    background-color: #50b4f3; /* اللون الأساسي */
+  }
+  
+  .app-content {
+    max-width: 500px;
+    color: white;
+    text-align: left;
+  }
+  
+  .app-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .apple {
+    background-color: navy;
+    color: white;
+  }
+  
+  .android {
+    background-color: navy;
+    color: white;
+  }
+  
+  .app-image img {
+    width: 50%;
+  }
+  
+  @media (max-width: 1024px) {
+    
+.app-section{
+    margin-top: 550px;
+}
+.app-image img {
+    width: 100%;
+  }
+}
+
+
+// tetsinominal
+.custom-testimonials-container {
+    text-align: center;
+    padding: 50px;
+    background: #fff;
+  }
+  
+  .custom-testimonials-title {
+    color: #004a99;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .custom-testimonials-subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  
+  .custom-slider-wrapper {
+    width: 90%;
+    overflow: hidden;
+    margin: auto;
+  }
+  
+  .custom-testimonials-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * 2); // ضعف عدد البطاقات لإظهار 3 بطاقات في كل مرة
+  }
+  
+  .custom-testimonial-card {
+    background: #f5f9ff;
+    padding: 20px;
+    width: 30% !important;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    transition: 0.3s ease;
+  }
+  
+  @media (max-width: 1024px) {
+    .custom-testimonial-card {
+      flex: 0 0 calc(100% / 2); // يظهر بطاقتين في التابلت
+      min-width: calc(100% / 2);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .custom-testimonial-card {
+      flex: 0 0 100%; // يظهر بطاقة واحدة في الموبايل
+      min-width: 100%;
+    }
+  }
+  
+  .custom-testimonial-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .custom-testimonial-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .custom-testimonial-author {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .custom-testimonial-text {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .custom-testimonial-link {
+    font-size: 12px;
+    color: #007aff;
+    text-decoration: none;
+  }
+  
+  .custom-testimonial-stars {
+    font-size: 14px;
+    color: gold;
+  }
+  
+  .custom-slider-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .custom-slider-btn {
+    background: #ffc107;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .custom-slider-dot {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+  
+    &.custom-active-dot {
+      background: #007aff;
+    }
+  }
+  

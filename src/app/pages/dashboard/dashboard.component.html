@@ -1,0 +1,10 @@
+<app-sidebar (titleChange)="updateTitle($event)"></app-sidebar>
+  <app-navbar-dashboard [pageTitle] = "pageTitle"></app-navbar-dashboard>
+
+<div class="dashboard">
+  <div class="dashboard-content">
+    <router-outlet></router-outlet>
+
+
+  </div>
+</div>

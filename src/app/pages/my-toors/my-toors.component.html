@@ -1,0 +1,17 @@
+<div class="tours-container">
+    <div class="tour-card" *ngFor="let tour of tours">
+      <img [src]="tour.image" alt="Tour Image" class="tour-image" />
+      <div class="tour-details">
+        <h3>{{ tour.title }}</h3>
+        <p>
+            <fa-icon [icon]="faMapMarkerAlt" class="location-icon"></fa-icon>
+            {{ tour.location }}
+        </p>
+        <div class="buttons">
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

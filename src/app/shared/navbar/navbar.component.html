@@ -1,0 +1,111 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    
+    <!-- اللوجو -->
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/sabalogowhite.png" alt="Logo" class="logo">
+    </a>
+
+    <!-- زر القائمة الجانبية في الشاشات الصغيرة -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- القائمة -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">
+            Guide of Egypt
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/classical-tours">
+             Classical Tours
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/day-trips">
+             Day Trips
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blog">
+            Blog
+          </a>
+        </li>
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+           Info
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/about">About Us</a></li>
+            <li><a class="dropdown-item" routerLink="/contact">Contact</a></li>
+          </ul>
+        </li>
+
+       <!-- أيقونة السلة -->
+<li class="nav-item position-relative ">
+  <a class="nav-link" routerLink="/cart">
+    <fa-icon [icon]="faShoppingCart" class="cart-icon"></fa-icon>
+    <span class="badge bg-danger cart-badge">0</span>
+  </a>
+</li>
+
+<!-- أيقونة المفضلة -->
+<li class="nav-item position-relative ">
+  <a class="nav-link" routerLink="/wishlist">
+    <fa-icon [icon]="faHeart" class="wishlist-icon"></fa-icon>
+    <span class="badge bg-danger wishlist-badge">0</span>
+  </a>
+</li>
+
+        <!-- البحث -->
+        <li class="nav-item position-relative">
+          <a class="nav-link" href="#">
+            Search
+          </a>
+        </li>
+      </ul>
+
+      <!-- العملة واللغة + تسجيل الدخول وإضافة إعلان -->
+      <div class="d-flex align-items-center">
+        <!-- العملة -->
+        <div class="dropdown mx-2">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            $ USD
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">€ EUR</a></li>
+            <li><a class="dropdown-item" href="#">£ GBP</a></li>
+          </ul>
+        </div>
+
+
+
+        <!-- اللغة -->
+        <div class="dropdown mx-2">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+             Eng
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">🇫🇷 French</a></li>
+            <li><a class="dropdown-item" href="#">🇩🇪 German</a></li>
+          </ul>
+        </div>
+
+        <!-- تسجيل الدخول -->
+        <a class="nav-link mx-2" routerLink="/signin">
+          <fa-icon [icon]="faSignInAlt"></fa-icon> Sign In
+        </a>
+
+        <!-- زر "إضافة إعلان" -->
+        <a class="btn btn-info text-white me-3" routerLink="/add-listing">
+          Add Listing <fa-icon [icon]="faPlus"></fa-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

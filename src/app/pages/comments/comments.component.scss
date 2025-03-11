@@ -1,0 +1,55 @@
+.comments-container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  h2 {
+    color: #2f66ff;
+  }
+  
+  .carousel {
+    .comment-card {
+    text-align: center;
+
+      background: #2f66ff;
+      color: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: block; // جعل المحتوى يظهر تحت بعضه
+      margin: 0 auto; // توسيط الكارت داخل السلايدر
+    }
+  
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: block; // جعل الصورة تظهر فوق النص
+      margin: 0 auto 10px; // توسيط الصورة
+    }
+  
+    .comment-content {
+      padding: 10px;
+    }
+  
+    .date {
+      font-size: 12px;
+      color: white;
+      margin-top: 10px;
+    }
+  }
+  
+  /* ✅ جعل التصميم متجاوبًا */
+  @media (min-width: 600px) {
+    .carousel .comment-card {
+      max-width: 500px; // توسيع الكارت للشاشات الأكبر
+    }
+  }
+  
+  @media (min-width: 1000px) {
+    .carousel .comment-card {
+      max-width: 600px;
+    }
+  }
+  

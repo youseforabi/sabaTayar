@@ -1,0 +1,164 @@
+<section class="hero-section">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>Egypt Travel, Explore the History</h1>
+        <p>Find Egypt Tours & Travel Packages.</p>
+
+        <div class="search-box">
+            <div class="search-item">
+                <fa-icon [icon]="faMapMarker" (click)="getUserLocation()" class="location-icon px-2"></fa-icon>
+                <input type="text" placeholder="Hotel, City...">
+            </div>
+            <div class="search-item">
+                <fa-icon [icon]="faCalendar" class="location-icon px-2" (click)="openDatepicker(datepicker)"></fa-icon>
+                <input matInput [matDatepicker]="datepicker" placeholder="Select Date" [formControl]="dateControl">
+                <mat-datepicker #datepicker></mat-datepicker>
+            </div>
+            <div class="search-item">
+                <fa-icon [icon]="faUser" class="location-icon px-2"></fa-icon>
+                <select>
+                    <option>Persons</option>
+                    <option>1 Person</option>
+                    <option>2 Persons</option>
+                    <option>3+ Persons</option>
+                </select>
+            </div>
+            <button class="search-btn">
+                Search
+                <fa-icon [icon]="faSearch" class="px-2 location-icon"></fa-icon> 
+            </button>
+        </div>
+    </div>
+</section>
+<!-- tour -->
+<section class="tours-section text-center">
+    <h2 class="section-title">Egypt Tours & Travel Packages</h2>
+    <p class="section-subtitle">
+        Book best Egypt tours & travel packages with Saba Tours. Enjoy variety of tours to Egypt, 
+        Egypt Nile cruises, Egypt day tours, and more.
+    </p>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let tour of tours">
+                <div class="tour-card">
+                    <img [src]="tour.image" [alt]="tour.title" class="tour-image">
+                    <span class="tour-title">{{ tour.title }}</span> <!-- وضع العنوان فوق الصورة مباشرة -->
+                    <div class="tour-footer">
+                        <span class="tour-brand">Saba tours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- featured now -->
+
+<div class="featured-sectionNow">
+    <div class="text-contentNow">
+      <h2>Featured Now</h2>
+      <p>
+        A completely different concept about Ancient Egypt. Here we present 
+        alternative theories, scientific opinions, and connections between 
+        Ancient Egypt and the Ancient world.
+      </p>
+      <button class="explore-btnNow">Explore Guide of Egypt Tours</button>
+    </div>
+  
+    <div class="cards-containerNow">
+      <div class="tour-cardNow" *ngFor="let featured of featuredToursNow">
+        <div class="tour-image-containerNow">
+          <img [src]="featured.image" [alt]="featured.title" class="tour-imageNow">
+          <span class="tour-price-badgeNow">Avg/Night {{ featured.price }}</span>
+        </div>
+        <div class="tour-detailsNow">
+          <h3 class="tour-titleNow">{{ featured.title }}</h3>
+  
+          <!-- ✅ ✅ ✅ تعديل هذا الجزء ليطابق الصورة ✅ ✅ ✅ -->
+          <div class="tour-infoNow">
+            <div class="location-boxNow">
+              <p class="tour-locationNow">📍 {{ featured.location }}</p>
+              <p class="tour-addressNow">10012, USA</p>
+            </div>
+            <div class="rating-boxNow">
+              <span class="rating-labelNow">No rating</span>
+              <span class="rating-valueNow">{{ featured.rating }}</span>
+            </div>
+          </div>
+  
+          <p class="tour-commentsNow">{{ featured.comments }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <!-- why  -->
+
+  <section class="why-saba-tours">
+    <h2 class="section-titlewhy">
+      Why Saba Tours
+      <div class="underlinewhy"></div>
+    </h2>
+  
+    <!-- ✅ البطاقات العلوية -->
+    <div class="features-containerwhy">
+      <div *ngFor="let feature of featuresWhy" class="feature-cardwhy">
+        <i class="fa" [ngClass]="feature.icon"></i>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  
+    <!-- ✅ إحصائيات -->
+    <div class="stats-containerwhy">
+      <div *ngFor="let stat of stats" class="stat-cardwhy">
+        <i class="fa" [ngClass]="stat.icon"></i>
+        <h3>{{ stat.value }}</h3>
+        <p>{{ stat.label }}</p>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- app come -->
+
+  <section class="app-section">
+    <div class="app-content">
+      <h2>Our App Coming Soon!</h2>
+      <p>
+        We're excited to announce that the SabaTours mobile app is launching soon!
+        Get ready to explore Egypt like never before with just a few taps on your phone.
+      </p>
+      <div class="app-buttons">
+        <button class="btn apple">🍏 For Apple</button>
+        <button class="btn android">🤖 For Android</button>
+      </div>
+    </div>
+  
+    <div class="app-image">
+        <img src="assets/api.webp" alt="App Preview">
+    </div>
+  </section>
+
+
+  <!-- Testimonials From Our Clients -->
+  <div class="custom-testimonials-container">
+    <h2 class="custom-testimonials-title">Testimonials From Our Clients</h2>
+    <p class="custom-testimonials-subtitle">
+      Here are some sample testimonials from satisfied clients of SabaTours:
+    </p>
+  
+    <!-- Swiper Container -->
+   
+  </div>
+  
+  
+  
+  
