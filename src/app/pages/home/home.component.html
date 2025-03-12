@@ -149,16 +149,85 @@
 
 
   <!-- Testimonials From Our Clients -->
-  <div class="custom-testimonials-container">
-    <h2 class="custom-testimonials-title">Testimonials From Our Clients</h2>
-    <p class="custom-testimonials-subtitle">
-      Here are some sample testimonials from satisfied clients of SabaTours:
+  <div class="testimonials">
+    <h2>Testimonials From Our Clients</h2>
+    <p>Here are some sample testimonials from satisfied clients of SabaTours:</p>
+
+    <div class="carousel-container">
+        <button (click)="prevTestimonial()" class="arrow-btn">&#10094;</button>
+
+        <div class="carousel">
+            <div *ngFor="let testimonial of visibleTestimonials" class="testimonial-card">
+                <div class="testimonial-logo">
+                    <img src="assets/sab-150x150.webp" alt="Saba Tours">
+                </div>
+                <div class="testimonial-content">
+                    <div class="quote-icon left-quote">❝</div>
+                    <h3>{{ testimonial.name }}, {{ testimonial.country }} - <b>{{ testimonial.title }}</b></h3>
+                    <p>"{{ testimonial.message }}"</p>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <a href="#">Via Facebook</a>
+                    <div class="quote-icon right-quote">❞</div>
+                </div>
+            </div>
+        </div>
+
+        <button (click)="nextTestimonial()" class="arrow-btn">&#10095;</button>
+    </div>
+</div>
+
+  
+
+  
+  <!-- looking -->
+
+  <div class="looking-section">
+  <div class="looking-content">
+    <h2>Looking for Tours in Egypt?</h2>
+    <p>
+      Egypt is a land of wonder, where ancient history meets breathtaking landscapes and vibrant culture. Whether you're exploring the majestic Pyramids of Giza, cruising the Nile River, or diving in the crystal-clear waters of the Red Sea, SabaTours has the perfect experience for you!
     </p>
-  
-    <!-- Swiper Container -->
-   
+    <div class="looking-buttons">
+      <button class="btn-primary">Register Now <span>&#10148;</span></button>
+      <button class="btn-secondary">Login Your Account <span>&#10148;</span></button>
+    </div>
   </div>
-  
-  
+</div>
+
+<!-- blog -->
+
+<section class="blog-section">
+  <div class="container">
+    <h2 class="blog-title">Read More About Egypt History</h2>
+    <p class="blog-subtitle">Browse the latest articles from our blog.</p>
+
+    <div class="blog-grid">
+      <article class="blog-card" *ngFor="let post of blogPosts">
+        <div class="blog-image">
+          <img [src]="post.image" [alt]="post.title">
+        </div>
+        <div class="blog-content">
+          <h3 class="blog-heading">{{ post.title }}</h3>
+          <hr>
+          <p class="blog-text">{{ post.text }}</p>
+<hr>
+
+          <div class="blog-meta">
+            <span class="blog-date">📅 {{ post.date }}</span>
+            <span class="blog-views">👁️ {{ post.views }}</span>
+            <span class="blog-category">🏷️ {{ post.category }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="blog-button-container">
+      <button class="blog-button">Read All News 
+        <span>➤</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
   
   

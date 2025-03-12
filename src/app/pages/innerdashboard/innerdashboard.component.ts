@@ -14,7 +14,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CommonModule,
     RouterModule,
     FontAwesomeModule,
-    FaIconComponent,
+    
     NgxChartsModule
   ],
   templateUrl: './innerdashboard.component.html',

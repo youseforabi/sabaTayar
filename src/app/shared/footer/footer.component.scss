@@ -1,0 +1,130 @@
+.footer {
+    background-color: #0a3b7e; // لون الخلفية
+    color: white;
+    padding: 40px 0 0 0;
+    font-family: 'Poppins', sans-serif; // استخدم الخط المناسب
+    font-size: 14px;
+    
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+  
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  .design{
+    color: gray;
+    text-decoration: none;
+}
+    h5 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 25px 0;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 20px;
+    }
+  .tourrs li a{
+    color: #3AACED;
+  }
+    p {
+      color: white;
+      line-height: 2.0;
+      font-size: 14px;
+      margin-bottom: 20px;
+
+    .faIcon{
+        color: #F9B90F;
+        padding-right: 2px;
+    }
+
+    }
+  .dotted{
+    padding-bottom: 20px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+
+  }
+    ul {
+      list-style: none;
+      padding: 0;
+      
+      li {
+        margin-bottom: 8px;
+padding-bottom: 20px;
+        
+        a {
+          color: white;
+          text-decoration: none;
+          font-size: 14px;
+          transition: color 0.3s ease;
+  
+          &:hover {
+            color: #ffc107; // لون التأثير عند التحويل
+          }
+        }
+      }
+    }
+  
+    // تنسيق أيقونات التواصل الاجتماعي
+    .social-links {
+      margin-top: 20px;
+      
+      display: flex;
+      align-items: center;
+      
+      gap: 10px;
+  
+      h4{
+        margin-right: 10px;
+        margin-top: 10px ;
+      }
+  
+      a {
+        background: rgba(255, 255, 255, 0.1);
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        color: #3AACED;
+        font-size: 14px;
+        transition: 0.3s;
+  
+        &:hover {
+          background: #ffc107;
+          color: #0a3b7e;
+        }
+      }
+    }
+  
+
+  }
+  .footer-bottom {
+    background-color: #061B41;
+    color: wheat;
+    margin-top: 20px;
+    text-align: center; 
+    padding: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+  }
+  
+  // تحسين التصميم في الشاشات الصغيرة
+  @media (max-width: 768px) {
+    .footer {
+      text-align: center;
+  
+      .row {
+        flex-direction: column;
+      }
+  
+      .social-links {
+        justify-content: center;
+      }
+    }
+  }
+  

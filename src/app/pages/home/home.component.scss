@@ -638,121 +638,330 @@
 
 
 // tetsinominal
-.custom-testimonials-container {
-    text-align: center;
-    padding: 50px;
-    background: #fff;
+/* ✅ تنسيق عام */
+.testimonials {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
+}
+.testimonials h2{
+  margin-top: 20px;
+}
+/* ✅ تنسيق السلايدر */
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.carousel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* ✅ تصميم الكرت */
+.testimonial-card {
+  background: #ECF6F8;
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* ✅ شعار التوصيات */
+.testimonial-logo img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ علامات الاقتباس */
+.quote-icon {
+  font-size: 30px;
+  color: #8FC4D8;
+  position: absolute;
+}
+
+.left-quote {
+  left: 10px;
+  top: 10px;
+}
+
+.right-quote {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* ✅ النجوم */
+.stars {
+  color: gold;
+  font-size: 18px;
+  margin: 10px 0;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+/* ✅ أزرار التنقل */
+.arrow-btn {
+  background: #ffcc00;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 50%;
+}
+
+/* ✅ تحسين التجاوب */
+@media (max-width: 768px) {
+  .testimonials{
+    height: auto;
   }
-  
-  .custom-testimonials-title {
-    color: #004a99;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .custom-testimonials-subtitle {
-    color: #777;
-    font-size: 14px;
-    margin-bottom: 30px;
-  }
-  
-  .custom-slider-wrapper {
-    width: 90%;
-    overflow: hidden;
-    margin: auto;
-  }
-  
-  .custom-testimonials-slider {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    width: calc(100% * 2); // ضعف عدد البطاقات لإظهار 3 بطاقات في كل مرة
-  }
-  
-  .custom-testimonial-card {
-    background: #f5f9ff;
-    padding: 20px;
-    width: 30% !important;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    transition: 0.3s ease;
-  }
-  
-  @media (max-width: 1024px) {
-    .custom-testimonial-card {
-      flex: 0 0 calc(100% / 2); // يظهر بطاقتين في التابلت
-      min-width: calc(100% / 2);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .custom-testimonial-card {
-      flex: 0 0 100%; // يظهر بطاقة واحدة في الموبايل
-      min-width: 100%;
-    }
-  }
-  
-  .custom-testimonial-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-  }
-  
-  .custom-testimonial-logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  .custom-testimonial-author {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .custom-testimonial-text {
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .custom-testimonial-link {
-    font-size: 12px;
-    color: #007aff;
-    text-decoration: none;
-  }
-  
-  .custom-testimonial-stars {
-    font-size: 14px;
-    color: gold;
-  }
-  
-  .custom-slider-controls {
-    display: flex;
-    justify-content: center;
+  .carousel {
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-top: 20px;
   }
-  
-  .custom-slider-btn {
-    background: #ffc107;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+
+  .testimonial-card {
+    width: 90%;
   }
-  
-  .custom-slider-dot {
-    width: 10px;
-    height: 10px;
-    background: #ccc;
-    border-radius: 50%;
-    display: inline-block;
-  
-    &.custom-active-dot {
-      background: #007aff;
-    }
+
+  .quote-icon {
+    font-size: 24px;
   }
-  
+}
+
+
+
+// looking
+
+.looking-section {
+  background: #999; /* لون رمادي مطابق للصورة */
+  display: flex;
+  align-items: center;
+  height: 70vh;
+  text-align: left;
+  padding: 20px;
+}
+
+/* ✅ صندوق المحتوى */
+.looking-content {
+  max-width: 600px;
+  color: white;
+  margin-left:85px ;
+}
+
+/* ✅ عنوان */
+.looking-content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* ✅ الفقرة */
+.looking-content p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ✅ أزرار */
+.looking-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start; /* المحاذاة لليسار */
+}
+
+/* ✅ زر التسجيل */
+.btn-primary {
+  background: #4EB4EF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background: #368de0;
+}
+
+/* ✅ زر تسجيل الدخول */
+.btn-secondary {
+  background: #4EB4EF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  background: #5aa3d6;
+}
+
+/* ✅ تحسين التجاوب */
+@media (max-width: 768px) {
+  .looking-content {
+    max-width: 90%;
+    margin-left: 25px;
+  }
+
+  .looking-buttons {
+    display: flex;
+    flex-direction: row; /* جعل الأزرار في صف واحد */
+    justify-content: flex-start; /* محاذاة الأزرار لليسار */
+    gap: 10px; /* مسافة بين الأزرار */
+  }
+
+  .looking-buttons button {
+    width: auto; /* حجم الزر حسب حجم النص */
+    padding: 10px 15px; /* تعديل الحواف لتحسين المظهر */
+  }
+}
+
+
+
+
+// blog
+
+/* ✅ تنسيق القسم */
+.blog-section {
+  text-align: center;
+  padding: 50px 20px;
+  background: #fff;
+}
+
+/* ✅ العنوان الرئيسي */
+.blog-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #18458B;
+}
+
+/* ✅ العنوان الفرعي */
+.blog-subtitle {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+/* ✅ الشبكة التي تحتوي على المقالات */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+/* ✅ تصميم كل مقالة */
+.blog-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  width: auto;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ✅ صورة المقال */
+.blog-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid #007bff;
+}
+
+/* ✅ محتوى المقال */
+.blog-content {
+  padding: 15px;
+  text-align: left;
+}
+
+/* ✅ عنوان المقال */
+.blog-heading {
+  font-size: 14px;
+  color: #18458B;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+
+/* ✅ نص المقال */
+.blog-text {
+  font-size: 10px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+/* ✅ معلومات المقال */
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* ✅ زر "Read All News" */
+.blog-button-container {
+  margin-top: 30px;
+}
+
+.blog-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding:  15px ;
+}
+.blog-button span{
+  margin-left: 8px;
+}
+.blog-button:hover {
+  background: #0056b3;
+}
+
+/* ✅ تحسين الاستجابة */
+@media (max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

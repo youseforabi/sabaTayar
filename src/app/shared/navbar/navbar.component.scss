@@ -5,21 +5,15 @@
     height: 25px;
   }
 
-  .flag-icon {
-    width: 20px;
-    height: 15px;
-    margin-right: 5px;
-  }
-
   .nav-link {
-    color: white ;
+    color: white;
     display: flex;
     align-items: center;
     gap: 5px;
-    
   }
-
-
+.dropdown-menu a{
+  color: white;
+}
   .btn-info {
     background-color: #3ea2ff;
     border: none;
@@ -32,39 +26,6 @@
   .nav-item {
     position: relative;
     margin: 10px;
-  
-    .cart-icon,
-    .wishlist-icon {
-      font-size: 1.5rem; // تكبير الأيقونات
-      position: relative;
-    }
-  
-    .cart-badge,
-    .wishlist-badge {
-      position: absolute;
-      top: 2px;
-      right: 0;
-      transform: translate(50%, -50%);
-      font-size: 0.7rem;
-      padding: 3px 6px;
-      border-radius: 50%;
-      min-width: 18px;
-      text-align: center;
-    }
-  
-    .cart-badge {
-      background-color: red;
-      color: white;
-    }
-  
-    .wishlist-badge {
-      background-color: red;
-      color: white;
-    }
-  }
-  .dropdown-menu li .dropdown-item{
-    color: white ;
-     
   }
 
   .dropdown-menu {
@@ -75,41 +36,39 @@
     .navbar-collapse {
       position: absolute;
       top: 100%;
-      right: 0;
-      width: 75%;
+      right: 5px;
+      width: auto; /* ✅ جعل القائمة تأخذ عرض المحتوى فقط */
       background-color: #18458B;
-      padding: 0 10px;
-      text-align: right;
+      padding: 10px;
+      text-align: center;
       box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
+      z-index: 1111111;
     }
-  
+
     .navbar-nav {
       flex-direction: column;
-      align-items: flex-end;
+      align-items: center; /* ✅ توسيط العناصر داخل القائمة */
       width: 100%;
     }
-  
+
     .nav-item {
       width: 100%;
-      padding: 3px 0;  /* تقليل المسافة بين العناصر */
-      margin: 0;  /* إزالة الهوامش */
+      padding: 3px 0;
+      margin: 0;
     }
-  
+
     .nav-link {
       display: block;
-      padding: 10px 10px; /* تقليل المسافة داخل الرابط */
+      padding: 10px 15px;
       color: white !important;
-      gap: 5px; /* تقليل المسافة بين عناصر العملة واللغة */
-
     }
-  
+
     .d-flex.align-items-center {
       flex-direction: column;
-      align-items: flex-end !important;
-      padding:0; /* تقليل المسافة داخل الرابط */
-      gap: 5px; /* تقليل المسافة بين عناصر العملة واللغة */
+      align-items: center !important;
+      padding: 0;
+      gap: 5px;
     }
   }
-  
 }
