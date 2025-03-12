@@ -1,9 +1,5 @@
 <nav class="navbar">
-  <h2>{{pageTitle}}</h2>
-<!-- 
-  <div class="">
-    <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
-  </div> -->
+  <h2>{{ pageTitle }}</h2>
 
   <div class="icons">
     <input class="search-box" type="text" placeholder="Search for something..." />
@@ -11,9 +7,10 @@
       <a href="/">Back To Home</a>
     </button>
 
-    <fa-icon [icon]="['fas', 'bell']" class="icon notification-icon"></fa-icon>
+    <!-- أيقونة الجرس (إشعارات) -->
+    <i class="bi bi-bell-fill icon notification-icon"></i>
+
+    <!-- صورة الملف الشخصي -->
     <img [src]="profileImage" alt="Profile" class="profile-img" />
   </div>
 </nav>
-
-

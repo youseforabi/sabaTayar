@@ -1,39 +1,36 @@
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn, ReactiveFormsModule } from '@angular/forms';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { ReactiveFormsModule } from '@angular/forms'; // ✅ استيراد ReactiveFormsModule
 import { AuthService } from '../../services/Auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register',
-  providers:[HttpClient],
+  providers: [HttpClient],
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf
-  ],
+  imports: [NgIf,ReactiveFormsModule], // ✅ تأكد من أن ReactiveFormsModule موجود هنا
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  imagePreview! :string ;
+  imagePreview!: string;
   registerForm: FormGroup;
-  faUser = faUser;
-  faLock = faLock;
+
   selectedFile: File | null = null;
   loading = false;
   errorMessage: string | null = null;
+  private fb = inject(FormBuilder);
 
   constructor(
-    private fb: FormBuilder,
-     private authService: AuthService,
-     private toastr: ToastrService,
-    private router : Router
-     
-
-    ) {
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
     this.registerForm = this.fb.group({
-      userID: [''], 
+      userID: [''],
       name: ['', Validators.required],
       birthDate: [''],
       phone: ['', Validators.required],
@@ -67,8 +64,7 @@ export class RegisterComponent {
     if (file) {
       this.selectedFile = file;
       this.registerForm.patchValue({ profilePicture: file });
-  
-      // عرض الصورة المختارة كمعاينة
+
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
@@ -77,32 +73,25 @@ export class RegisterComponent {
     }
   }
 
-   onSubmit() {
+  onSubmit() {
     if (this.registerForm.invalid) {
       this.toastr.error('Please fill in all required fields correctly', 'Error');
-
       return;
     }
     this.loading = true;
     this.errorMessage = null;
-    
+
     const formData = new FormData();
-Object.keys(this.registerForm.controls).forEach(key => {
-  const value = this.registerForm.get(key)?.value;
-  if (value) {
-    formData.append(key, value);
-  }
-});
-
-if (this.selectedFile) {
-  formData.append('ProfilePicture', this.selectedFile);
-}
-
+    Object.keys(this.registerForm.controls).forEach(key => {
+      const value = this.registerForm.get(key)?.value;
+      if (value) {
+        formData.append(key, value);
+      }
+    });
 
     if (this.selectedFile) {
       formData.append('ProfilePicture', this.selectedFile);
     }
-
 
     this.authService.register(formData).subscribe({
       next: (response) => {
@@ -115,7 +104,5 @@ if (this.selectedFile) {
         this.loading = false;
       }
     });
-
-}
-
+  }
 }

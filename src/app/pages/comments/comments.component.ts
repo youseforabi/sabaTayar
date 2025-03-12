@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
-  selector: 'app-comments',
-  standalone: true,
-  imports: [CarouselModule,NgFor],
-  templateUrl: './comments.component.html',
-  styleUrl: './comments.component.scss',
+    selector: 'app-comments',
+    standalone:true,
+    imports: [CarouselModule, NgFor],
+    templateUrl: './comments.component.html',
+    styleUrl: './comments.component.scss'
 })
 export class CommentsComponent {
   customOptions: OwlOptions = {

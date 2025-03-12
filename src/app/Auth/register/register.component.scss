@@ -72,6 +72,7 @@
           cursor: pointer;
           transition: 0.3s;
         }
+      
   
         .btn:hover {
           background: #5a4cd4;
@@ -99,7 +100,7 @@ button i {
     margin-top: 15px;
 
     .file-label {
-        display: inline-block;
+        display: flex;
         padding: 10px 20px;
         background: #6c5ce7;
         color: white;
@@ -107,27 +108,31 @@ button i {
         border-radius: 5px;
         cursor: pointer;
         transition: 0.3s;
+        margin: auto;
     }
 
     .file-label:hover {
         background: #5a4cd4;
     }
 
-    .image-preview {
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-        
-        img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #6c5ce7;
-        }
-    }
+   
 }
-
+.image-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px; // مسافة بين الصورة والحقول
+  margin-bottom: 15px; // مسافة بين الصورة والزر
+  
+  img {
+      width: 120px; // جعل الصورة بحجم مناسب
+      height: 120px;
+      border-radius: 50%; // جعلها دائرية
+      object-fit: cover; // قص الصورة بحيث تكون متناسقة
+      border: 3px solid #6c5ce7; // إضافة إطار بنفس لون التصميم
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+}
   
   /* Responsive Design */
   @media (max-width: 500px) {

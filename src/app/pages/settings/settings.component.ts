@@ -8,22 +8,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { SettingService } from '../../services/setting/setting.service';
 
 @Component({
-  selector: 'app-settings',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgFor,
-    NgIf,
-    NgSwitch,
-    NgSwitchCase,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatButtonModule
-  ],
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+    selector: 'app-settings',
+    standalone:true,
+
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NgFor,
+        NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatButtonModule
+    ],
+    templateUrl: './settings.component.html',
+    styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
   

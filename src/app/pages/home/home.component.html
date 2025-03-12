@@ -7,17 +7,17 @@
 
         <div class="search-box">
             <div class="search-item">
-                <fa-icon [icon]="faMapMarker" (click)="getUserLocation()" class="location-icon px-2"></fa-icon>
-                <input type="text" placeholder="Hotel, City...">
+              <i class="bi bi-geo-alt location-icon px-2" (click)="getUserLocation()"></i>
+              <input type="text" placeholder="Hotel, City...">
             </div>
             <div class="search-item">
-                <fa-icon [icon]="faCalendar" class="location-icon px-2" (click)="openDatepicker(datepicker)"></fa-icon>
-                <input matInput [matDatepicker]="datepicker" placeholder="Select Date" [formControl]="dateControl">
+              <i class="bi bi-calendar location-icon px-2" (click)="openDatepicker(datepicker)"></i>
+              <input matInput [matDatepicker]="datepicker" placeholder="Select Date" [formControl]="dateControl">
                 <mat-datepicker #datepicker></mat-datepicker>
             </div>
             <div class="search-item">
-                <fa-icon [icon]="faUser" class="location-icon px-2"></fa-icon>
-                <select>
+              <i class="bi bi-person location-icon px-2"></i>
+              <select>
                     <option>Persons</option>
                     <option>1 Person</option>
                     <option>2 Persons</option>
@@ -26,8 +26,8 @@
             </div>
             <button class="search-btn">
                 Search
-                <fa-icon [icon]="faSearch" class="px-2 location-icon"></fa-icon> 
-            </button>
+                <i class="bi bi-search px-2 location-icon"></i>
+              </button>
         </div>
     </div>
 </section>
@@ -137,8 +137,8 @@
         Get ready to explore Egypt like never before with just a few taps on your phone.
       </p>
       <div class="app-buttons">
-        <button class="btn apple">🍏 For Apple</button>
-        <button class="btn android">🤖 For Android</button>
+        <button class="btn apple"><i class="bi bi-apple"></i> For Apple</button>
+        <button class="btn android"><i class="bi bi-android"></i> For Android</button>
       </div>
     </div>
   
@@ -188,8 +188,8 @@
       Egypt is a land of wonder, where ancient history meets breathtaking landscapes and vibrant culture. Whether you're exploring the majestic Pyramids of Giza, cruising the Nile River, or diving in the crystal-clear waters of the Red Sea, SabaTours has the perfect experience for you!
     </p>
     <div class="looking-buttons">
-      <button class="btn-primary">Register Now <span>&#10148;</span></button>
-      <button class="btn-secondary">Login Your Account <span>&#10148;</span></button>
+      <button class="btn-primary">Register Now <i class="bi bi-arrow-right"></i></button>
+      <button class="btn-secondary">Login Your Account <i class="bi bi-arrow-right"></i></button>
     </div>
   </div>
 </div>
@@ -213,9 +213,9 @@
 <hr>
 
           <div class="blog-meta">
-            <span class="blog-date">📅 {{ post.date }}</span>
-            <span class="blog-views">👁️ {{ post.views }}</span>
-            <span class="blog-category">🏷️ {{ post.category }}</span>
+            <span class="blog-date"><i class="bi bi-calendar"></i> {{ post.date }}</span>
+            <span class="blog-views"><i class="bi bi-eye"></i> {{ post.views }}</span>
+            <span class="blog-category"><i class="bi bi-tag"></i> {{ post.category }}</span>
           </div>
         </div>
       </article>

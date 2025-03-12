@@ -4,13 +4,14 @@
   
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="input-group file-input">
-            <label for="profilePicture" class="file-label">Choose Profile Picture</label>
-            <input type="file" id="profilePicture" (change)="onFileSelected($event)" hidden />
-            
-            <div *ngIf="selectedFile" class="image-preview">
-                <img [src]="imagePreview" alt="Profile Picture Preview">
-            </div>
-        </div>
+          <label for="profilePicture" class="file-label">Choose Profile Picture</label>
+          <input type="file" id="profilePicture" (change)="onFileSelected($event)" hidden />
+      </div>
+      
+      <!-- ✅ الصورة خارج مجموعة الإدخال، بحيث تظهر في المنتصف فوق الزر -->
+      <div *ngIf="imagePreview" class="image-preview">
+          <img [src]="imagePreview" alt="Profile Picture Preview">
+      </div>
         <div class="input-group">
             <input type="text" formControlName="name" placeholder="name" />
             <div *ngIf="f['name'].errors && f['name'].touched">

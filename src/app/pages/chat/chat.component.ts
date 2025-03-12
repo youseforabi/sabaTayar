@@ -2,11 +2,12 @@ import { NgClass, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-chat',
-  standalone: true,
-  imports: [NgFor,NgClass],
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+    selector: 'app-chat',
+    standalone:true,
+
+    imports: [NgFor, NgClass],
+    templateUrl: './chat.component.html',
+    styleUrl: './chat.component.scss'
 })
 export class ChatComponent {
   newMessage: string = '';

@@ -2,23 +2,20 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faBell, faCalendar, faComment, faList } from '@fortawesome/free-solid-svg-icons';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
-  selector: 'app-innerdashboard',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    FontAwesomeModule,
-    
-    NgxChartsModule
-  ],
-  templateUrl: './innerdashboard.component.html',
-  styleUrl: './innerdashboard.component.scss'
+    selector: 'app-innerdashboard',
+    standalone:true,
+
+    imports: [
+        CommonModule,
+        RouterModule,
+        
+        NgxChartsModule
+    ],
+    templateUrl: './innerdashboard.component.html',
+    styleUrl: './innerdashboard.component.scss'
 })
 export class InnerdashboardComponent {
 
@@ -51,8 +48,7 @@ export class InnerdashboardComponent {
     'Subscription renewed.'
   ];
 
-  constructor(private library: FaIconLibrary) {
-    library.addIcons(faBell, faCalendar, faComment, faList);
+  constructor() {
   }
 
 }

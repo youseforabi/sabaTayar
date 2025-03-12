@@ -1,20 +1,17 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
-  selector: 'app-my-toors',
-  standalone: true,
-  imports: [
-FontAwesomeModule
-,
-    NgFor
-  ],
-  templateUrl: './my-toors.component.html',
-  styleUrl: './my-toors.component.scss'
+    selector: 'app-my-toors',
+    standalone:true,
+
+    imports: [
+        
+        NgFor
+    ],
+    templateUrl: './my-toors.component.html',
+    styleUrl: './my-toors.component.scss'
 })
 export class MyToorsComponent {
-  faMapMarkerAlt = faMapMarkerAlt;
 
   tours = [
     {

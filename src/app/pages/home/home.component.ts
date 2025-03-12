@@ -1,29 +1,27 @@
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, HostListener, OnInit } from '@angular/core';
-import { faCalendarAlt, faMapMarkerAlt, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { MatNativeDateModule } from '@angular/material/core'; // إضافة هذا السطر
 import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    RouterModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    CommonModule,
-    NgFor,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,  // تأكد من إضافة هذا
-  ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    selector: 'app-home',
+    standalone:true,
+
+    imports: [
+        RouterModule,
+        ReactiveFormsModule,
+        CommonModule,
+        NgFor,
+        MatDatepickerModule,
+        MatInputModule,
+        MatNativeDateModule, // تأكد من إضافة هذا
+    ],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit{
 
@@ -119,23 +117,18 @@ export class HomeComponent implements OnInit{
   ];
 
   featuresWhy = [
-    { icon: 'fa-star', title: 'Experience and Trust', description: 'With more than 20 years of experience in the tourism sector, authorized to organize tourist trips with all the insurance coverage that the law requires.' },
-    { icon: 'fa-certificate', title: 'Quality and Commitment', description: 'High quality staff for full customer satisfaction. Reliability and commitment with respect to days and appointments from stay to departure.' },
-    { icon: 'fa-headphones', title: 'Support 24 Hours', description: '24-hour assistance and resolution of any problem or need in every country in all programs based on our experience.' },
-    { icon: 'fa-car', title: 'Comfortable and Modern Transport', description: 'The agency has 9 new buses for a convenient service for our customers.' }
-  ];
+    { icon: 'bi-star-fill', title: 'Experience and Trust', description: 'With more than 20 years of experience...' },
+    { icon: 'bi-award', title: 'Quality and Commitment', description: 'High quality staff for full customer satisfaction...' },
+    { icon: 'bi-headset', title: 'Support 24 Hours', description: '24-hour assistance and resolution of any problem...' },
+    { icon: 'bi-bus-front', title: 'Comfortable and Modern Transport', description: 'The agency has 9 new buses for convenient service...' }
+];
 
-  stats = [
-    { icon: 'fa-users', value: 1254, label: 'New Visitors Every Week' },
-    { icon: 'fa-smile', value: 12168, label: 'Happy customers every year' },
-    { icon: 'fa-map', value: 172, label: 'Tours Published' },
-    { icon: 'fa-signpost', value: 739, label: 'New Tours Every Month' }
-  ];
-
-  faMapMarker = faMapMarkerAlt;
-  faCalendar = faCalendarAlt;
-  faUser = faUser;
-  faSearch = faSearch;
+stats = [
+  { icon: 'bi-people', value: 1254, label: 'New Visitors Every Week' },
+  { icon: 'bi-emoji-smile', value: 12168, label: 'Happy customers every year' },
+  { icon: 'bi-map', value: 172, label: 'Tours Published' },
+  { icon: 'bi-signpost', value: 739, label: 'New Tours Every Month' }
+];
 
   dateControl = new FormControl();
 

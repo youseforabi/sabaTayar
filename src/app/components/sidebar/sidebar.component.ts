@@ -1,15 +1,14 @@
 import { Component, EventEmitter, HostListener, Output, output } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBell, faTachometerAlt, faComments, faList, faCalendarCheck, faComment, faWallet, faFileInvoice, faCog, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [CommonModule, RouterModule, NgFor, FontAwesomeModule],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+    selector: 'app-sidebar',
+    standalone:true,
+
+    imports: [CommonModule, RouterModule, NgFor],
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
   @Output() titleChange = new EventEmitter<string>();
@@ -17,25 +16,24 @@ export class SidebarComponent {
   isOpen = false; // للتحكم في ظهور السايدبار فوق المحتوى
 
   menuItems = [
-    { label: 'Dashboard', icon: faTachometerAlt, route: '/dashboard' },
-    { label: 'Chats', icon: faComments, route: '/dashboard/chat' },
-    { label: 'My Tours', icon: faList, route: '/dashboard/myToors' },
-    { label: 'My Booking', icon: faCalendarCheck, route: '/dashboard/myBooking' },
-    { label: 'Comments', icon: faComment, route: '/dashboard/comments' },
-    { label: 'Withdrawals', icon: faWallet, route: '/dashboard/withdrawals' },
-    { label: 'Invoices', icon: faFileInvoice, route: '/dashboard/invoices' },
-    { label: 'Settings', icon: faCog, route: '/dashboard/settings' }
+    { label: 'Dashboard', icon: 'bi-speedometer2', route: '/dashboard' },
+    { label: 'Chats', icon: 'bi-chat-dots', route: '/dashboard/chat' },
+    { label: 'My Tours', icon: 'bi-list-ul', route: '/dashboard/myToors' },
+    { label: 'My Booking', icon: 'bi-calendar-check', route: '/dashboard/myBooking' },
+    { label: 'Comments', icon: 'bi-chat-left-text', route: '/dashboard/comments' },
+    { label: 'Withdrawals', icon: 'bi-wallet2', route: '/dashboard/withdrawals' },
+    { label: 'Invoices', icon: 'bi-receipt', route: '/dashboard/invoices' },
+    { label: 'Settings', icon: 'bi-gear', route: '/dashboard/settings' }
   ];
+  
 
-  constructor(private router: Router, private library: FaIconLibrary) {
-    library.addIcons(faBell, faTachometerAlt, faComments, faList, faCalendarCheck, faComment, faWallet, faFileInvoice, faCog, faBars, faTimes);
+  constructor(private router: Router) {
   }
 
   sendTitle(title:string){
     this.titleChange.emit(title);
 
   }
-
   toggleSidebar() {
     if (window.innerWidth <= 768) {
       this.isOpen = !this.isOpen; // يفتح السايدبار في الشاشات الصغيرة
