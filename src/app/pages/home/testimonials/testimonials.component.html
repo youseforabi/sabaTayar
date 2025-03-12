@@ -1,0 +1,28 @@
+<div class="testimonials">
+    <h2>Testimonials From Our Clients</h2>
+    <p>Here are some sample testimonials from satisfied clients of SabaTours:</p>
+
+    <div class="carousel-container">
+        <button (click)="prevTestimonial()" class="arrow-btn">&#10094;</button>
+
+        <div class="carousel">
+            <div *ngFor="let testimonial of visibleTestimonials" class="testimonial-card">
+                <div class="testimonial-logo">
+                    <img src="assets/sab-150x150.webp" alt="Saba Tours">
+                </div>
+                <div class="testimonial-content">
+                    <div class="quote-icon left-quote">❝</div>
+                    <h3>{{ testimonial.name }}, {{ testimonial.country }} - <b>{{ testimonial.title }}</b></h3>
+                    <p>"{{ testimonial.message }}"</p>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <a href="#">Via Facebook</a>
+                    <div class="quote-icon right-quote">❞</div>
+                </div>
+            </div>
+        </div>
+
+        <button (click)="nextTestimonial()" class="arrow-btn">&#10095;</button>
+    </div>
+</div>
+
+  

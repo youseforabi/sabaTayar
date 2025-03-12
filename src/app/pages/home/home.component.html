@@ -31,101 +31,21 @@
         </div>
     </div>
 </section>
-<!-- tour -->
-<section class="tours-section text-center">
-    <h2 class="section-title">Egypt Tours & Travel Packages</h2>
-    <p class="section-subtitle">
-        Book best Egypt tours & travel packages with Saba Tours. Enjoy variety of tours to Egypt, 
-        Egypt Nile cruises, Egypt day tours, and more.
-    </p>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4" *ngFor="let tour of tours">
-                <div class="tour-card">
-                    <img [src]="tour.image" [alt]="tour.title" class="tour-image">
-                    <span class="tour-title">{{ tour.title }}</span> <!-- وضع العنوان فوق الصورة مباشرة -->
-                    <div class="tour-footer">
-                        <span class="tour-brand">Saba tours</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- tourss -->
 
+<app-tourss></app-tourss>
 
 
 <!-- featured now -->
 
-<div class="featured-sectionNow">
-    <div class="text-contentNow">
-      <h2>Featured Now</h2>
-      <p>
-        A completely different concept about Ancient Egypt. Here we present 
-        alternative theories, scientific opinions, and connections between 
-        Ancient Egypt and the Ancient world.
-      </p>
-      <button class="explore-btnNow">Explore Guide of Egypt Tours</button>
-    </div>
-  
-    <div class="cards-containerNow">
-      <div class="tour-cardNow" *ngFor="let featured of featuredToursNow">
-        <div class="tour-image-containerNow">
-          <img [src]="featured.image" [alt]="featured.title" class="tour-imageNow">
-          <span class="tour-price-badgeNow">Avg/Night {{ featured.price }}</span>
-        </div>
-        <div class="tour-detailsNow">
-          <h3 class="tour-titleNow">{{ featured.title }}</h3>
-  
-          <!-- ✅ ✅ ✅ تعديل هذا الجزء ليطابق الصورة ✅ ✅ ✅ -->
-          <div class="tour-infoNow">
-            <div class="location-boxNow">
-              <p class="tour-locationNow">📍 {{ featured.location }}</p>
-              <p class="tour-addressNow">10012, USA</p>
-            </div>
-            <div class="rating-boxNow">
-              <span class="rating-labelNow">No rating</span>
-              <span class="rating-valueNow">{{ featured.rating }}</span>
-            </div>
-          </div>
-  
-          <p class="tour-commentsNow">{{ featured.comments }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+<app-featured></app-featured>
 
 
 
   <!-- why  -->
+<app-why-saba></app-why-saba>
 
-  <section class="why-saba-tours">
-    <h2 class="section-titlewhy">
-      Why Saba Tours
-      <div class="underlinewhy"></div>
-    </h2>
-  
-    <!-- ✅ البطاقات العلوية -->
-    <div class="features-containerwhy">
-      <div *ngFor="let feature of featuresWhy" class="feature-cardwhy">
-        <i class="fa" [ngClass]="feature.icon"></i>
-        <h3>{{ feature.title }}</h3>
-        <p>{{ feature.description }}</p>
-      </div>
-    </div>
-  
-    <!-- ✅ إحصائيات -->
-    <div class="stats-containerwhy">
-      <div *ngFor="let stat of stats" class="stat-cardwhy">
-        <i class="fa" [ngClass]="stat.icon"></i>
-        <h3>{{ stat.value }}</h3>
-        <p>{{ stat.label }}</p>
-      </div>
-    </div>
-  </section>
-  
 
   <!-- app come -->
 
@@ -149,36 +69,9 @@
 
 
   <!-- Testimonials From Our Clients -->
-  <div class="testimonials">
-    <h2>Testimonials From Our Clients</h2>
-    <p>Here are some sample testimonials from satisfied clients of SabaTours:</p>
 
-    <div class="carousel-container">
-        <button (click)="prevTestimonial()" class="arrow-btn">&#10094;</button>
 
-        <div class="carousel">
-            <div *ngFor="let testimonial of visibleTestimonials" class="testimonial-card">
-                <div class="testimonial-logo">
-                    <img src="assets/sab-150x150.webp" alt="Saba Tours">
-                </div>
-                <div class="testimonial-content">
-                    <div class="quote-icon left-quote">❝</div>
-                    <h3>{{ testimonial.name }}, {{ testimonial.country }} - <b>{{ testimonial.title }}</b></h3>
-                    <p>"{{ testimonial.message }}"</p>
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <a href="#">Via Facebook</a>
-                    <div class="quote-icon right-quote">❞</div>
-                </div>
-            </div>
-        </div>
-
-        <button (click)="nextTestimonial()" class="arrow-btn">&#10095;</button>
-    </div>
-</div>
-
-  
-
-  
+  <app-testimonials></app-testimonials>
   <!-- looking -->
 
   <div class="looking-section">
@@ -196,37 +89,7 @@
 
 <!-- blog -->
 
-<section class="blog-section">
-  <div class="container">
-    <h2 class="blog-title">Read More About Egypt History</h2>
-    <p class="blog-subtitle">Browse the latest articles from our blog.</p>
-
-    <div class="blog-grid">
-      <article class="blog-card" *ngFor="let post of blogPosts">
-        <div class="blog-image">
-          <img [src]="post.image" [alt]="post.title">
-        </div>
-        <div class="blog-content">
-          <h3 class="blog-heading">{{ post.title }}</h3>
-          <hr>
-          <p class="blog-text">{{ post.text }}</p>
-<hr>
-
-          <div class="blog-meta">
-            <span class="blog-date"><i class="bi bi-calendar"></i> {{ post.date }}</span>
-            <span class="blog-views"><i class="bi bi-eye"></i> {{ post.views }}</span>
-            <span class="blog-category"><i class="bi bi-tag"></i> {{ post.category }}</span>
-          </div>
-        </div>
-      </article>
-    </div>
-    <div class="blog-button-container">
-      <button class="blog-button">Read All News 
-        <span>➤</span>
-      </button>
-    </div>
-  </div>
-</section>
+<app-blog></app-blog>
 
 
   

@@ -1,0 +1,38 @@
+<div class="featured-sectionNow">
+    <div class="text-contentNow">
+      <h2>Featured Now</h2>
+      <p>
+        A completely different concept about Ancient Egypt. Here we present 
+        alternative theories, scientific opinions, and connections between 
+        Ancient Egypt and the Ancient world.
+      </p>
+      <button class="explore-btnNow">Explore Guide of Egypt Tours</button>
+    </div>
+  
+    <div class="cards-containerNow">
+      <div class="tour-cardNow" *ngFor="let featured of featuredToursNow">
+        <div class="tour-image-containerNow">
+          <img [src]="featured.image" [alt]="featured.title" class="tour-imageNow">
+          <span class="tour-price-badgeNow">Avg/Night {{ featured.price }}</span>
+        </div>
+        <div class="tour-detailsNow">
+          <h3 class="tour-titleNow">{{ featured.title }}</h3>
+  
+          <!-- ✅ ✅ ✅ تعديل هذا الجزء ليطابق الصورة ✅ ✅ ✅ -->
+          <div class="tour-infoNow">
+            <div class="location-boxNow">
+              <p class="tour-locationNow">📍 {{ featured.location }}</p>
+              <p class="tour-addressNow">10012, USA</p>
+            </div>
+            <div class="rating-boxNow">
+              <span class="rating-labelNow">No rating</span>
+              <span class="rating-valueNow">{{ featured.rating }}</span>
+            </div>
+          </div>
+  
+          <p class="tour-commentsNow">{{ featured.comments }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
