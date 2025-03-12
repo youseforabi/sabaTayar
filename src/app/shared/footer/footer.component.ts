@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faFacebook, faTwitter, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,10 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class FooterComponent {
 
-  faFacebook = faFacebook;
-  faTwitter = faTwitter;
-  faInstagram = faInstagram;
-  faWhatsapp = faWhatsapp;
 
   showNavBarFooter: boolean = true;
 
