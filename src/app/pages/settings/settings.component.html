@@ -94,16 +94,24 @@
             
                 <div class="form-group">
                     <label>Current Password</label>
-                    <input type="password" class="form-control" formControlName="currentPassword" placeholder="Enter CurrentPassword">
-                    <small class="error" *ngIf="securityForm.get('currentPassword')?.invalid && securityForm.get('currentPassword')?.touched">
+                    <input type="password" class="form-control" formControlName="OldPassword" placeholder="Enter Old Password">
+                    <small class="error" *ngIf="securityForm.get('OldPassword')?.invalid && securityForm.get('OldPassword')?.touched">
                         Password is required and must be at least 6 characters long.
                     </small>
                 </div>
             
                 <div class="form-group">
                     <label>New Password</label>
-                    <input type="password" class="form-control" formControlName="newPassword" placeholder="Enter New Password">
-                    <small class="error" *ngIf="securityForm.get('newPassword')?.invalid && securityForm.get('newPassword')?.touched">
+                    <input type="password" class="form-control" formControlName="NewPassword" placeholder="Enter New Password">
+                    <small class="error" *ngIf="securityForm.get('NewPassword')?.invalid && securityForm.get('NewPassword')?.touched">
+                        Password is required and must be at least 6 characters long.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" class="form-control" formControlName="ConfirmNewPassword" placeholder="Enter Confirm Password">
+                    <small class="error" *ngIf="securityForm.get('ConfirmNewPassword')?.invalid && securityForm.get('ConfirmNewPassword')?.touched">
                         Password is required and must be at least 6 characters long.
                     </small>
                 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class SettingService {
   private readonly ACTIVE_TAB_KEY = 'activeTab';
   private readonly PROFILE_IMAGE_KEY = 'profileImage';
+  
 
   private profileImageSubject = new BehaviorSubject<string>(
     localStorage.getItem(this.PROFILE_IMAGE_KEY) || 'https://randomuser.me/api/portraits/women/44.jpg'
@@ -30,4 +31,6 @@ export class SettingService {
   setActiveTab(tab: string) {
     localStorage.setItem(this.ACTIVE_TAB_KEY, tab);
   }
+
+  
 }
