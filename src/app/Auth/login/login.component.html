@@ -12,7 +12,7 @@
       </div>
 
       <div class="input-group">
-          <input type="" formControlName="Password" placeholder="Password" />
+          <input type="password" formControlName="Password" placeholder="Password" />
           <div *ngIf="f['Password'].errors && f['Password'].touched">
             <small class="error" *ngIf="f['Password'].errors['required']">Password is required.</small>
             <small class="error" *ngIf="f['Password'].errors['minlength']">Minimum 6 characters required.</small>

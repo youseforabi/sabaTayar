@@ -66,3 +66,14 @@
       </form>
     </div>
 </div>
+
+<div class="otp-modal-overlay" *ngIf="showOtpModal">
+  <div class="otp-modal">
+    <h3>Enter OTP</h3>
+    <input type="string" [(ngModel)]="otp" placeholder="Enter OTP" />
+    <button (click)="verifyOtp()">Verify OTP</button>
+    <button class="cancel" (click)="closeOtpModal()">Cancel</button>
+    <button class="resend" (click)="resendOtp()">Resend</button>
+
+  </div>
+</div>

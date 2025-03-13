@@ -1,46 +1,79 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { environment } from '../../../environment/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+    private readonly baseUrl = environment.apiUrl;
 
-  private apiUrl2 = 'http://sabatoursapi.runasp.net/api/Auth/login';
-  private apiUrl = 'http://sabatoursapi.runasp.net/api/Auth/register';
-
-  constructor(private http: HttpClient) {}
-
-  register(formData: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, formData);
-  }
-
-  login(Email: string, Password: string): Observable<any> {
-    const headers = new HttpHeaders(); // لا تضف Content-Type لأن FormData يعالجها تلقائيًا
+    constructor(private http: HttpClient) {
+    
+    }
   
+    register(formData: FormData): Observable<any> {
+      return this.http.post(`${this.baseUrl}/Auth/register`, formData)
+        .pipe(
+          tap((res: any) => {
+            
+          }),
+          catchError(this.handleError)
+        );
+    }
+  
+    login(email: string, password: string): Observable<any> {
+      const formData = new FormData();
+      formData.append('Email', email);
+      formData.append('Password', password);
+  
+      return this.http.post(`${this.baseUrl}/Auth/login`, formData)
+        .pipe(
+          tap((res: any) => {
+            if (res?.token) {
+              this.setToken(res.token);
+              
+            }
+          }),
+          catchError(this.handleError)
+        );
+    }
+  
+ 
+    getToken(): string | null {
+      return localStorage.getItem('token');
+    }
+  
+    logout(): void {
+      localStorage.removeItem('token');
+      localStorage.removeItem('profileImage');
+    }
+  
+    private handleError(error: HttpErrorResponse) {
+      console.error('❌ Error:', error);
+      return throwError(() => new Error('حدث خطأ ما، يرجى المحاولة لاحقاً'));
+    }
+  
+    private setToken(token: string): void {
+      localStorage.setItem('token', token);
+    }
+  // التحقق من OTP
+  verifyOtp(email: string, otp: string): Observable<any> {
     const formData = new FormData();
-    formData.append('Email', Email);
-    formData.append('Password', Password);
-  
-    return this.http.post(this.apiUrl2, formData, { headers }).pipe(
-      tap((res: any) => {
-        console.log('✅ Login Response:', res);
-        if (res.token) {
-          localStorage.setItem('token', res.token);
-        }
-      })
-    );
-  }
-  
-  
+    formData.append('Email', email);
+    formData.append('Otp', otp);
 
-  getToken(): string | null {
-    return localStorage.getItem('token'); // ✅ جلب التوكن عند الحاجة
+    return this.http.post(`${this.baseUrl}/Auth/verify-otp`, formData)
+      .pipe(catchError(this.handleError));
   }
 
-  logout(): void {
-    localStorage.removeItem('token'); // ✅ حذف التوكن عند تسجيل الخروج
+  // إعادة إرسال OTP
+  resendOtp(email: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('Email', email);
+
+    return this.http.post(`${this.baseUrl}/Auth/resend-otp`, formData)
+      .pipe(catchError(this.handleError));
   }
 
 }
