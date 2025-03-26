@@ -1,28 +1,33 @@
-<div class="testimonials">
-    <h2>Testimonials From Our Clients</h2>
-    <p>Here are some sample testimonials from satisfied clients of SabaTours:</p>
+<section class="testimonials-section py-5">
+    <div class="">
+      <div class="text-center mb-5">
+      </div>
+  
+      <div class="testimonials-slider">
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === activeIndex">
+        <h2 class="section-title">What They Are Say!</h2>
 
-    <div class="carousel-container">
-        <button (click)="prevTestimonial()" class="arrow-btn">&#10094;</button>
-
-        <div class="carousel">
-            <div *ngFor="let testimonial of visibleTestimonials" class="testimonial-card">
-                <div class="testimonial-logo">
-                    <img src="assets/sab-150x150.webp" alt="Saba Tours">
-                </div>
-                <div class="testimonial-content">
-                    <div class="quote-icon left-quote">❝</div>
-                    <h3>{{ testimonial.name }}, {{ testimonial.country }} - <b>{{ testimonial.title }}</b></h3>
-                    <p>"{{ testimonial.message }}"</p>
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <a href="#">Via Facebook</a>
-                    <div class="quote-icon right-quote">❞</div>
-                </div>
+          <div class="testimonial-content">
+            <img src="assets/annnncientjpg.jpg" alt="{{testimonial.author}}" class="author-image">
+  
+            <div class="text-content">
+              <div class="rating">
+                <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= testimonial.rating">★</span>
+              </div>
+              <p class="comment">{{ testimonial.comment }}</p>
+              <div class="author-info">
+                <strong>{{ testimonial.author }}</strong>
+                <div class="position">{{ testimonial.position }}</div>
+              </div>
             </div>
+          </div>
         </div>
-
-        <button (click)="nextTestimonial()" class="arrow-btn">&#10095;</button>
+      </div>
+  
+      <!-- نقاط التنقل -->
+      <div class="dots-container">
+        <span *ngFor="let testimonial of testimonials; let i = index" class="dot" [class.active]="i === activeIndex" (click)="setActiveIndex(i)"></span>
+      </div>
     </div>
-</div>
-
+  </section>
   

@@ -1,74 +1,65 @@
 .navbar {
-  background-color: #18458B !important;
+  background-color: white !important;
+  padding: 10px 20px;
 
   .logo {
-    height: 25px;
+    height: 30px;
   }
 
   .nav-link {
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-.dropdown-menu a{
-  color: white;
-}
-  .btn-info {
-    background-color: #3ea2ff;
-    border: none;
+    color: black;
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s ease;
 
     &:hover {
-      background-color: #2680d4;
+      color: #18458B;
     }
   }
 
-  .nav-item {
-    position: relative;
-    margin: 10px;
+  .dropdown-menu {
+    background-color: white;
+    border: 1px solid #ccc;
+
+    .dropdown-item {
+      color: black;
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
   }
 
-  .dropdown-menu {
-    background-color: #18458B;
+  .profile-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+  }
+
+  .navbar-toggler {
+    border: none;
   }
 
   @media (max-width: 992px) {
     .navbar-collapse {
-      position: absolute;
-      top: 100%;
-      right: 5px;
-      width: auto; /* ✅ جعل القائمة تأخذ عرض المحتوى فقط */
-      background-color: #18458B;
+      background-color: white;
       padding: 10px;
       text-align: center;
-      box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-      z-index: 1111111;
     }
+    
 
     .navbar-nav {
       flex-direction: column;
-      align-items: center; /* ✅ توسيط العناصر داخل القائمة */
-      width: 100%;
     }
 
     .nav-item {
       width: 100%;
-      padding: 3px 0;
-      margin: 0;
-    }
-
-    .nav-link {
-      display: block;
-      padding: 10px 15px;
-      color: white !important;
     }
 
     .d-flex.align-items-center {
       flex-direction: column;
       align-items: center !important;
-      padding: 0;
-      gap: 5px;
     }
   }
 }

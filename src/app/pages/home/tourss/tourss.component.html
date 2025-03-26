@@ -1,22 +1,20 @@
-<!-- tour -->
-<section class="tours-section text-center">
-    <h2 class="section-title">Egypt Tours & Travel Packages</h2>
-    <p class="section-subtitle">
-        Book best Egypt tours & travel packages with Saba Tours. Enjoy variety of tours to Egypt, 
-        Egypt Nile cruises, Egypt day tours, and more.
-    </p>
-
+<section class="top-destinations py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4" *ngFor="let tour of tours">
-                <div class="tour-card">
-                    <img [src]="tour.image" [alt]="tour.title" class="tour-image">
-                    <span class="tour-title">{{ tour.title }}</span> <!-- وضع العنوان فوق الصورة مباشرة -->
-                    <div class="tour-footer">
-                        <span class="tour-brand">Saba tours</span>
-                    </div>
-                </div>
-            </div>
+      <div class="text-center mb-5">
+        <h2 class="section-title">Top Tour Destinations</h2>
+        <p class="section-subtitle">Discover the Most Popular Places to Visit</p>
+      </div>
+  
+      <div class="destinations-grid">
+        <div class="destination-card" 
+             *ngFor="let dest of destinations"
+             [style.background-image]="'url(' + dest.image + ')'">
+          <div class="destination-overlay"></div>
+          <div class="destination-content">
+            <p class="destination-name">{{dest.name}}</p>
+            <div class="tour-count">{{dest.tours}} Tours</div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>

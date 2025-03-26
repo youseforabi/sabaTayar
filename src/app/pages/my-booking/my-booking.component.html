@@ -1,29 +1,65 @@
-<div class="booking-container">
-    <h2 class="title">My Booking</h2>
+<div class="recent-tours">
+    <div class="allBtns d-flex justify-content-between align-items-center">
+        <div class="filter-buttons">
+            <button (click)="filter('Paid')">
+              Paid Booking
+              <span class="badge" [ngClass]="'paid'">{{ getCount('Paid') }}</span>
+            </button>
+            <button (click)="filter('Canceled')">
+              Canceled Booking
+              <span class="badge" [ngClass]="'canceled'">{{ getCount('Canceled') }}</span>
+            </button>
+            <button (click)="filter('Deleted')">
+              Deleted Booking
+              <span class="badge" [ngClass]="'deleted'">{{ getCount('Deleted') }}</span>
+            </button>
+          </div>
+          
+          
+          <div>
+            <button class="addBtn" routerLink="/dashboard/add-new-booking" >Add New Booking</button>
+          </div>
+    </div>
+    <h2>Recent Tours:</h2>
 
-    <div class="booking-content">
-        <!-- الجزء الأيمن: يحتوي على الصورة والزر -->
-      
 
-        <!-- الجزء الأيسر: يحتوي على معلومات المستخدم -->
-        <div class="user-info">
-            <div class="user-header">
-                <img src="assets/bookedProfile.jpg" class="avatar" alt="User Avatar">
+    <div *ngFor="let tour of filteredBooking" class="tour-card">
+        <div class="tour-header">
+            <div class="user-info">
+                <img [src]="tour.userImage" alt="User Image" class="user-image">
+                <h1>{{ tour.username }}</h1>
             </div>
-            <h3 class="username">Yousef Orabi</h3>
-            <p><strong>Listing Item :</strong> Ramses II Temple 'Ramesseum', Luxor Day Trip</p>
-            <p><strong>Persons :</strong> 1 People</p>
-            <p><strong>Booking Date :</strong> 5-3-2025</p>
-            <p><strong>Mail :</strong> sabatourscom.com</p>
-            <p><strong>Phone :</strong> 0101515189</p>
-            <div class="buttons">
-                <button class="cancel">Canceled</button>
-                <button class="delete">Delete</button>
+            <div class="contact-info">
+                <p> <span>Phone:</span>{{ tour.phone }}</p>
+                <p><span>Email:</span> {{ tour.email }}</p>
+            </div>
+            <div class="booking-info">
+                <p> <span>Booking Date:</span>{{ tour.bookingDate }}</p>
+                <p><span>Tour Type</span>{{ tour.tourType }}</p>
+            </div>
+            <div class="price-info">
+                <p><span>Price:</span> {{ tour.price }}</p>
             </div>
         </div>
-        <div class="booking-right">
-            <button class="status">Your booked</button>
-            <img src="assets/myBooking.jpg" alt="Booking Image" class="booking-img">
+
+        <div class="detail-image">
+            <div class="tour-details">
+                <p><span>Status: </span><span [ngStyle]="{'color': tour.status === 'Paid' ? 'green' : 'red'}">{{ tour.status }}</span></p>
+                <p><span>Tour Name:</span> {{ tour.tourName }}</p>
+                <p><span>Guests:</span> {{ tour.guests }}</p>
+                <p><span>Duration:</span> {{ tour.duration }}</p>
+                <p><span>Tour Start:</span> {{ tour.tourStart }}</p>
+            </div>
+    
+            <div class="tour-image">
+                <img [src]="tour.imageUrl" alt="Tour Image">
+            </div>
+        </div>
+
+        <div class="tour-actions">
+            <button (click)="acceptTour(tour)">Accept</button>
+            <button (click)="cancelTour(tour)">Cancel</button>
+            <button (click)="deleteTour(tour)">Delete</button>
         </div>
     </div>
 </div>

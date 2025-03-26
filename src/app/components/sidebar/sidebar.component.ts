@@ -1,54 +1,60 @@
-import { Component, EventEmitter, HostListener, Output, output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'app-sidebar',
-    standalone:true,
-
-    imports: [CommonModule, RouterModule, NgFor],
-    templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.scss'
+  selector: 'app-sidebar',
+  standalone: true,
+  imports: [CommonModule, RouterModule, NgFor],
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'] // ✅ تم تصحيح المسار
 })
 export class SidebarComponent {
   @Output() titleChange = new EventEmitter<string>();
-  isCollapsed = window.innerWidth <= 768; // يبدأ مغلقًا على الشاشات الصغيرة
-  isOpen = false; // للتحكم في ظهور السايدبار فوق المحتوى
+
+  isCollapsed = window.innerWidth <= 768; 
+  isOpen = false; 
 
   menuItems = [
     { label: 'Dashboard', icon: 'bi-speedometer2', route: '/dashboard' },
-    { label: 'Chats', icon: 'bi-chat-dots', route: '/dashboard/chat' },
-    { label: 'My Tours', icon: 'bi-list-ul', route: '/dashboard/myToors' },
+    { label: 'User Management', icon: 'bi-person', route: '/dashboard/user-management' },
+    { label: 'Live Chat', icon: 'bi-chat-dots', route: '/dashboard/chat' },
+    { label: 'All Tours', icon: 'bi-list-ul', route: '/dashboard/myToors' },
     { label: 'My Booking', icon: 'bi-calendar-check', route: '/dashboard/myBooking' },
     { label: 'Comments', icon: 'bi-chat-left-text', route: '/dashboard/comments' },
-    { label: 'Withdrawals', icon: 'bi-wallet2', route: '/dashboard/withdrawals' },
+    { label: 'My Wallet', icon: 'bi-wallet2', route: '/dashboard/withdrawals' },
+    { label: 'Ads Manager', icon: 'bi-megaphone', route: '/dashboard/adsManager' },
     { label: 'Invoices', icon: 'bi-receipt', route: '/dashboard/invoices' },
-    { label: 'Settings', icon: 'bi-gear', route: '/dashboard/settings' }
+    { label: 'Settings', icon: 'bi-gear', route: '/dashboard/settings' },
+    { label: 'Blogs', icon: 'bi-gear', route: '/dashboard/blogs' },
   ];
-  
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
-  sendTitle(title:string){
+  sendTitle(title: string) {
     this.titleChange.emit(title);
-
   }
+
   toggleSidebar() {
     if (window.innerWidth <= 768) {
-      this.isOpen = !this.isOpen; // يفتح السايدبار في الشاشات الصغيرة
+      this.isOpen = !this.isOpen; // فتح السايدبار في الشاشات الصغيرة
     } else {
-      this.isCollapsed = !this.isCollapsed;
+      this.isCollapsed = !this.isCollapsed; // تصغير السايدبار في الشاشات الكبيرة
     }
   }
+
   isActive(route: string): boolean {
     return this.router.url === route;
   }
 
-  // تحديث عند تغيير حجم الشاشة
+  // تحديث حالة الـ Sidebar عند تغيير حجم الشاشة
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.isCollapsed = window.innerWidth <= 768;
-    this.isOpen = false; // إغلاق السايدبار عند تغيير الحجم
+    this.isCollapsed = window.innerWidth <= 768; // تصغير السايدبار في الشاشات الصغيرة
+    this.isOpen = false; // إغلاق الـ Sidebar إذا كان مفتوحًا
+  }
+
+  goHome() {
+    window.location.href = '/';
   }
 }

@@ -1,39 +1,199 @@
+.create-btn {
+  background-color: #2d60ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+.delete {
+  background-color: #fff !important;
+  color: black !important;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+.trash-icon {
+  width: 20px;
+  height: 20px;
+  fill: #0D62E2;
+}
+.refresh-icon {
+  width: 20px;
+  height: 20px;
+  fill: #0D62E2;
+  animation: rotate 1.5s linear infinite;
+  color: gray;
+}
+.filters {
+  display: flex;
+  margin: 20px auto;
+  gap: 20px;
+}
+
+.filters .btn {
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.filters .btn-primary {
+  background-color: #2d60ff;
+  color: white;
+  border-radius: 8px;
+  padding: 2px 8px;
+}
+
+.filters input[type="date"] {
+  padding: 8px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+}
+
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+td.completed {
+  color: green;
+  font-weight: bold;
+}
+
+td.failed {
+  color: red;
+  font-weight: bold;
+}
+
+td.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+td.on-progress {
+  color: blue;
+  font-weight: bold;
+}
+
+td.rejected {
+  color: #EB4D4D;
+  font-weight: bold;
+}
+
+td.refund {
+  color: purple;
+  font-weight: bold;
+}
+td.Canceled {
+  color: #A55F77;
+  font-weight: bold;
+}
+td.on-review {
+  color: #32ADE6;
+  font-weight: bold;
+}
+td.Deleted {
+  color: red;
+  font-weight: bold;
+}
+
+
 .table-container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.table-responsive {
+  width: 80%;
+  margin: 15px 0;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;  // ✅ لجعل الجدول قابلًا للتمرير على الشاشات الصغيرة
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;  // ✅ يمنع الجدول من الانكماش بشدة
   }
-  
-  .table-responsive {
-    width: 80%;
-    margin: 15px 0;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;  // ✅ لجعل الجدول قابلًا للتمرير على الشاشات الصغيرة
-  
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 600px;  // ✅ يمنع الجدول من الانكماش بشدة
-  
-      th, td {
-        padding: 12px;
-        text-align: left;
-        white-space: nowrap;  // ✅ يمنع انكسار النصوص في الأعمدة
-      }
-  
-      th {
-        font-weight: bold;
-        color: #6c757d;
-        border-bottom: 2px solid #e9ecef;
-      }
-  
-      td {
-        border-bottom: 1px solid #e9ecef;
-      }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      white-space: nowrap;  // ✅ يمنع انكسار النصوص في الأعمدة
     }
-  }
+
+    th {
+      font-weight: bold;
+      color: #6c757d;
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    td {
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+   
+    
+   
+
+tfoot {
+  padding: 15px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+tfoot td {
+  text-align: left;
+}
+
+tfoot .see-more-btn {
+  float: right;
+  background-color: #2D60FF;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+}
+
+   
+.action-icons .material-icons {
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.action-icons .copy{
+  color: #2CA9BC;
+}
+.action-icons .visual{
+  color: #FF9706;
+}
+.action-icons .edit{
+  color: #0D62E2;
+}
+.action-icons .deletee{
+  color: #E02727;
+}
+
   
   // ✅ جعل الجدول متجاوبًا بشكل مثالي على الأجهزة المختلفة
   @media (max-width: 992px) {

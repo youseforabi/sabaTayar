@@ -18,7 +18,7 @@
 
 .sidebar ul {
   list-style: none;
-  padding: 55px 0 0 0;
+  padding: 30px 0 0 0;
 }
 
 .sidebar ul li {
@@ -47,6 +47,45 @@
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
 }
+.sidebar-logo {
+  text-align: center;
+  padding: 5px 0;
+}
+
+.sidebar-logo img {
+  width: 90%;
+}
+.backToHome {
+  display: flex;
+  justify-content: center;
+  background-color: #2d60ff;
+  padding: 10px 20px;
+  width: 90%;
+  margin-left: 10px;
+  border-radius: 15px;
+  border: 1px solid #2d60ff;
+  cursor: pointer;
+}
+
+.backToHome a {
+  text-decoration: none;
+  color: white;
+}
+
+/* أيقونة الهوم */
+.backToHomeIcon {
+  background-color: transparent;
+  border: none;
+  color: #2d60ff;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.backToHomeIcon i {
+  font-size: 24px;
+}
+
 /* زر التبديل */
 .toggle-btn {
   position: fixed;
@@ -71,6 +110,13 @@
 }
 /* تحسين الاستجابة على الشاشات الصغيرة */
 @media (max-width: 768px) {
+
+
+  
+  .sidebar-logo img {
+    width: 90%;
+    margin-top: 20px;
+  }
   .sidebar {
     width: 62px;
     z-index: 1050;

@@ -1,40 +1,86 @@
+
 <section class="hero-section">
-    <div class="overlay"></div>
 
-    <div class="hero-content">
-        <h1>Egypt Travel, Explore the History</h1>
-        <p>Find Egypt Tours & Travel Packages.</p>
+  <div class="hero-content">
+    <h1>Adventure Awaits</h1>
+    <p class="p1">Discover, Book, Explore!</p>
+    <p class="p2">We offer more packages than you need to ensure you have plenty of options to choose the best one!</p>
 
-        <div class="search-box">
-            <div class="search-item">
-              <i class="bi bi-geo-alt location-icon px-2" (click)="getUserLocation()"></i>
-              <input type="text" placeholder="Hotel, City...">
-            </div>
-            <div class="search-item">
-              <i class="bi bi-calendar location-icon px-2" (click)="openDatepicker(datepicker)"></i>
-              <input matInput [matDatepicker]="datepicker" placeholder="Select Date" [formControl]="dateControl">
-                <mat-datepicker #datepicker></mat-datepicker>
-            </div>
-            <div class="search-item">
-              <i class="bi bi-person location-icon px-2"></i>
-              <select>
-                    <option>Persons</option>
-                    <option>1 Person</option>
-                    <option>2 Persons</option>
-                    <option>3+ Persons</option>
-                </select>
-            </div>
-            <button class="search-btn">
-                Search
-                <i class="bi bi-search px-2 location-icon"></i>
-              </button>
-        </div>
+    <div class="search-box">
+      <div class="search-item">
+          <label for="Places">Places</label>
+          <select id="Places" [(ngModel)]="searchCriteria.place">
+              <option value="">Select City</option>
+              <option value="Cairo">Cairo</option>
+              <option value="Alex">Alex</option>
+          </select>
+      </div>
+  
+      <div class="search-item">
+          <label for="TourType">Tour Type</label>
+          <select id="TourType" [(ngModel)]="searchCriteria.tourType">
+              <option value="">Select Type</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Cultural">Cultural</option>
+          </select>
+      </div>
+  
+      <div class="search-item">
+        <label for="Date">Date</label>
+        <input matInput type="date" [formControl]="searchCriteria.dateControl">
     </div>
+  
+      <div class="search-item">
+          <label for="People">People</label>
+          <select [(ngModel)]="searchCriteria.people">
+              <option value="">Select</option>
+              <option value="1">1 Person</option>
+              <option value="2">2 Persons</option>
+              <option value="3+">3+ Persons</option>
+          </select>
+      </div>
+  
+      <button class="search-btn" (click)="onSearch()">
+          Search <i class="bi bi-search px-2 location-icon"></i>
+      </button>
+  </div>
+  
+
+    <div class="reviews-container">
+      <div class="avatars">
+          <img src="assets/user1jpg.jpg" alt="User 1">
+          <img src="assets/user1jpg.jpg" alt="User 2">
+          <img src="assets/user1jpg.jpg" alt="User 3">
+          <img src="assets/user1jpg.jpg" alt="User 4">
+          <div class="count-circle">12k</div>
+      </div>
+      <p class="mt-2">+12k People Review 
+        <br>& Using Services
+      </p>
+  </div>
+  
+</div>
+
+
+  <div class="hero-image">
+      <img src="assets/ancientPage.png" alt="">
+  </div>
 </section>
 
-<!-- tourss -->
 
-<app-tourss></app-tourss>
+<app-home-cara></app-home-cara>
+
+
+<app-history-explore></app-history-explore>
+
+
+<section class="videos-section" >
+  <div class="overlay"></div>
+
+  <h2>Find More !</h2>
+</section>
+
+
 
 
 <!-- featured now -->
@@ -43,13 +89,95 @@
 
 
 
+
+<!-- We provide more packages than you can imagine -->
+<section class="more-packages py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- الجانب الأيمن (العنوان والنص) -->
+      <div class="col-lg-6 order-lg-2 ps-lg-5 mb-5 mb-lg-0">
+        <h2 class="display-5 fw-bold">We Provide More Packages</h2>
+        <h3 class="text-muted mb-4">Than You Can Imagine</h3>
+        <p class="lead">
+          We offer more packages than you need to ensure you have plenty of options to choose the best one!
+        </p>
+
+        <button class="book-now" type="button">Book Now</button>
+      </div>
+
+      <!-- الجانب الأيسر (البطاقات) -->
+      <div class="col-lg-6 order-lg-1">
+        <div class="row g-4">
+          <!-- البطاقة الأولى -->
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <i class="bi bi-compass fs-1 text-primary mb-3"></i>
+                <h4 class="card-title">Booking Your Tour</h4>
+                <p class="card-text">
+                  Find Your Travel Destination<br>
+                  Do you want to explore new attractions, a new city, or go on an adventure?
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- البطاقة الثانية -->
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <i class="bi bi-globe fs-1 text-primary mb-3"></i>
+                <h4 class="card-title">Book Your Tour</h4>
+                <p class="card-text">
+                  Find your travel destination, because we have covered all regions in the world.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- البطاقة الثالثة -->
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <i class="bi bi-credit-card fs-1 text-primary mb-3"></i>
+                <h4 class="card-title">Pay And Go Tour</h4>
+                <p class="card-text">
+                  This type of tour usually includes all the necessary expenses such as accommodation
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ 
+
+
+<!-- tourss -->
+
+<app-tourss></app-tourss>
+
+  <!-- Testimonials From comments -->
+
+
+  <app-testimonials></app-testimonials>
+
+
+
+
+
+
   <!-- why  -->
-<app-why-saba></app-why-saba>
+<!-- <app-why-saba></app-why-saba> -->
 
 
   <!-- app come -->
 
-  <section class="app-section">
+  <!-- <section class="app-section">
     <div class="app-content">
       <h2>Our App Coming Soon!</h2>
       <p>
@@ -65,16 +193,13 @@
     <div class="app-image">
         <img src="assets/api.webp" alt="App Preview">
     </div>
-  </section>
+  </section> -->
 
 
-  <!-- Testimonials From Our Clients -->
 
-
-  <app-testimonials></app-testimonials>
   <!-- looking -->
 
-  <div class="looking-section">
+  <!-- <div class="looking-section">
   <div class="looking-content">
     <h2>Looking for Tours in Egypt?</h2>
     <p>
@@ -85,11 +210,19 @@
       <button class="btn-secondary">Login Your Account <i class="bi bi-arrow-right"></i></button>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- blog -->
 
 <app-blog></app-blog>
+
+<section class="fooetr-section">
+  <div class="overlay"></div>
+
+  <h2>Feel real adventure and very<br> close to nature</h2>
+  <button class="explore-btn">Contact Us</button>
+</section>
+
 
 
   

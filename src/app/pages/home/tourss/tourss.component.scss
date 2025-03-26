@@ -1,104 +1,84 @@
-
-// tour 
-
-/* ✨ ضبط القسم */
-.tours-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px 0;
-    background: #fff;
-    height: 100vh;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #18458B;
-    margin-bottom: 10px;
-}
-
-.section-subtitle {
-    font-size: 0.8rem;
-    color: #666;
-    margin: 30px 0;
-}
-
-/* 🖼️ تصميم الكارت */
-.tour-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-    margin: 10px;
-    cursor: pointer;
-}
-
-.tour-card:hover {
-    transform: scale(1.05);
-}
-
-.tour-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-/* 🔥 التداخل على الصورة */
-.tour-overlay {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: rgba(255, 165, 0, 0.9);
-    color: white;
-    padding: 8px 12px;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-/* 📌 الشعار */
-.tour-footer {
-    position: absolute;
-    bottom: 10px;
-    left: 20px;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-}
-.tour-title {
-    position: absolute;
-    top: 10px; /* المسافة من الأعلى */
-    right: 10px; /* المسافة من اليمين */
-    background: rgba(255, 165, 0, 0.9); /* لون الخلفية */
-    color: white;
-    padding: 8px 12px;
-    font-weight: bold;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-/* 📱 Responsive Design */
-@media (max-width: 768px) {
-    .tours-section{
-        margin-top: 250px;
+.top-destinations {
+    background-color: #f8f9fa;
+    padding: 4rem 0;
+  
+    .section-title {
+      font-size: 2.2rem;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
     }
-    .tour-image {
-        height: auto;
+  
+    .section-subtitle {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
     }
-
-    .tour-overlay {
-        font-size: 0.9rem;
-        padding: 5px 10px;
+  
+    .destinations-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); // 3 أعمدة ثابتة
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
     }
-}
-
-@media (max-width: 480px) {
-    .tour-image {
+  
+    .destination-card {
+      height: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        
+        .destination-overlay {
+          background: rgba(0,0,0,0.5);
+        }
+      }
     }
-
-    .tour-overlay {
-        font-size: 0.8rem;
-        padding: 4px 8px;
+  
+    .destination-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.219);
+      transition: all 0.3s ease;
     }
-}
+  
+    .destination-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      z-index: 2;
+      color: black;
+      background-color: white;
+      margin: 10px;
+    }
+  
+    .destination-name {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .tour-count {
+      background: rgba(255,255,255,0.2);
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+  }

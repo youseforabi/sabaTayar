@@ -1,109 +1,114 @@
+.testimonials-section {
+  background-color: #F7F7F7;
+  padding: 4rem 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
-// tetsinominal
-/* ✅ تنسيق عام */
-.testimonials {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .section-title {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    font-weight: 700;
     text-align: center;
-    padding: 40px;
-    font-family: 'Arial', sans-serif;
+    margin-bottom: 45px;
   }
-  .testimonials h2{
-    margin-top: 20px;
-  }
-  /* ✅ تنسيق السلايدر */
-  .carousel-container {
+
+  .testimonials-slider {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .carousel {
+    overflow: hidden;
     width: 100%;
-    display: flex;
+    max-width: 800px; // تأكد أن الحجم ثابت ولا يتمدد
     justify-content: center;
-    gap: 20px;
-  }
-  
-  /* ✅ تصميم الكرت */
-  .testimonial-card {
-    background: #ECF6F8;
-    padding: 20px;
-    width: 100%;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
   }
-  
-  /* ✅ شعار التوصيات */
-  .testimonial-logo img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    object-fit: cover;
-    border: 3px solid white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* ✅ علامات الاقتباس */
-  .quote-icon {
-    font-size: 30px;
-    color: #8FC4D8;
+
+  .testimonial-card {
+    width: 100%;
+    flex: 0 0 100%;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     position: absolute;
-  }
-  
-  .left-quote {
-    left: 10px;
-    top: 10px;
-  }
-  
-  .right-quote {
-    right: 10px;
-    bottom: 10px;
-  }
-  
-  /* ✅ النجوم */
-  .stars {
-    color: gold;
-    font-size: 18px;
-    margin: 10px 0;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-  }
-  
-  /* ✅ أزرار التنقل */
-  .arrow-btn {
-    background: #ffcc00;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 50%;
-  }
-  
-  /* ✅ تحسين التجاوب */
-  @media (max-width: 768px) {
-    .testimonials{
-      height: auto;
+    top: 0;
+    left: 0;
+
+    &.active {
+      opacity: 1;
+      transform: translateX(0);
+      position: relative;
     }
-    .carousel {
-      flex-direction: column;
+
+    .testimonial-content {
+      display: flex;
       align-items: center;
+      gap: 1rem;
     }
-  
-    .testimonial-card {
-      width: 90%;
+
+    .author-image {
+      margin-right: 25px;
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
     }
-  
-    .quote-icon {
-      font-size: 24px;
+
+    .text-content {
+      flex: 1;
+    }
+
+    .rating {
+      font-size: 1.5rem;
+      color: #ddd;
+      margin-bottom: 0.5rem;
+
+      .filled {
+        color: #f39c12;
+      }
+    }
+
+    .comment {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .author-info {
+      strong {
+        font-size: 1.1rem;
+        color: #2c3e50;
+      }
+
+      .position {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+      }
     }
   }
-  
+
+  .dots-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      background: #bdc3c7;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &.active {
+        background: #3498db;
+        transform: scale(1.2);
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+<div class="invoice-container">
+    <h1>Invoice Information</h1>
+    
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        
+        <!-- Username -->
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" formControlName="username" placeholder="Type username...">
+          <span *ngIf="hasError('username', 'required')" class="error">Username is required</span>
+        </div>
+  
+        <!-- Invoice Number -->
+        <div class="form-group">
+          <label>Invoice Number *</label>
+          <input type="text" formControlName="invoiceNumber" placeholder="Type Invoice...">
+          <span *ngIf="hasError('invoiceNumber', 'required')" class="error">Invoice Number is required</span>
+        </div>
+  
+        <!-- Email Address -->
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" formControlName="email" placeholder="Type email address...">
+          <span *ngIf="hasError('email', 'required')" class="error">Email is required</span>
+          <span *ngIf="hasError('email', 'email')" class="error">Invalid email format</span>
+        </div>
+  
+        <!-- Total Amount -->
+        <div class="form-group">
+          <label>Total Amount *</label>
+          <input type="text" formControlName="totalAmount" placeholder="Total Amount....">
+          <span *ngIf="hasError('totalAmount', 'required')" class="error">Total Amount is required</span>
+          <span *ngIf="hasError('totalAmount', 'pattern')" class="error">Only numbers are allowed</span>
+        </div>
+  
+        <!-- Tour Name -->
+        <div class="form-group">
+          <label>Tour Name</label>
+          <select formControlName="tourName">
+            <option value="">Select tour item...</option>
+            <option value="tour1">Tour 1</option>
+            <option value="tour2">Tour 2</option>
+          </select>
+          <span *ngIf="hasError('tourName', 'required')" class="error">Tour Name is required</span>
+        </div>
+  
+        <!-- Issue Date -->
+        <div class="form-group">
+          <label>Issue Date *</label>
+          <input type="date" formControlName="issueDate">
+          <span *ngIf="hasError('issueDate', 'required')" class="error">Issue Date is required</span>
+        </div>
+  
+        <!-- Description -->
+        <div class="form-group description">
+          <label>Description</label>
+          <textarea formControlName="description" placeholder="Description...."></textarea>
+        </div>
+  
+        <!-- Due Date -->
+        <div class="form-group">
+          <label>Due Date *</label>
+          <input type="date" formControlName="dueDate">
+          <span *ngIf="hasError('dueDate', 'required')" class="error">Due Date is required</span>
+        </div>
+  
+        <!-- Guests Capability -->
+        <div class="form-group">
+          <label>Guests Capability</label>
+          <div formGroupName="guests" class="guest-inputs">
+            <div>
+              <label>Adult</label>
+              <input type="number" formControlName="adult" placeholder="Ad">
+              <span *ngIf="invoiceForm.get('guests.adult')?.touched && invoiceForm.get('guests.adult')?.hasError('required')" class="error">Required</span>
+            </div>
+            <div>
+              <label>Children</label>
+              <input type="number" formControlName="children" placeholder="Ch">
+              <span *ngIf="invoiceForm.get('guests.children')?.touched && invoiceForm.get('guests.children')?.hasError('required')" class="error">Required</span>
+            </div>
+            <div>
+              <label>Infant</label>
+              <input type="number" formControlName="infant" placeholder="In">
+              <span *ngIf="invoiceForm.get('guests.infant')?.touched && invoiceForm.get('guests.infant')?.hasError('required')" class="error">Required</span>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="buttons">
+        <button type="submit" [disabled]="!invoiceForm.valid">Create</button>
+        <button type="button" class="cancel">Cancel</button>
+      </div>
+  
+    </form>
+  </div>

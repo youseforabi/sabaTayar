@@ -2,8 +2,11 @@
   <i [class]="isOpen ? 'bi-x-lg' : 'bi-list'"></i>
 </button>
 
-<!-- القائمة الجانبية -->
-<aside class="sidebar" [ngClass]="{'collapsed': isCollapsed, 'open': isOpen}" >
+<aside class="sidebar" [ngClass]="{'collapsed': isCollapsed, 'open': isOpen}">
+  <div class="sidebar-logo">
+    <img src="assets/sabba.png" alt="Logo">
+  </div>
+
   <ul>
     <li *ngFor="let item of menuItems" [ngClass]="{'active': isActive(item.route)}" (click)="sendTitle(item.label)">
       <a [routerLink]="item.route">
@@ -12,4 +15,14 @@
       </a>
     </li>
   </ul>
+
+  <!-- زر العودة للصفحة الرئيسية -->
+  <button class="backToHome" *ngIf="!isCollapsed">
+    <a href="/">Back To Home Page</a>
+  </button>
+
+  <!-- أيقونة الهوم عند تصغير الـ Sidebar -->
+  <button class="backToHomeIcon" *ngIf="isCollapsed" (click)="goHome()">
+    <i class="bi bi-house-door-fill"></i>
+  </button>
 </aside>

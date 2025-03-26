@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 
 @Component({
@@ -9,77 +9,35 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './testimonials.component.scss'
 })
 export class TestimonialsComponent {
-
-  cardsPerView = 3;
-
-  constructor() {
-    this.updateCardsPerView();
-  }
-
-  @HostListener('window:resize', [])
-  onResize() {
-    this.updateCardsPerView();
-  }
-
-  updateCardsPerView() {
-    if (window.innerWidth <= 768) {
-      this.cardsPerView = 1; // Single card on mobile view
-    } else if (window.innerWidth <= 1024) {
-      this.cardsPerView = 2; // Two cards on tablet view
-    } else {
-      this.cardsPerView = 3; // Three cards on larger screens
-    }
-  }
-
   testimonials = [
-    { name: 'Daniel K.', country: 'Australia', title: 'Highly Recommended!', message: 'Great experience!' },
-    { name: 'Emily R.', country: 'USA', title: 'Amazing Experience!', message: 'The best tour company.' },
-    { name: 'James L.', country: 'UK', title: 'A Perfect Day!', message: 'Highly recommended!' },
-    { name: 'Sophia M.', country: 'Canada', title: 'Loved it!', message: 'Fantastic guides and service.' },
-    { name: 'Carlos D.', country: 'Spain', title: 'Worth it!', message: 'I would book again.' },
-    { name: 'Liam P.', country: 'Germany', title: 'Top-notch!', message: 'Everything was well organized.' }
+    {
+      rating: 5,
+      comment: "I've used this travel booking site multiple times and have never been disappointed. The search filters are great for narrowing down options, and the prices are always competitive.",
+      author: "Pete Jones",
+      position: "Founder, Themesthat",
+      gender: "male"
+    },
+    {
+      rating: 4,
+      comment: "Great platform! Booking is easy, and I always find good deals for my travels.",
+      author: "Sarah Connor",
+      position: "Traveler",
+      gender: "female"
+    },
+    {
+      rating: 5,
+      comment: "Excellent service and user-friendly interface. I always use this site for my bookings.",
+      author: "John Doe",
+      position: "Freelancer",
+      gender: "male"
+    }
   ];
-  
-    visibleTestimonials: any[] = [];
-    currentIndex = 0;
-    testimonialsPerPage = 3;
-    currentPage = 0;
-    paginationArray: any[] = [];
-  
-  
-    ngOnInit(): void {
-      this.updateVisibleTestimonials();
-      this.paginationArray = new Array(Math.ceil(this.testimonials.length / this.testimonialsPerPage));
+
+  activeIndex = 0;
+
+  setActiveIndex(index: number) {
+    if (index !== this.activeIndex) {
+      this.activeIndex = index;
     }
-  
-    updateVisibleTestimonials() {
-      this.visibleTestimonials = this.testimonials.slice(this.currentIndex, this.currentIndex + this.testimonialsPerPage);
-    }
-  
-    nextTestimonial() {
-      if (this.currentIndex + this.testimonialsPerPage < this.testimonials.length) {
-        this.currentIndex += this.testimonialsPerPage;
-      } else {
-        this.currentIndex = 0; // إعادة التكرار
-      }
-      this.currentPage = Math.floor(this.currentIndex / this.testimonialsPerPage);
-      this.updateVisibleTestimonials();
-    }
-  
-    prevTestimonial() {
-      if (this.currentIndex - this.testimonialsPerPage >= 0) {
-        this.currentIndex -= this.testimonialsPerPage;
-      } else {
-        this.currentIndex = this.testimonials.length - this.testimonialsPerPage; // العودة للنهاية
-      }
-      this.currentPage = Math.floor(this.currentIndex / this.testimonialsPerPage);
-      this.updateVisibleTestimonials();
-    }
-  
-    goToPage(index: number) {
-      this.currentPage = index;
-      this.currentIndex = index * this.testimonialsPerPage;
-      this.updateVisibleTestimonials();
-    }
-  
+  }
 }

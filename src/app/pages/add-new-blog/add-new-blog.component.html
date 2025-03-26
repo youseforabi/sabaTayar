@@ -1,0 +1,139 @@
+<div class="blog-form-container">
+    <h1 class="fw-bolder">Basic Informations</h1>
+
+    <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+        <div class="forma">
+            <div class="form-group places-container">
+                <div class="input-row">
+                    <label>Blog Title</label>
+                    <input type="text" placeholder="Add title..." formControlName="title" />
+                </div>
+            </div>
+
+
+            <div class="form-group places-container">
+                <div class="input-row">
+                    <div>
+                        <label class="me-2">Blog Category</label>
+
+                        <button (click)="addCategory()" type="button" class="btn">Add</button>
+                    </div>
+                    <div class="tags-container">
+                        <span *ngFor="let cat of categories.controls; let i = index" class="tag">
+                            {{ cat.value }}
+                            <button (click)="removeCategory(i)" type="button" class="remove-btn">&times;</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="select-box">
+                    <select formControlName="newCategory">
+                        <option value="" disabled selected>Choose multiple options</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Featured">Featured</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="forma">
+
+            <div class="form-group places-container mt-4">
+
+                <div class="input-row">
+                    <div> <label class="me-2">Places</label>
+
+                        <button (click)="addPlace()" type="button" class="btn">Add</button>
+                    </div>
+                    <div class="tags-container">
+                        <span *ngFor="let place of places.controls; let i = index" class="tag">
+                            {{ place.value }}
+                            <button (click)="removePlace(i)" type="button" class="remove-btn">&times;</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="select-box">
+                    <select formControlName="newPlace">
+                        <option value="" disabled selected>Choose multiple options</option>
+                        <option value="cairo">Cairo</option>
+                        <option value="alex">Alex</option>
+                        <option value="sa">Saudi Arabia</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group places-container mt-4">
+                <div class="input-row">
+                    <div>
+                        <label class="me-2">Blogs Tags</label>
+                        <button (click)="addTag()" type="button" class="btn">Add</button>
+                    </div>
+                    <div class="tags-container">
+                        <span *ngFor="let tag of tags.controls; let i = index" class="tag">
+                            {{ tag.value }}
+                            <button (click)="removeTag(i)" type="button" class="remove-btn">&times;</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="select-box">
+                    <select formControlName="newTag">
+                        <option value="" disabled selected>Choose multiple options</option>
+                        <option value="sainai">Sainai</option>
+                        <option value="cairo">Cairo</option>
+                        <option value="alex">Alex</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+       
+    <div class="image-upload-section">
+        <!-- Main Image -->
+        <div class="image-upload">
+          <label>Main Image</label>
+          <div class="upload-box" (click)="triggerFileInput('mainImage')">
+            <img *ngIf="mainImageUrl; else uploadIcon" [src]="mainImageUrl" alt="Uploaded Image">
+            <ng-template #uploadIcon>
+              <img src="" alt="Upload Icon">
+              <span>Click here to upload</span>
+            </ng-template>
+          </div>
+          <input type="file" #mainImage accept="image/*" (change)="onFileSelected($event, 'mainImage')" hidden>
+        </div>
+  
+      
+  
+        <!-- Gallery Images -->
+        <div class="image-upload full-width">
+          <label>Header Images</label>
+          <div class="upload-box" (click)="triggerFileInput('galleryImage')">
+            <ng-container *ngIf="galleryImages.controls.length > 0; else uploadIconGallery">
+              <div class="gallery-container">
+                <div *ngFor="let imgCtrl of galleryImages.controls; let i = index" class="gallery-image">
+                  <img [src]="imgCtrl.value" alt="Uploaded Image">
+                  <button class="delete-btn" (click)="removeImage(i)">✖</button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #uploadIconGallery>
+              <img src="" alt="Upload Icon">
+              <span>Click here to upload</span>
+            </ng-template>
+          </div>
+          <input type="file" #galleryImage accept="image/*" multiple (change)="onFileSelected($event, 'galleryImage')"
+            hidden>
+        </div>
+      </div>
+
+        <div class="quil-container d-flex flex-column">
+            <label for="editor" class="my-2 fw-bold">Blog Description</label>
+            <quill-editor id="editor" formControlName="description" [modules]="modules" class="full-width-editor"
+                placeholder="Write your description here..."></quill-editor>
+        </div>
+
+        <div class="buttons">
+            <button type="submit" class="submit-btn">Submit Now</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+        </div>
+    </form>
+</div>

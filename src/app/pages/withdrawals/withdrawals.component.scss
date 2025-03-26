@@ -36,6 +36,64 @@
     font-size: 50px;
     color: #2D60FF;
   }
+  .filters {
+    display: flex;
+    margin: 20px auto;
+    gap: 20px;
+  }
+  
+  .filters .btn {
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  
+  .filters .btn-primary {
+    background-color: #2d60ff;
+    color: white;
+    border-radius: 8px;
+    padding: 2px 8px;
+  }
+  
+  .filters input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+  }
+  
+  td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  td.completed {
+    color: green;
+    font-weight: bold;
+  }
+  
+  td.failed {
+    color: red;
+    font-weight: bold;
+  }
+  
+  td.pending {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  td.on-progress {
+    color: blue;
+    font-weight: bold;
+  }
+  
+  td.refund {
+    color: purple;
+    font-weight: bold;
+  }
+  
   .table-container {
     display: flex;
     justify-content: center;
@@ -54,7 +112,7 @@
       width: 100%;
       border-collapse: collapse;
       min-width: 600px;  // ✅ يمنع الجدول من الانكماش بشدة
-  
+    }
       th, td {
         padding: 12px;
         text-align: left;
@@ -70,9 +128,56 @@
       td {
         border-bottom: 1px solid #e9ecef;
       }
-    }
+      td.completed {
+        color: #37B853;
+        font-weight: bold;
+      }
+      
+      td.failed {
+        color: #A55F77;
+        font-weight: bold;
+      }
+      
+      td.pending {
+        color: #FFB321;
+        font-weight: bold;
+      }
+      
+      td.on-progress {
+        color: blue;
+        font-weight: bold;
+      }
+      
+      td.refund {
+        color: #007AFF;
+        font-weight: bold;
+      }
+      td.rejected {
+        color: #EB4D4D;
+        font-weight: bold;
+      }
+   
+  
+  tfoot {
+    padding: 15px;
+    font-size: 14px;
+    color: #6c757d;
   }
   
+  tfoot td {
+    text-align: left;
+  }
+  
+  tfoot .see-more-btn {
+    float: right;
+    background-color: #2D60FF;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
   // ✅ جعل الجدول متجاوبًا بشكل مثالي على الأجهزة المختلفة
   @media (max-width: 992px) {
     .table-responsive {
@@ -120,4 +225,4 @@
     .stat-card {
       width: 90%;
     }
-  }
+  }}

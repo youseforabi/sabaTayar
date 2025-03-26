@@ -1,0 +1,12 @@
+<section class="history-section">
+    <div class="header">
+      <h1>Explore The History</h1>
+      <h2>Guide Of Egypt</h2>
+    </div>
+      <div class="items-container" >
+        <div *ngFor="let item of data.items" class="item-card">
+          <img [src]="item.imageUrl" [alt]="item.title" class="item-image">
+          <h3 class="item-title">{{ item.title }}</h3>
+        </div>
+      </div>
+  </section>
