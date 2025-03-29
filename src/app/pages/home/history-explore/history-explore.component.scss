@@ -48,6 +48,13 @@
   min-width: 300px;
   border-radius: 12px;
   text-align: center;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.item-card:hover .item-image {
+  transform: scale(1.05);
+  transition: transform 0.4s ease-in-out;
 }
 
 .item-image {

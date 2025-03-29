@@ -498,24 +498,16 @@
     }
   }
 }
+
 .card-item i {
   font-size: 2rem;
   color: #0D62E2;
   transition: transform 0.6s ease-in-out;
-  display: inline-block; /* مهم لتجنب مشاكل التحريك */
 }
 
-.card-item i:hover {
-  transform: rotateY(360deg);
+.card-item:hover i {
+  transform: rotateX(360deg);
 }
-
-
-
-
-
-
-
-
 
 
 
