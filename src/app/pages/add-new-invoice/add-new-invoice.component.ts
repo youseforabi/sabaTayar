@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InvoiceService } from '../../services/Invoice/invoice.service';
 
 @Component({
   selector: 'app-add-new-invoice',
@@ -12,8 +13,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class AddNewInvoiceComponent {
 
   invoiceForm: FormGroup;
+  isSubmitting = false;
 
-  constructor(private fb: FormBuilder) {
+
+  constructor(private fb: FormBuilder,private invoiceService:InvoiceService) {
     this.invoiceForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -32,7 +35,21 @@ export class AddNewInvoiceComponent {
   }
   onSubmit() {
     if (this.invoiceForm.valid) {
-      console.log('Invoice Data:', this.invoiceForm.value);
+      this.isSubmitting = true;
+      this.invoiceService.createInvoice(this.invoiceForm.value).subscribe({
+        next: (response) => {
+          console.log('Invoice Created:', response);
+          alert('Invoice added successfully');
+          this.invoiceForm.reset();
+        },
+        error: (error) => {
+          console.error('Error creating invoice:', error);
+          alert('Failed to create invoice');
+        },
+        complete: () => {
+          this.isSubmitting = false;
+        }
+      });
     }
   }
 

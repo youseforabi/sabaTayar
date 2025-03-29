@@ -11,7 +11,6 @@
     font-size: 2.2rem;
     color: #2c3e50;
     font-weight: 700;
-    text-align: center;
     margin-bottom: 45px;
   }
 
@@ -103,11 +102,18 @@
       background: #bdc3c7;
       border-radius: 50%;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease, border 0.3s ease;
+      border: 2px solid transparent; // Border initial as transparent
 
       &.active {
         background: #3498db;
         transform: scale(1.2);
+        border: 2px solid #3498db; // Border around active dot
+      }
+
+      &:hover {
+        background: #95a5a6;
+        border: 2px solid #95a5a6; // Border around dot on hover
       }
     }
   }

@@ -1,65 +1,140 @@
 .navbar {
   background-color: white !important;
   padding: 10px 20px;
+}
 
-  .logo {
-    height: 30px;
+.logo {
+  height: 30px;
+}
+
+.nav-link {
+  color: black;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.1.8s ;
+}
+
+.nav-link:hover {
+  color: #18458B;
+}
+
+/* أنيميشن القائمة المنسدلة */
+.animate-dropdown {
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-item.dropdown:hover .animate-dropdown {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+/* أنيميشن أيقونة السهم */
+.dropdown-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-item.dropdown:hover .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* تخصيص القائمة المنسدلة */
+.dropdown-menu {
+  background-color: white;
+  border: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+/* تخصيص عناصر القائمة */
+.dropdown-item {
+  color: black;
+  font-size: 16px;
+  padding: 10px 20px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+/* إضافة الخط الجانبي عند الهوفر */
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  padding-left: 30px;
+}
+
+.dropdown-item:hover::before {
+  content: "–";
+  position: absolute;
+  left: 10px;
+  color: #007bff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* تحسين مظهر القائمة */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* تنسيق صورة الحساب */
+.profile-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* زر القائمة الجانبية */
+.navbar-toggler {
+  border: none;
+}
+
+/* أنيميشن للقائمة الجانبية في الموبايل */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
   }
 
-  .nav-link {
-    color: black;
-    font-weight: 500;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #18458B;
-    }
+  .offcanvas-body .nav-item {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+  .offcanvas-body .nav-item:first-child {
+    border-top: 1px solid #ccc;
+  }
+  .offcanvas-body .nav-item:last-child {
+    border-bottom: none;
   }
 
-  .dropdown-menu {
-    background-color: white;
-    border: 1px solid #ccc;
-
-    .dropdown-item {
-      color: black;
-      &:hover {
-        background-color: #f8f9fa;
-      }
-    }
+  .navbar-collapse.show {
+    max-height: 500px;
   }
 
-  .profile-img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ccc;
+  .navbar-nav {
+    flex-direction: column;
   }
 
-  .navbar-toggler {
-    border: none;
+  .nav-item {
+    width: 100%;
   }
 
-  @media (max-width: 992px) {
-    .navbar-collapse {
-      background-color: white;
-      padding: 10px;
-      text-align: center;
-    }
-    
-
-    .navbar-nav {
-      flex-direction: column;
-    }
-
-    .nav-item {
-      width: 100%;
-    }
-
-    .d-flex.align-items-center {
-      flex-direction: column;
-      align-items: center !important;
-    }
+  .d-flex.align-items-center {
+    flex-direction: column;
+    align-items: center !important;
   }
+ .collapse{
+  background-color: #dfe2e7 !important;
+ } 
 }

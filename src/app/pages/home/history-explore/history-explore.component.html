@@ -1,12 +1,21 @@
 <section class="history-section">
-    <div class="header">
-      <h1>Explore The History</h1>
-      <h2>Guide Of Egypt</h2>
+  <div class="header">
+    <h1 class="fw-bold">Explore The History</h1>
+
+    <!-- أزرار السلايدر -->
+    <div class="slider-controls">
+      <button (click)="prevSlide()" class="slider-btn left-btn">&#8592;</button>
+      <button (click)="nextSlide()" class="slider-btn right-btn">&#8594;</button>
     </div>
-      <div class="items-container" >
-        <div *ngFor="let item of data.items" class="item-card">
-          <img [src]="item.imageUrl" [alt]="item.title" class="item-image">
-          <h3 class="item-title">{{ item.title }}</h3>
-        </div>
+  </div>
+
+  <!-- السلايدر -->
+  <div class="slider-container">
+    <div class="items-container" #slider>
+      <div *ngFor="let item of data.items" class="item-card">
+        <img [src]="item.imageUrl" [alt]="item.title" class="item-image">
+        <h1 class="item-title">{{ item.title }}</h1>
       </div>
-  </section>
+    </div>
+  </div>
+</section>

@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/co
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import 'quill/dist/quill.snow.css';
+import { BlogService } from '../../services/dashBlog/blog.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-new-blog',
   imports: [QuillModule,ReactiveFormsModule,FormsModule,CommonModule],
@@ -18,7 +20,10 @@ export class AddNewBlogComponent {
   mainImageUrl: string | null = null;
 
 
-  constructor(private fb: FormBuilder,private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder,private cdr: ChangeDetectorRef ,
+    private blogService: BlogService,
+    private toostr : ToastrService
+  ) {
     this.blogForm = this.fb.group({
       title: [''],
       categories: this.fb.array([]), // قيمة واحدة تختارها
@@ -29,7 +34,7 @@ export class AddNewBlogComponent {
       tags: this.fb.array([]), // مصفوفة العلامات
       newTag: new FormControl(''),
       mainImage: [null], // صورة رئيسية
-      galleryImages: this.fb.array([]),
+      headerImages: this.fb.array([]),
       description: [''] // الوصف
     });
 
@@ -130,14 +135,14 @@ export class AddNewBlogComponent {
       reader.readAsDataURL(file);
     }
   }
-  get galleryImages(): FormArray {
-    return this.blogForm.get('galleryImages') as FormArray;
+  get headerImages(): FormArray {
+    return this.blogForm.get('headerImages') as FormArray;
   }
   uploadGalleryImages(files: FileList) {
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
-        this.galleryImages.push(new FormControl(reader.result as string));
+        this.headerImages.push(new FormControl(reader.result as string));
         this.cdr.detectChanges();
       };
       reader.readAsDataURL(file);
@@ -147,12 +152,63 @@ export class AddNewBlogComponent {
  
 
   removeImage(index: number) {
-    this.galleryImages.removeAt(index);
+    this.headerImages.removeAt(index);
     this.cdr.detectChanges();
   }
-  onSubmit() {
-    console.log(this.blogForm.value);
+  stripHtml(html: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    return tempDiv.textContent || tempDiv.innerText || "";
   }
+  submitBlog() {
+    if (this.blogForm.valid) {
+      const formData = this.blogForm.value;
+  
+      const requestData = {
+        title: formData.title,
+        description: this.stripHtml(formData.description), // إزالة الوسوم
+        mainImage: formData.mainImage || "",
+        headerImages: formData.headerImages.length > 0 ? formData.headerImages.join(",") : "",
+        categoryName: formData.categories.length > 0 ? formData.categories[0] : "",
+        places: formData.places || [],
+        tags: formData.tags || []
+      };
+  
+      this.blogService.addBlog(requestData).subscribe({
+        next: (response) => {
+          console.log('Blog added successfully:', response);
+          this.toostr.success('Blog added successfully!', 'Success');
+  
+          // ✅ إعادة ضبط الحقول العادية
+          this.blogForm.reset();
+  
+          // ✅ إعادة ضبط الـ FormArray (المصفوفات) بشكل صحيح
+          (this.blogForm.get('tags') as FormArray).clear();
+          (this.blogForm.get('places') as FormArray).clear();
+          
+          (this.blogForm.get('headerImages') as FormArray).clear();
+          (this.blogForm.get('categories') as FormArray).clear();
+
+          this.blogForm.patchValue({ mainImage: null });
+          this.mainImageUrl = null;
+  
+          // ✅ جعل الفورم كأنه لم يتم لمسه أو تغييره
+          this.blogForm.markAsPristine();
+          this.blogForm.markAsUntouched();
+  
+        },
+        error: (error) => {
+          console.error('Error adding blog:', error);
+          this.toostr.error('Failed to add blog. Please try again.', 'Error');
+        }
+      });
+    } else {
+      this.toostr.warning('Please fill all required fields.', 'Warning');
+    }
+  }
+  
+  
+  
   
 
 }

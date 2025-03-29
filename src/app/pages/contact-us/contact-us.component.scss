@@ -1,0 +1,103 @@
+.contact-container {
+    .map-container {
+      width: 100%;
+      iframe {
+        width: 100%;
+        height: 350px;
+      }
+    }
+    .map-frame {
+        border: none;
+        width: 100%;
+        height: 350px;
+      }
+  
+    .contact-content {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 0;
+      gap: 40px;
+  
+      .info, .form {
+        flex: 1;
+      }
+  
+      .info {
+        max-width: 40%;
+        p {
+          margin: 10px 0;
+        }
+      }
+  
+      .form {
+        max-width: 55%;
+      
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+      
+        .row {
+          display: flex;
+          gap: 10px;
+          
+          input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+      
+          textarea {
+            min-height: 100px;
+          }
+        }
+      
+        /* جعل أول صفين كل حقل يأخذ نصف العرض */
+        .row:nth-child(1),
+        .row:nth-child(2) {
+          display: flex;
+          
+          input {
+            flex: 1;
+          }
+        }
+      
+        .btn {
+          background-color: #007bff;
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          width: 30%;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .contact-content {
+          flex-direction: column;
+          
+          .info, .form {
+            max-width: 100%;
+          }
+        }
+      
+        /* في الشاشات الصغيرة جعل الحقول تأخذ العرض كاملاً */
+        .form .row {
+          flex-direction: column;
+        }
+      }
+      
+  }
+  
+  @media (max-width: 768px) {
+    .contact-content {
+      flex-direction: column;
+      .info, .form {
+        max-width: 100%;
+      }
+    }
+}
+}

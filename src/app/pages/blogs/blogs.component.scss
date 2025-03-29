@@ -72,6 +72,8 @@
     }
   
     .blog-grid {
+      max-height: 800px; /* تحديد أقصى ارتفاع للبلوجات */
+  overflow-y: auto; /* تفعيل التمرير الرأسي */
       display: grid;
       grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
       gap: 15px; /* تباعد بين العناصر */
@@ -80,6 +82,7 @@
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
 
+   
       .blog-card {
         background: white;
         border-radius: 10px;
@@ -158,6 +161,9 @@
     }
 
     .recent-comments {
+
+      max-height: 400px; /* تحديد أقصى ارتفاع للبلوجات */
+      overflow-y: auto; /* تفعيل التمرير الرأسي */
         margin-top: 25px;
         background: #fff;
         padding: 20px;
@@ -227,5 +233,32 @@
         background: red;
       }
       
+  }
+
+  .blog-grid::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .blog-grid::-webkit-scrollbar-thumb {
+    background-color: #007bff ;
+    border-radius: 4px;
+  }
+  
+  .blog-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+
+  .recent-comments::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .recent-comments::-webkit-scrollbar-thumb {
+    background-color: #007bff ;
+    border-radius: 4px;
+  }
+  
+  .recent-comments::-webkit-scrollbar-track {
+    background: #f1f1f1;
   }
   

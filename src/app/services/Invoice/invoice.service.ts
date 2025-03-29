@@ -16,4 +16,8 @@ export class InvoiceService {
   getInvoices(): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(`${this.baseUrl}/Invoice`);
   }
+
+  createInvoice(invoiceData: any): Observable<any> {
+    return this.http.post(`http://sabatoursapi.runasp.net/api/Invoice/create`, invoiceData);
+  }
 }

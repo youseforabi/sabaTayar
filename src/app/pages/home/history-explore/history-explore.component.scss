@@ -1,66 +1,65 @@
-
 .history-section {
-    margin: 0 auto;
-    margin-top: 45px;
-    
-    padding: 2rem;
-    text-align: left;
-    font-family: 'Arial', sans-serif;
-    position: relative;
-  
-    .header {
-      margin-bottom: 2rem;
-      
-      h1 {
-        font-size: 2.5rem;
-        color: #2c3e50;
-        margin-bottom: 0.5rem;
-      }
-  
-      h2 {
-        font-size: 1.8rem;
-        color: #7f8c8d;
-      }
-    }
-  
-  
-      .items-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* يجعل 3 كروت افتراضيًا */
-        gap: 1rem;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem;
-        justify-content: center;
-      }
-      
-      .item-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s;
-        text-align: center;
-      
-        &:hover {
-          transform: translateY(-5px);
-        }
-      
-        .item-image {
-          width: 100%;
-          height: 250px; /* زيادة الطول */
-          object-fit: cover;
-        }
-      
-        .item-title {
-          padding: 1rem;
-          margin: 0;
-          color: #34495e;
-          font-size: 1.4rem;
-          font-weight: bold;
-        }
-      }
-      
-    }
-  
+  margin: 0 auto;
+  margin-top: 45px;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  max-width: 1200px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* يجعل الزرارين على اليمين */
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.slider-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.slider-btn {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.slider-btn:hover {
+  background: #007bff;
+  color: white;
+}
+
+.slider-container {
+  width: 100%;
+}
+
+.items-container {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+.item-card {
+  min-width: 300px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.item-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.item-title {
+  padding: 1rem;
+  margin: 0;
+  color: #34495e;
+  font-size: 1.4rem;
+  font-weight: 500;
+}

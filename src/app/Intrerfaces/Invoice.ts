@@ -14,13 +14,10 @@ export interface User {
   }
   
   export interface Invoice {
-    invoiceID: string;
-    userID: string;
-    user: User;
-    bookingID: string;
-    tourBooking: TourBooking;
-    invoiceDate: string;
-    totalAmount: number;
+    invoiceNumber: string;
+    customer: string;
+    issueDate: string;
+    dueDate: string;
+    tourAmount: number;
     status: string;
   }
-  

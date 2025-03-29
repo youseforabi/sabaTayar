@@ -3,23 +3,23 @@
     <div class="stat-card">
       <div>
         <h4>My Wallet Balance</h4>
-        <h2>{{totalWalletBalance}}</h2>
+        <h2>{{myWalletBalance}}</h2>
       </div>
       <i class="bi bi-cash-stack"></i> <!-- بديل 'sack-dollar' -->
     </div>
     <div class="stat-card">
       <div>
         <h4>My Refunds</h4>
-        <h2>$10,500</h2>
+        <h2>{{allRefunds}}</h2>
       </div>
       <i class="bi bi-megaphone-fill"></i> <!-- بديل 'ad' -->
     </div>
     <div class="stat-card">
       <div>
         <h4>Payments Last Week</h4>
-        <h2>$8,000</h2>
+        <h2>{{paymentLastWeek}}</h2>
       </div>
-      <i class="bi bi-handbag-fill"></i> <!-- بديل 'hand-holding-dollar' -->
+      <i class="bi bi-handbag-fill"></i> 
     </div>
   </div>
 </div>
@@ -59,21 +59,25 @@
       <tr *ngFor="let transaction of transactions">
         <td class="checkbox-cell"><input type="checkbox" /></td>
         <td>{{transaction.username}}</td>
-        <td>{{ transaction['User Email'] }}</td>
-        <td>{{ transaction.method }}</td>
-        <td>{{ transaction['Payment Date']}}</td>
+        <td>{{ transaction.userEmail }}</td>
+        <td>{{ transaction.gateway }}</td>
+        <td>{{ transaction.paymentDate
+        }}</td>
         <td>{{ transaction.amount }}</td>
         <td [class]="getStatusClass(transaction.status)">
           {{ transaction.status }}
         </td>
       </tr>
     </tbody>
-
     <tfoot>
       <tr>
-        <td colspan="5">Showing 1 to 10 of 472 entries</td>
+        <td colspan="5">
+          Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ getDisplayedEntries() }} of {{ totalEntries }} entries
+        </td>
         <td>
-          <button class="see-more-btn">See More</button>
+          <button class="see-more-btn" (click)="loadMore()" [disabled]="transactions.length >= totalEntries || transactions.length === 0">
+            See More
+          </button>
         </td>
       </tr>
     </tfoot>

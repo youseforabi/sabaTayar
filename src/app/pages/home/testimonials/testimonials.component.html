@@ -5,12 +5,13 @@
   
       <div class="testimonials-slider">
         <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === activeIndex">
-        <h2 class="section-title">What They Are Say!</h2>
 
           <div class="testimonial-content">
             <img src="assets/annnncientjpg.jpg" alt="{{testimonial.author}}" class="author-image">
   
             <div class="text-content">
+        <h2 class="section-title">What They Are Say!</h2>
+
               <div class="rating">
                 <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= testimonial.rating">★</span>
               </div>

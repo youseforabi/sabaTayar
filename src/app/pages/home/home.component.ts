@@ -36,16 +36,29 @@ import { HistoryExploreComponent } from "./history-explore/history-explore.compo
 ],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 
 export class HomeComponent {
 
   searchCriteria = {
-    place:   '',
-  tourType:  '',
-  people:  '',
-  dateControl : new FormControl(),
+    place: '',
+    tourType: '',
+    people: '',
+    dateControl: new FormControl(),
+    priceMin: 1000,
+    priceMax: 70000,
+      amenities: {
+        airConditioning: false,
+        laundry: false,
+        refrigerator: false,
+        alarmSystem: false,
+        microwave: false,
+        shower: false,
+        centralHeating: false,
+        pool: false
+      }
+    
   };
   openDatepicker(datepicker: any) {
     datepicker.open();
@@ -60,24 +73,50 @@ export class HomeComponent {
     { author: "JAMES L., UK", text: "Our guide was friendly and insightful. We learned so much." }
   ];
 
+  showFilters = false;
+
   constructor(private router: Router) {}
 
-  onSearch() {
-    const selectedDate = this.searchCriteria.dateControl.value
-      ? this.formatDate(new Date(this.searchCriteria.dateControl.value))
-      : '';
-  
-    this.router.navigate(['/listingTours'], {
-      queryParams: {
-        place: this.searchCriteria.place,
-        tourType: this.searchCriteria.tourType,
-        people: this.searchCriteria.people,
-        date: selectedDate 
-      }
-    });
-
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
   }
 
+  // onSearch() {
+  //   const selectedDate = this.searchCriteria.dateControl.value
+  //     ? this.formatDate(new Date(this.searchCriteria.dateControl.value))
+  //     : '';
+
+  //   this.router.navigate(['/listingTours'], {
+  //     queryParams: {
+  //       place: this.searchCriteria.place,
+  //       tourType: this.searchCriteria.tourType,
+  //       people: this.searchCriteria.people,
+  //       date: selectedDate,
+  //       price: this.searchCriteria.price,
+  //       amenities: JSON.stringify(this.searchCriteria.amenities)
+  //     }
+  //   });
+  // }
+
+  ngAfterViewInit() {
+    this.updateTrack();
+  }
+  updateTrack() {
+    if (this.searchCriteria.priceMin > this.searchCriteria.priceMax) {
+      [this.searchCriteria.priceMin, this.searchCriteria.priceMax] = [this.searchCriteria.priceMax, this.searchCriteria.priceMin];
+    }
+
+    const min = 1000;
+    const max = 70000;
+    const minPercent = ((this.searchCriteria.priceMin - min) / (max - min)) * 100;
+    const maxPercent = ((this.searchCriteria.priceMax - min) / (max - min)) * 100;
+
+    const track = document.querySelector('.slider-track') as HTMLElement;
+    if (track) {
+      track.style.left = `${minPercent}%`;
+      track.style.width = `${maxPercent - minPercent}%`;
+    }
+  }
   formatDate(date: any): string {
     if (!date) return '';
     const d = new Date(date);

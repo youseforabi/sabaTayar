@@ -22,9 +22,9 @@ export class DashboardService {
     getUsersCount(): Observable<number>{
       return this.http.get<number>(`${this.baseUrl}/GetUsersCount`)
     }
-    getTotalWalletBalance(): Observable<number>{
-      return this.http.get<number>(`${this.baseUrl}/GetTotalWalletBalance`)
-    }
+    // getTotalWalletBalance(): Observable<number>{
+    //   return this.http.get<number>(`${this.baseUrl}/GetTotalWalletBalance`)
+    // }
 
 
     // createTour(tourData: any): Observable<any> {

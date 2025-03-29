@@ -1,134 +1,335 @@
 .footer {
-  background-color: black; // لون الخلفية
-  color: white;
-  font-family: 'Poppins', sans-serif; // استخدم الخط المناسب
-  font-size: 14px;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  padding: 50px 0 20px;
 
   .container {
     max-width: 1200px;
-    margin: auto;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 
-  .row {
+  .footer-content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .design {
-    color: white;
-    text-decoration: none;
+  .footer-column {
+    padding: 10px 0;
+    flex: 1;
+    min-width: 200px;
+
+    &.about-column {
+      flex: 1.5;
+    }
+
+    &.app-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  .footer-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .about-text {
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .contact-info {
+    display: flex;
+    p {
+      margin-bottom: 10px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+
+      i {
+        color: white;
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      strong {
+        font-weight: 600;
+        margin-right: 5px;
+      }
+    }
   }
 
   h5 {
     font-size: 16px;
     font-weight: bold;
-    margin: 25px 0;
+    margin: 20px 0 15px;
+    color: white;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 20px;
-  }
 
-  .tourrs li a {
-    color: white;
-  }
-
-  p {
-    color: white;
-    line-height: 2.0;
-    font-size: 14px;
-    margin-bottom: 20px;
-
-    .faIcon {
-      color: #F9B90F;
-      padding-right: 2px;
+    &.more-info {
+      margin-top: 30px;
     }
-
   }
 
-  .dotted {
-    padding-bottom: 20px;
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
-
-  }
-
-  ul {
+  .footer-links {
     list-style: none;
     padding: 0;
+    margin: 0;
 
     li {
-      margin-bottom: 8px;
-      padding-bottom: 20px;
+      margin-bottom: 12px;
 
       a {
-        color: white;
+        color: #fff;
         text-decoration: none;
         font-size: 14px;
-        transition: color 0.3s ease;
+        transition: color 0.3s;
 
         &:hover {
-          color: #ffc107; // لون التأثير عند التحويل
+          color: white;
         }
       }
     }
   }
 
-  // تنسيق أيقونات التواصل الاجتماعي
-  .social-links {
+  .app-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 20px;
 
-    display: flex;
-    align-items: center;
+    .app-btn {
+      display: block;
+      width: 150px;
 
-    gap: 10px;
-
-    h4 {
-      margin-right: 10px;
-      margin-top: 10px;
-    }
-
-    a {
-      background: rgba(255, 255, 255, 0.1);
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 5px;
-      color: white;
-      font-size: 14px;
-      transition: 0.3s;
-
-      &:hover {
-        background: #ffc107;
-        color: #0a3b7e;
+      img {
+        width: 100%;
+        height: auto;
       }
     }
   }
 
-
-}
-
-.footer-bottom {
-  background-color: black;
-  color: white;
-  margin-top: 20px;
-  text-align: center;
-  padding: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: 13px;
-}
-
-// تحسين التصميم في الشاشات الصغيرة
-@media (max-width: 768px) {
-  .footer {
+  .address-note {
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 20px;
+    font-style: italic;
+  }
+  .copyright-section {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* هذا يجعل العناصر على نفس السطر وبعيدين عن بعض */
     text-align: center;
+    font-size: 13px;
+    color: #aaa;
+  }
+  
+  .copyright-section p {
+    margin: 0; /* إزالة الهوامش لتقليل المسافة */
+  }
+  
+  .copyright-section .left, .copyright-section .right {
+    flex: 1; /* توزيع المسافة بين النصوص */
+  }
+  
+  .copyright-section .left {
+    text-align: left; /* محاذاة النص إلى اليسار */
+  }
+  
+  .copyright-section .right {
+    text-align: right; /* محاذاة النص إلى اليمين */
+  }
 
-    .row {
+  .legal-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  a{
+    color: white;
+    text-decoration: none;
+  }
+  @media (max-width: 768px) {
+    .footer-content {
       flex-direction: column;
     }
 
-    .social-links {
+    .footer-column {
+      &.app-column {
+        align-items: flex-start;
+      }
+    }
+
+    .app-buttons {
+      flex-direction: row;
+    }
+
+    .legal-links {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}
+
+.footer-column.support-column {
+  padding: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-column.support-column h5 {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+
+
+.support-info {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.support-text {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.phone-number {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.email-link,
+.my-2 {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.email-link i,
+.my-2 i {
+  margin-right: 10px;
+}
+
+.email-link:hover,
+.my-2:hover {
+  color: white;
+}
+
+.email-link i,
+.my-2 i {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .footer-column.support-column {
+    border-left: none;
+    margin-bottom: 20px;
+  }
+
+  .support-info {
+    text-align: center;
+  }
+
+  .phone-number {
+    text-align: center;
+  }
+
+  .email-link,
+  .my-2 {
+    text-align: center;
+    display: block;
+  }
+}
+
+
+.footer-bottom {
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+
+  .footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .legal-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #F9B90F;
+      }
+    }
+
+    .separator {
+      color: #666;
+      font-size: 13px;
+    }
+  }
+
+  .rights-text {
+    color: #aaa;
+    font-size: 13px;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+
+    .legal-links {
       justify-content: center;
     }
   }

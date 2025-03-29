@@ -1,7 +1,7 @@
 <div class="blog-form-container">
     <h1 class="fw-bolder">Basic Informations</h1>
 
-    <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="blogForm" (ngSubmit)="submitBlog()">
         <div class="forma">
             <div class="form-group places-container">
                 <div class="input-row">
@@ -107,9 +107,9 @@
         <div class="image-upload full-width">
           <label>Header Images</label>
           <div class="upload-box" (click)="triggerFileInput('galleryImage')">
-            <ng-container *ngIf="galleryImages.controls.length > 0; else uploadIconGallery">
+            <ng-container *ngIf="headerImages.controls.length > 0; else uploadIconGallery">
               <div class="gallery-container">
-                <div *ngFor="let imgCtrl of galleryImages.controls; let i = index" class="gallery-image">
+                <div *ngFor="let imgCtrl of headerImages.controls; let i = index" class="gallery-image">
                   <img [src]="imgCtrl.value" alt="Uploaded Image">
                   <button class="delete-btn" (click)="removeImage(i)">✖</button>
                 </div>

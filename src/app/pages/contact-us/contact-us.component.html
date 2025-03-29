@@ -1,0 +1,66 @@
+<div class="contact-container">
+    <!-- Google Map -->
+    <div class="map-container">
+      <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15535.659407154545!2d39.822919099999996!3d21.4224875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c204b10a2d1d0d%3A0xa17e2e040f24238f!2sKaaba!5e0!3m2!1sen!2seg!4v1711557404465!5m2!1sen!2seg"
+      width="100%"
+      height="350"
+      class="map-frame"
+      allowfullscreen=""
+      title="موقع الكعبة المشرفة">
+    </iframe>
+    
+    
+    
+    </div>
+  
+    <!-- Contact Section -->
+    <div class="contact-content container">
+      <div class="info">
+        <h2>We'd Love To Help</h2>
+        <p>
+          We'd love to hear from you! Whether you have questions, need support, or want to explore our adventures, our team is here to help.
+        </p>
+        <p><strong>Phone:</strong> +12 0008765</p>
+        <p><strong>Email:</strong> infosabatours.com</p>
+        <p><strong>Address:</strong> H-12 6th Area, El Omraniya, Giza</p>
+        <p><strong>Open Times:</strong><br>Sat - Thu: 9:00AM - 7:00PM<br>Friday: Closed</p>
+      </div>
+  
+      <!-- Contact Form -->
+      <div class="form">
+        <h2>Get In Touch</h2>
+        <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <input type="text" formControlName="name" placeholder="Your Name" required>
+          <input type="email" formControlName="email" placeholder="Your Email" required>
+        </div>
+        <div class="row">
+          <input type="text" formControlName="phone" placeholder="Your Phone" required>
+          
+          <!-- Country Dropdown -->
+          <!-- <div class="dropdown">
+            <input type="text" formControlName="country" placeholder="Country" (input)="filterCountries($event)" required>
+            <ul class="dropdown-list" *ngIf="filteredCountries.length > 0">
+              <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+                {{ country }}
+              </li>
+            </ul>
+          </div> -->
+          <input type="text" formControlName="country" placeholder="Your Country" required>
+
+        </div>
+        <div class="row">
+          <input type="text" formControlName="source" placeholder="How did you find us?" required>
+        </div>
+        <div class="row">
+          <textarea formControlName="message" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+
+
+      </div>
+    </div>
+  </div>
+  

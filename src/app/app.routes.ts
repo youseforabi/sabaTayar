@@ -21,6 +21,7 @@ import { BlogsComponent } from './pages/blogs/blogs.component';
 import { AddNewBlogComponent } from './pages/add-new-blog/add-new-blog.component';
 import { ListingToursComponent } from './pages/listing-tours/listing-tours.component';
 import { BlogPostComponent } from './pages/blog-post/blog-post.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent }, 
@@ -49,6 +50,7 @@ export const routes: Routes = [
     },
     { path: 'listingTours', component: ListingToursComponent, canActivate: [authGuard] },
     { path: 'blogPosts', component: BlogPostComponent, canActivate: [authGuard] },
+    { path: 'contactUs', component: ContactUsComponent },
 
     {path:'login',component:LoginComponent},
     {path:'register',component:RegisterComponent}

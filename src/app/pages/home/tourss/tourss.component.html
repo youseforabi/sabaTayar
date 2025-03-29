@@ -1,20 +1,19 @@
 <section class="top-destinations py-5">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="section-title">Top Tour Destinations</h2>
-        <p class="section-subtitle">Discover the Most Popular Places to Visit</p>
-      </div>
-  
-      <div class="destinations-grid">
-        <div class="destination-card" 
-             *ngFor="let dest of destinations"
-             [style.background-image]="'url(' + dest.image + ')'">
-          <div class="destination-overlay"></div>
-          <div class="destination-content">
-            <p class="destination-name">{{dest.name}}</p>
-            <div class="tour-count">{{dest.tours}} Tours</div>
-          </div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Top Tour Destinations</h2>
+      <p class="section-subtitle">Discover the Most Popular Places to Visit</p>
+    </div>
+
+    <div class="destinations-grid">
+      <div class="destination-card" *ngFor="let dest of destinations">
+        <img class="destination-image" [src]="dest.image" alt="{{dest.name}}">
+        <div class="destination-overlay"></div>
+        <div class="destination-content">
+          <p class="destination-name">{{dest.name}}</p>
+          <div class="tour-count">{{dest.tours}} Tours</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

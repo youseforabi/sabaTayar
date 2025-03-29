@@ -27,23 +27,24 @@
     <button class="btn btn-primary">Apply</button>
     <div class="d-flex align-items-center">
       <label class="me-1" for="start">Start Date:</label>
-      <input type="date" id="start" placeholder="Start Date" />
+      <input type="date" id="start" [(ngModel)]="startDate" (change)="applyDateFilter()" />
     </div>
     <div class="d-flex align-items-center">
       <label class="me-1" for="end">End Date:</label>
-      <input type="date" id="end" placeholder="End Date" />
-    </div> <button class="btn btn-primary">Filter</button>
+      <input type="date" id="end" [(ngModel)]="endDate" (change)="applyDateFilter()" />
+    </div>
+    <button class="btn btn-primary">Filter</button>
     <button class="btn btn-primary">Export to CSV</button>
     <button class="btn">Show / Hide columns</button>
   </div>
   
 
-<div class="table-responsive">
+  <div class="table-responsive">
     <table class="table">
       <thead>
         <tr>
           <th><input type="checkbox"></th>
-          <th>Invoice</th>
+          <th>Invoice Number</th>
           <th>Customer</th>
           <th>Issue Date</th>
           <th>Due Date</th>
@@ -53,15 +54,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let invoices of Invoices">
+        <tr *ngFor="let invoice of Invoices">
           <td class="checkbox-cell"><input type="checkbox" /></td>
-          <td>{{ invoices.invoiceID }}</td>
-          <td>{{ invoices.user.name }}</td>
-          <td>{{ invoices.tourBooking.bookingDate }}</td>
-          <td>{{ invoices.invoiceDate }}</td>
-          <td>{{ invoices.totalAmount }}</td>
-          <td [class]="getStatusClass(invoices.status)">
-            {{ invoices.status }}
+          <td>{{ invoice.invoiceNumber }}</td>
+          <td>{{ invoice.customer }}</td>
+          <td>{{ invoice.issueDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ invoice.dueDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ invoice.tourAmount | currency }}</td>
+          <td [class]="getStatusClass(invoice.status)">
+            {{ invoice.status }}
           </td>
           <td class="action-icons">
             <span class="material-icons link">link</span>
@@ -71,9 +72,8 @@
             <span class="material-icons deletee">delete</span>
           </td>
         </tr>
-        
-        
       </tbody>
     </table>
   </div>
+  
   

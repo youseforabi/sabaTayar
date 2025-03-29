@@ -2,12 +2,13 @@
 .slider-container {
 
     position: relative;
-    max-width: 90%;
+    max-width: 71%;
     margin: 25px auto;
-    overflow: hidden;
     padding: 20px 0;
+    text-align: left;
+
   }
-  
+
   .slider {
     display: flex;
     gap: 15px;
@@ -17,6 +18,7 @@
     white-space: nowrap;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    text-align: left;
   }
   
   .slider::-webkit-scrollbar {
@@ -24,19 +26,26 @@
   }
   
   .tour-card {
-    background: #f1f1f1;
+    position: relative;
+    background: white;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 180px;
-    height: 250px; /* تحديد ارتفاع ثابت */
+    border-radius: 15px;
+    text-align: left; /* محاذاة النص لليسار */
+    width: 200px;
+    height: 230px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    align-items: flex-start; /* جعل المحتوى يبدأ من اليسار */
     justify-content: center;
-    align-items: center;
     transition: 0.3s ease-in-out;
-    overflow: hidden; /* منع خروج المحتوى */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+
+  .tour-card:hover{
+    background-color: #0D62E2;
+    color: white !important;
   }
   
   
@@ -50,18 +59,17 @@
   .tour-card i {
     font-size: 40px;
     margin-bottom: 10px;
+    color: black; /* لون الأيقونة الافتراضي */
+    transition: color 0.3s ease-in-out;
   }
   
-  .tour-card p {
-    font-size: 14px;
-    color: #333;
-    max-width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .tour-card.active i {
-    color: white;
+  .tour-card h6, .tour-card p {
+    margin: 5px 0;
+    color: black; /* لون النص الافتراضي */
+    transition: color 0.3s ease-in-out;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
   
   .tour-card.active p {
@@ -69,19 +77,49 @@
     overflow: visible;
     text-overflow: unset;
   }
+
+  .tour-card:hover,
+.tour-card.active {
+  background: #0D62E2;
+  color: white;
+}
+
+.tour-card:hover i,
+.tour-card:hover h6,
+.tour-card:hover p,
+.tour-card.active i,
+.tour-card.active h6,
+.tour-card.active p {
+  color: white;
+}
+
+/* تعديل لون شريط العد عند التفعيل */
+.tour-card.active .tour-count {
+  background: white;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
   .tour-count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #007bff;
+    color: white;
     font-size: 12px;
     font-weight: bold;
     padding: 5px 10px;
-    background: #007bff;
-    color: white;
     border-radius: 5px;
     display: inline-block;
+    min-width: 50px; /* يضمن حدًا أدنى للحجم */
+    text-align: center;
+    white-space: nowrap; /* يمنع انكسار النص */
   }
   
+  /* عند تفعيل الـ Active */
   .tour-card.active .tour-count {
     background: white;
     color: #007bff;
+    border: 1px solid #007bff;
   }
   
   /* تصميم الأسهم */
@@ -89,9 +127,9 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: #007bff;
+    background: transparent;
     border: none;
-    color: white;
+    color: black;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -105,8 +143,9 @@
   }
   
   .slider-btn:hover {
-    background: #0056b3;
-    transform: scale(1.1);
+      background: #0056b3;
+      color: white;
+      border: blue;
   }
   
   .slider-btn i {
@@ -115,11 +154,11 @@
   
   /* وضع الأسهم خارج الكروت */
   .prev {
-    left: -5px;
+    left: -50px;
   }
   
   .next {
-    right: -5px;
+    right: -50px;
   }
   
   
