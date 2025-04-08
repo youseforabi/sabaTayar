@@ -57,36 +57,36 @@ export class InnerdashboardComponent implements OnInit {
 
   constructor(private dashboardService: DashboardService) {}
   ngOnInit(): void {
-    this.getBookingsCount(); 
-    this.getToursCount()
+    // this.getBookingsCount(); 
+    // this.getToursCount()
   }
 
-  getBookingsCount(): void {
-    this.dashboardService.getBookingsCount()
-      .pipe(
-        take(1), // ينهي الاشتراك بعد استدعاء واحد
-        tap( ), // تسجيل القيمة في الكونسول
-        catchError((err) => {
-          console.error('Error fetching bookings count:', err);
-          return of(0); // إرجاع قيمة افتراضية لتجنب الأخطاء في الواجهة
-        })
-      )
-      .subscribe((count) => this.bookingsCount = count);
-  }
+  // getBookingsCount(): void {
+  //   this.dashboardService.getBookingsCount()
+  //     .pipe(
+  //       take(1), // ينهي الاشتراك بعد استدعاء واحد
+  //       tap( ), // تسجيل القيمة في الكونسول
+  //       catchError((err) => {
+  //         console.error('Error fetching bookings count:', err);
+  //         return of(0); // إرجاع قيمة افتراضية لتجنب الأخطاء في الواجهة
+  //       })
+  //     )
+  //     .subscribe((count) => this.bookingsCount = count);
+  // }
 
-  getToursCount():void {
-    this.dashboardService.getToursCount()
-    .pipe(
-      take(1),
-      tap(),
-      catchError((err) => {
-        console.error('Error fetching tours count:', err);
+  // getToursCount():void {
+  //   this.dashboardService.getToursCount()
+  //   .pipe(
+  //     take(1),
+  //     tap(),
+  //     catchError((err) => {
+  //       console.error('Error fetching tours count:', err);
 
-          return of(0); // إرجاع قيمة افتراضية لتجنب الأخطاء في الواجهة
-      })
-    )
-    .subscribe((count) => this.toursCount = count);
-  }
+  //         return of(0); // إرجاع قيمة افتراضية لتجنب الأخطاء في الواجهة
+  //     })
+  //   )
+  //   .subscribe((count) => this.toursCount = count);
+  // }
   
 
 }
