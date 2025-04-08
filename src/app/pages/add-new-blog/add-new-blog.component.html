@@ -4,9 +4,9 @@
     <form [formGroup]="blogForm" (ngSubmit)="submitBlog()">
         <div class="forma">
             <div class="form-group places-container">
-                <div class="input-row">
+                <div class="input mt-3">
                     <label>Blog Title</label>
-                    <input type="text" placeholder="Add title..." formControlName="title" />
+                    <input type="text"  placeholder="Add title..." formControlName="title" />
                 </div>
             </div>
 
@@ -15,7 +15,6 @@
                 <div class="input-row">
                     <div>
                         <label class="me-2">Blog Category</label>
-
                         <button (click)="addCategory()" type="button" class="btn">Add</button>
                     </div>
                     <div class="tags-container">
@@ -25,13 +24,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="select-box">
-                    <select formControlName="newCategory">
-                        <option value="" disabled selected>Choose multiple options</option>
-                        <option value="Adventure">Adventure</option>
-                        <option value="Featured">Featured</option>
-                    </select>
+                
+                <div class="select-box mt-2">
+                    <input list="categoryList" formControlName="newCategory" id="category-select" placeholder="Choose or write a category" />
+                    <datalist id="categoryList">
+                        <option *ngFor="let category of availableCategories" [value]="category"></option>
+                    </datalist>
                 </div>
+                
             </div>
 
         </div>
@@ -41,30 +41,28 @@
             <div class="form-group places-container mt-4">
 
                 <div class="input-row">
-                    <div> <label class="me-2">Places</label>
-
-                        <button (click)="addPlace()" type="button" class="btn">Add</button>
-                    </div>
+                    <label>Places</label>
+                    <button (click)="addPlace()" type="button" class="btn">Add</button>
                     <div class="tags-container">
-                        <span *ngFor="let place of places.controls; let i = index" class="tag">
-                            {{ place.value }}
-                            <button (click)="removePlace(i)" type="button" class="remove-btn">&times;</button>
-                        </span>
+                      <span *ngFor="let place of places.controls; let i = index" class="tag">
+                        {{ place.value }}
+                        <button (click)="removePlace(i)" type="button" class="remove-btn">&times;</button>
+                      </span>
                     </div>
-                </div>
-                <div class="select-box">
-                    <select formControlName="newPlace">
-                        <option value="" disabled selected>Choose multiple options</option>
-                        <option value="cairo">Cairo</option>
-                        <option value="alex">Alex</option>
-                        <option value="sa">Saudi Arabia</option>
-                    </select>
-                </div>
+                  </div>
+                  
+                  <div class="select-box mt-2">
+                    <input list="placesList" formControlName="newPlace" id="place-select" placeholder="Choose or write a place" />
+                    <datalist id="placesList">
+                      <option *ngFor="let place of availablePlaces" [value]="place"></option>
+                    </datalist>
+                  </div>
+                  
             </div>
             <div class="form-group places-container mt-4">
                 <div class="input-row">
                     <div>
-                        <label class="me-2">Blogs Tags</label>
+                        <label class="me-2">Blog Tags</label>
                         <button (click)="addTag()" type="button" class="btn">Add</button>
                     </div>
                     <div class="tags-container">
@@ -74,14 +72,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="select-box">
-                    <select formControlName="newTag">
-                        <option value="" disabled selected>Choose multiple options</option>
-                        <option value="sainai">Sainai</option>
-                        <option value="cairo">Cairo</option>
-                        <option value="alex">Alex</option>
-                    </select>
+                
+                <div class="select-box mt-2">
+                    <input list="tagList" formControlName="newTag" id="tag-select" placeholder="Choose or write a tag" />
+                    <datalist id="tagList">
+                        <option *ngFor="let tag of availableTags" [value]="tag"></option>
+                    </datalist>
                 </div>
+                
             </div>
         </div>
 

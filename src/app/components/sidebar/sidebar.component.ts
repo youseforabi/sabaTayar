@@ -20,13 +20,15 @@ export class SidebarComponent {
     { label: 'User Management', icon: 'bi-person', route: '/dashboard/user-management' },
     { label: 'Live Chat', icon: 'bi-chat-dots', route: '/dashboard/chat' },
     { label: 'All Tours', icon: 'bi-list-ul', route: '/dashboard/myToors' },
-    { label: 'My Booking', icon: 'bi-calendar-check', route: '/dashboard/myBooking' },
-    { label: 'Comments', icon: 'bi-chat-left-text', route: '/dashboard/comments' },
+    { label: 'All Booking', icon: 'bi-calendar-check', route: '/dashboard/myBooking' },
+    { label: 'All Comments', icon: 'bi-chat-left-text', route: '/dashboard/comments' },
     { label: 'My Wallet', icon: 'bi-wallet2', route: '/dashboard/withdrawals' },
-    { label: 'Ads Manager', icon: 'bi-megaphone', route: '/dashboard/adsManager' },
     { label: 'Invoices', icon: 'bi-receipt', route: '/dashboard/invoices' },
-    { label: 'Settings', icon: 'bi-gear', route: '/dashboard/settings' },
+
     { label: 'Blogs', icon: 'bi-gear', route: '/dashboard/blogs' },
+
+    { label: 'Ads Manager', icon: 'bi-megaphone', route: '/dashboard/adsManager' },
+    { label: 'Settings', icon: 'bi-gear', route: '/dashboard/settings' },
   ];
 
   constructor(private router: Router) {}

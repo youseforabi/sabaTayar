@@ -1,4 +1,4 @@
-<form [formGroup]="tourForm" (ngSubmit)="submitData()">
+<form [formGroup]="tourForm" (ngSubmit)="submitTour()">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-2">
       <h2 class="section-title">Basic Informations</h2>
@@ -23,8 +23,8 @@
           <label>Tour Category</label>
           <select formControlName="selectedCategory">
             <option value="">Select</option>
-            <option value="adventure">Adventure</option>
-            <option value="shopping">Shopping</option>
+            <option value="0">Adventure</option>
+            <option value="1">Shopping</option>
           </select>
         </div>
 
@@ -43,8 +43,8 @@
     <div class="forma">
       <!-- Places Section -->
       <div class="form-group places-container">
-        <label>Places</label>
         <div class="input-row">
+          <label>Places</label>
           <button (click)="addPlace()" type="button" class="btn">Add</button>
           <div class="tags-container">
             <span *ngFor="let place of places.controls; let i = index" class="tag">
@@ -53,18 +53,22 @@
             </span>
           </div>
         </div>
+        
         <div class="select-box">
-          <select formControlName="newPlace">
-            <option value="" disabled selected>Choose multiple options</option>
-            <option value="cairo">Cairo</option>
-            <option value="alex">Alex</option>
-            <option value="sa">Saudi Arabia</option>
-          </select>
+          <input list="placesList" formControlName="newPlace" id="place-select" placeholder="Choose or write a place" />
+          <datalist id="placesList">
+            <option value="Paris">
+            <option value="London">
+            <option value="New York">
+            <option value="Tokyo">
+            <!-- يمكن إضافة المزيد من الأماكن المقررة مسبقًا -->
+          </datalist>
         </div>
+        
       </div>
 
       <!-- Tour Tags -->
-      <div class="form-group places-container mt-4">
+      <div class="form-group places-container">
         <div class="input-row">
           <label>Tour Tags</label>
           <button (click)="addTag()" type="button" class="btn">Add</button>
@@ -75,14 +79,18 @@
             </span>
           </div>
         </div>
+        
         <div class="select-box">
-          <select formControlName="newTag">
-            <option value="" disabled selected>Choose multiple options</option>
-            <option value="sainai">Sainai</option>
-            <option value="cairo">Cairo</option>
-            <option value="alex">Alex</option>
-          </select>
+          <input list="tagsList" formControlName="newTag" id="tag-select" placeholder="Choose or write your tag" />
+          <datalist id="tagsList">
+            <option value="Adventure">
+            <option value="Shopping">
+            <option value="Nature">
+            <option value="Beach">
+            <!-- يمكن إضافة المزيد من التاجات المقررة مسبقًا -->
+          </datalist>
         </div>
+        
       </div>
     </div>
 
@@ -93,14 +101,15 @@
           <label>Tour Price</label>
           <div class="custom-input">
             <input type="text" formControlName="tourPrice" placeholder="Tour Price">
+            
           </div>
         </div>
         <div class="guests" formGroupName="guests">
           <div class="form-group">
-            <div class="custom-input">
+            <!-- <div class="custom-input">
               <span class="icon">👤</span>
               <input type="text" formControlName="capacity" placeholder="Maximum of..">
-            </div>
+            </div> -->
           </div>
           <div class="guest-input">
             <label>Ad</label>
@@ -169,7 +178,7 @@
             <div class="gallery-container">
               <div *ngFor="let imgCtrl of galleryImages.controls; let i = index" class="gallery-image">
                 <img [src]="imgCtrl.value" alt="Uploaded Image">
-                <button class="delete-btn" (click)="removeImage(i)">✖</button>
+                <!-- <button class="delete-btn1" (click)="removeImage(i)">✖</button> -->
               </div>
             </div>
           </ng-container>
@@ -342,23 +351,43 @@
           <span>{{ displayedYear }} {{ months[displayedMonth] }}</span>
         </div>
       </div>
+      <div class="calendar-container my-2">
+        <div class="calendar-grid">
+          <div class="day-label" *ngFor="let day of weekDays">{{ day }}</div>
 
-      <div class="calendar-grid">
-        <div class="day-label" *ngFor="let day of weekDays">{{ day }}</div>
+          <div class="calendar-day" *ngFor="let day of calendarData" [class.selected]="isSelected(day.date)"
+            (click)="selectDate(day)">
+            <span class="mx-1">{{ day.date.getDate() }}</span>
 
-        <div class="calendar-day" *ngFor="let day of calendarData" [class.disabled]="!day.price"
-          [class.selected]="isSelected(day.date)" (click)="selectDate(day)">
-          <span class="mx-1">{{ day.date.getDate() }}</span>
-          <!-- <span class="price" *ngIf="day.price">Price day<br> ${{ day.price }}</span> -->
-          <span class="options" *ngIf="!day.price">Options</span>
+            <!-- عرض السهم بشكل دروب داون -->
+            <span *ngIf="  !day.priceSet" (click)="openOptionsForm(day)" class="dropdown-btn">&#9660;</span>
+
+            <!-- فورم الخيارات الذي يظهر عند الضغط على السهم بشكل دروب داون -->
+            <div *ngIf="day.optionsForm" class="options-form">
+              <label>Max Guests</label>
+              <input type="number" [(ngModel)]="day.maxGuests" [ngModelOptions]="{standalone: true}" min="1" />
+              <label>Adult Price</label>
+              <input type="number" [(ngModel)]="day.adultPrice" [ngModelOptions]="{standalone: true}" min="0" />
+              <label>Children Price</label>
+              <input type="number" [(ngModel)]="day.childrenPrice" [ngModelOptions]="{standalone: true}" min="0" />
+              <button (click)="setPrice(day)">Set Price</button>
+            </div>
+
+            <!-- عرض السعر بعد تحديده -->
+            <div *ngIf="day.priceSet" class="price-display">
+              Price: ${{ day.price }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
 
-    <div class="button-group mt-2">
-      <button class="btn btn-primary" type="submit">Submit Now</button>
-      <button class="btn btn-danger">Cancel</button>
-    </div>
+
+
+  <div class="button-group mt-2">
+    <button class="btn btn-primary" type="submit">Submit Now</button>
+    <button class="btn btn-danger">Cancel</button>
   </div>
 </form>

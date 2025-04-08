@@ -4,7 +4,7 @@ body {
 }
 
 .booking-container {
-    max-width: 900px;
+    max-width: 1000px;
     background: #fff;
     padding: 30px;
     border-radius: 10px;
@@ -132,3 +132,21 @@ label {
         padding: 10px;
     }
 }
+.payment-text {
+    max-width: 450px;
+    word-break: break-word;
+    line-height: 1.5;
+    text-align:left;
+  }
+  
+  .payment-text .price {
+    font-weight: bold;
+    color: black; /* اللون الأخضر */
+    display: inline; /* اجعل السعر يظهر بجانب النص */
+  }
+  
+  .payment-text a {
+    display: block;
+    color: #007bff; /* اللون الأزرق */
+  }
+  

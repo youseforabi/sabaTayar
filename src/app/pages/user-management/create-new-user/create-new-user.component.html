@@ -1,0 +1,130 @@
+<div class="container p-4">
+    <div class="row">
+      <!-- الصورة -->
+      <div class="col-md-3 d-flex flex-column align-items-center">
+        <div class="position-relative">
+          <img
+            [src]="profilePicture"
+            class="rounded-circle"
+            style="width: 120px; height: 120px; object-fit: cover;"
+          />
+          <label class="position-absolute bottom-0 end-0 bg-light rounded-circle p-1" style="cursor: pointer;">
+            <input type="file" hidden (change)="onImageChange($event)"/>
+            ✏️
+          </label>
+        </div>
+      </div>
+  
+      <!-- النموذج -->
+      <div class="col-md-9">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="row g-3">
+            <!-- صف 1 -->
+            <div class="col-md-6">
+              <label>Username *</label>
+              <input class="form-control" formControlName="name" />
+            </div>
+            <div class="col-md-6 sele">
+                <select class="form-control" formControlName="role">
+                    <option value="">Select Role...</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                  </select>
+            </div>
+  
+            <!-- صف 2 -->
+            <div class="col-md-6">
+              <label>First Name</label>
+              <input class="form-control" formControlName="firstName" />
+            </div>
+            <div class="col-md-6">
+              <label>Last Name</label>
+              <input class="form-control" formControlName="lastName" />
+            </div>
+  
+            <!-- صف 3 -->
+            <div class="col-md-6">
+              <label>Email Address *</label>
+              <input type="email" class="form-control" formControlName="email" />
+            </div>
+            <div class="col-md-6">
+              <label>Phone Number *</label>
+              <input class="form-control" formControlName="phone" type="tel" autocomplete="tel"/>
+            </div>
+  
+            <!-- صف 4 -->
+            <div class="col-md-6">
+              <label>Password *</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                formControlName="password" 
+                autocomplete="new-password" 
+              />
+            </div>
+            <div class="col-md-6">
+              <label>Confirm Password *</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                formControlName="confirmPassword" 
+                autocomplete="new-password" 
+              />
+              <!-- إضافة رسالة الخطأ إذا كانت كلمة المرور والتأكيد غير متطابقين -->
+              <div *ngIf="userForm.hasError('mismatch') && userForm.get('confirmPassword')?.touched" class="text-danger">
+                Password and Confirm Password do not match.
+              </div>
+            </div>
+            
+  
+            <!-- صف 5 -->
+            <div class="col-md-6">
+              <label>Date of Birth *</label>
+              <input type="date" class="form-control" formControlName="birthDate" />
+            </div>
+            <div class="col-md-6">
+              <label>Gender *</label>
+              <select class="form-select" formControlName="gender">
+                <option value="">Select Gender..</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+  
+            <!-- صف 6 -->
+            <div class="col-md-6">
+              <label>Country *</label>
+              <input class="form-control" formControlName="location" />
+            </div>
+            <div class="col-md-6">
+              <label>City</label>
+              <input class="form-control" formControlName="city" />
+            </div>
+  
+            <!-- صف 7 -->
+            <div class="col-md-12">
+              <label>Present Address</label>
+              <input class="form-control" formControlName="presentAddress" />
+            </div>
+  
+            <!-- Toggles -->
+            <div class="col-md-6 form-check form-switch">
+              <input type="checkbox" class="form-check-input" role="switch" id="sendEmail" formControlName="sendEmail" />
+              <label for="sendEmail" class="form-check-label">Send Signup Email Notification to User</label>
+            </div>
+            <div class="col-md-6 form-check form-switch">
+              <input type="checkbox" class="form-check-input" role="switch" id="memberStatus" formControlName="memberStatus" />
+              <label for="memberStatus" class="form-check-label">Member Status</label>
+            </div>
+  
+            <!-- أزرار -->
+            <div class="col-12 text-end mt-3">
+              <button type="submit" class="btn btn-primary me-2">Save</button>
+              <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

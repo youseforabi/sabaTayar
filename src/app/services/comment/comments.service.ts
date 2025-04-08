@@ -12,8 +12,11 @@ export class CommentsService {
  
    constructor(private http: HttpClient) {}
  
-   getAllComments(): Observable<any[]> {
-     return this.http.get<any[]>(`${this.baseUrl}/comments`);
+   getAllCommentsBlogs(): Observable<any[]> {
+     return this.http.get<any[]>(`${this.baseUrl}/comments/all/blogs`);
    }
+   getAllCommentsForTours(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/comments/all/tours`);
+  }
  
 }

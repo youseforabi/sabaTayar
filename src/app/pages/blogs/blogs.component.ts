@@ -21,7 +21,7 @@ export class BlogsComponent implements OnInit {
   blogs : any[] = [];
 
 
-  comments: any[]= [];
+  commentsBlogs: any[]= [];
   constructor(private blogService : BlogService , private commentService : CommentsService){}
   ngOnInit(): void {
 
@@ -37,10 +37,10 @@ export class BlogsComponent implements OnInit {
       }
     })
 
-    this.commentService.getAllComments().subscribe({
+    this.commentService.getAllCommentsBlogs().subscribe({
       next:(data) =>{
-        this.comments= data;
-        // console.log('comment',this.comments);
+        this.commentsBlogs= data;
+        // console.log('comment',this.commentsBlogs);
         
       },
       error:(data) =>{
@@ -71,6 +71,6 @@ export class BlogsComponent implements OnInit {
   }
 
   deleteComment(id: number) {
-    this.comments = this.comments.filter(comment => comment.id !== id);
+    this.commentsBlogs = this.commentsBlogs.filter(comment => comment.id !== id);
   }
 }

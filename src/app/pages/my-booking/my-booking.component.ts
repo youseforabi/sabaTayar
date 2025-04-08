@@ -1,116 +1,60 @@
-import { NgClass, NgFor, NgStyle } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BookingService } from '../../services/Booking/booking.service';
 
-
-interface Book {
-  username: string;
-  userImage: string;
-
-  phone: string;
-  email: string;
-  status: string;
-  tourName: string;
-  guests: string;
-  duration: string;
-  tourStart: string;
-  bookingDate: string;
-  tourType: string;
-  price: string;
-  imageUrl: string;
-}
 @Component({
     selector: 'app-my-booking',
     standalone:true,
-
-    imports: [NgStyle,NgFor,NgClass,RouterModule],
+    imports: [NgClass,NgIf, NgStyle, NgFor, RouterModule],
     templateUrl: './my-booking.component.html',
     styleUrl: './my-booking.component.scss'
 })
-export class MyBookingComponent implements OnInit{
-  filters: string[] = ['Paid', 'Canceled', 'Deleted'];
+export class MyBookingComponent implements OnInit {
 
-  booking: Book[] = [
-    {
-      username: 'Username',
-      userImage:'assets/bookedProfile.jpg',
-      phone: '01234567890',
-      email: 'username@email.com',
-      status: 'Paid',
-      tourName: 'Ramses Temple Day Trip',
-      guests: '2 Adults - 1 Children',
-      duration: '1 Day',
-      tourStart: 'From 10-10-2025 To 11-10-2025',
-      bookingDate: '1-1-2025',
-      tourType: 'Daily Tours',
-      price: '$1,500',
-      imageUrl: 'assets/PIC1.webp'
-    },
-    {
-      username: 'Username',
-      userImage:'assets/bookedProfile.jpg',
-      phone: '01234567890',
-      email: 'username@email.com',
-      status: 'Deleted',
-      tourName: 'Ramses Temple Day Trip',
-      guests: '2 Adults - 1 Children',
-      duration: '1 Day',
-      tourStart: 'From 10-10-2025 To 11-10-2025',
-      bookingDate: '1-1-2025',
-      tourType: 'Daily Tours',
-      price: '$1,500',
-      imageUrl: 'assets/PIC1.webp'
-    }
-,
-    {
-      username: 'Username',
-      userImage:'assets/bookedProfile.jpg',
-      phone: '01234567890',
-      email: 'username@email.com',
-      status: 'Canceled',
-      tourName: 'Ramses Temple Day Trip',
-      guests: '2 Adults - 1 Children',
-      duration: '1 Day',
-      tourStart: 'From 10-10-2025 To 11-10-2025',
-      bookingDate: '1-1-2025',
-      tourType: 'Daily Tours',
-      price: '$1,500',
-      imageUrl: 'assets/PIC1.webp'
-    }, {
-      username: 'Username',
-      userImage:'assets/bookedProfile.jpg',
-      phone: '01234567890',
-      email: 'username@email.com',
-      status: 'Canceled',
-      tourName: 'Ramses Temple Day Trip',
-      guests: '2 Adults - 1 Children',
-      duration: '1 Day',
-      tourStart: 'From 10-10-2025 To 11-10-2025',
-      bookingDate: '1-1-2025',
-      tourType: 'Daily Tours',
-      price: '$1,500',
-      imageUrl: 'assets/PIC1.webp'
-    }
-  ];
+  private bookingService = inject(BookingService);
 
-  constructor() {}
+  filters: string[] = ['Paid', 'Canceled', 'Deleted', 'Pending'];  // إضافة Pending في الفلاتر
+
+  booking: any[] = [];
+  filteredBooking: any[] = [];  // متغير لتخزين الحجوزات بعد الفلترة
+  currentFilter: string = 'Paid';  // متغير لتخزين الفلتر الحالي
 
   ngOnInit(): void {
-    this.filter('Paid'); 
-
+    this.loadBookings();  
   }
 
-  filteredBooking = this.booking;
-  filter(type: string) {
-    this.filteredBooking = this.booking.filter(book => book.status === type);
-  }
-  acceptTour(tour: Book) {
+  loadBookings(): void {
+    this.bookingService.getBookings().subscribe({
+      next: (data: any[]) => {
+        this.booking = data; 
+
+        this.filter(this.currentFilter);   
+      },
+      error: (error) => {
+      }
+    });
   }
 
-  cancelTour(tour: Book) {
+  // تحديث طريقة الفلترة لتعمل بشكل ديناميكي  // تحديث طريقة الفلترة لتعمل بشكل ديناميكي
+  filter(type: string): void {
+    this.currentFilter = type;  // تحديث الفلتر الحالي
+    if (type === 'All') {
+      this.filteredBooking = this.booking;  // عرض جميع الحجوزات
+    } else {
+      this.filteredBooking = this.booking.filter(book => book.status === type);
+    }
+  }
+  acceptTour(tour: any): void {
+    console.log('Tour Accepted:', tour);
   }
 
-  deleteTour(tour: Book) {
+  cancelTour(tour: any): void {
+    console.log('Tour Canceled:', tour);
+  }
+
+  deleteTour(tour: any): void {
+    console.log('Tour Deleted:', tour);
   }
 
   getCount(status: string): number {

@@ -80,23 +80,26 @@ export class HomeComponent {
   toggleFilters() {
     this.showFilters = !this.showFilters;
   }
-
-  // onSearch() {
-  //   const selectedDate = this.searchCriteria.dateControl.value
-  //     ? this.formatDate(new Date(this.searchCriteria.dateControl.value))
-  //     : '';
-
-  //   this.router.navigate(['/listingTours'], {
-  //     queryParams: {
-  //       place: this.searchCriteria.place,
-  //       tourType: this.searchCriteria.tourType,
-  //       people: this.searchCriteria.people,
-  //       date: selectedDate,
-  //       price: this.searchCriteria.price,
-  //       amenities: JSON.stringify(this.searchCriteria.amenities)
-  //     }
-  //   });
-  // }
+  onSearch() {
+    const selectedDate = this.searchCriteria.dateControl.value
+      ? this.formatDate(new Date(this.searchCriteria.dateControl.value))
+      : '';
+  
+    // هنا نرسل جميع الفلاتر إلى صفحة عرض الجولات
+    this.router.navigate(['/listingTours'], {
+      queryParams: {
+        place: this.searchCriteria.place,
+        tourType: this.searchCriteria.tourType,
+        people: this.searchCriteria.people,
+        date: selectedDate,
+        priceMin: this.searchCriteria.priceMin,
+        priceMax: this.searchCriteria.priceMax,
+        amenities: JSON.stringify(this.searchCriteria.amenities),  // تحويل وسائل الراحة إلى JSON
+      },
+      queryParamsHandling: 'merge' // للحفاظ على أي query params موجودة مسبقاً
+    });
+  }
+  
 
   ngAfterViewInit() {
     this.updateTrack();

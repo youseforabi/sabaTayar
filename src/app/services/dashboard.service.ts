@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DashboardService {
     private readonly baseUrl = environment.apiUlrDashboard;
+    private readonly baseUrlApi = environment.apiUrl;
 
     constructor(private http: HttpClient) {}
 
@@ -20,7 +21,7 @@ export class DashboardService {
     }
 
     getUsersCount(): Observable<number>{
-      return this.http.get<number>(`${this.baseUrl}/GetUsersCount`)
+      return this.http.get<number>(`${this.baseUrlApi}/ManageUser/GetUserCounts`)
     }
     // getTotalWalletBalance(): Observable<number>{
     //   return this.http.get<number>(`${this.baseUrl}/GetTotalWalletBalance`)

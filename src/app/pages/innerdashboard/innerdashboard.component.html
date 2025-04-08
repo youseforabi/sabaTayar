@@ -1,62 +1,65 @@
-<div class="overview">
-  <div class="stats">
-    <div class="stat-card">
-      <div>
-        <h4>My Tours</h4>
-        <h2>{{toursCount}}</h2>
+<div class="container">
+  <div class="overview">
+    <div class="stats">
+      <div class="stat-card">
+        <div>
+          <h4>My Tours</h4>
+          <h2>{{toursCount}}</h2>
+        </div>
+        <i class="bi bi-list"></i>
       </div>
-      <i class="bi bi-list"></i>
-    </div>
-    <div class="stat-card">
-      <div>
-        <h4>Booking</h4>
-        <h2>{{ bookingsCount }}</h2>
+      <div class="stat-card">
+        <div>
+          <h4>Booking</h4>
+          <h2>{{ bookingsCount }}</h2>
+        </div>
+        <i class="bi bi-calendar"></i>
       </div>
-      <i class="bi bi-calendar"></i>
-    </div>
-    <div class="stat-card">
-      <div>
-        <h4>Comments</h4>
-        <h2>5,000</h2>
+      <div class="stat-card">
+        <div>
+          <h4>Comments</h4>
+          <h2>5,000</h2>
+        </div>
+        <i class="bi bi-chat-left-text"></i>
       </div>
-      <i class="bi bi-chat-left-text"></i>
     </div>
   </div>
-</div>
-
-<div class="chart-container">
-  <div class="chart-header">
-    <h3><i class="bi bi-bar-chart"></i> Performance</h3>
-    <select id="chart-select">
-      <option>📅 Week</option>
-      <option>📅 Month</option>
-    </select>
+  
+  <div class="chart-container">
+    <div class="chart-header">
+      <h3><i class="bi bi-bar-chart"></i> Performance</h3>
+      <select id="chart-select" class="chartSelect">
+        <option>📅 Week</option>
+        <option>📅 Month</option>
+      </select>
+    </div>
+    <ngx-charts-line-chart
+      [results]="chartData"
+      [scheme]="'cool'"
+      [legend]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [autoScale]="true">
+    </ngx-charts-line-chart>
   </div>
-  <ngx-charts-line-chart
-    [results]="chartData"
-    [scheme]="'cool'"
-    [legend]="true"
-    [xAxis]="true"
-    [yAxis]="true"
-    [autoScale]="true">
-  </ngx-charts-line-chart>
-</div>
-
-<div class="activities">
-  <div class="recent-activities">
-    <h3><i class="bi bi-clock-history"></i> Recent Activities</h3>
-    <ul>
-      <li *ngFor="let activity of recentActivities">
-        <i class="bi bi-check-circle-fill activity-icon"></i> {{ activity }}
-      </li>
-    </ul>
+  
+  <div class="activities">
+    <div class="recent-activities">
+      <h3><i class="bi bi-clock-history"></i> Recent Activities</h3>
+      <ul>
+        <li *ngFor="let activity of recentActivities">
+          <i class="bi bi-check-circle-fill activity-icon"></i> {{ activity }}
+        </li>
+      </ul>
+    </div>
+    <div class="history">
+      <h3><i class="bi bi-archive"></i> History</h3>
+      <ul>
+        <li *ngFor="let item of history">
+          <i class="bi bi-clock"></i> {{ item }}
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="history">
-    <h3><i class="bi bi-archive"></i> History</h3>
-    <ul>
-      <li *ngFor="let item of history">
-        <i class="bi bi-clock"></i> {{ item }}
-      </li>
-    </ul>
-  </div>
+  
 </div>

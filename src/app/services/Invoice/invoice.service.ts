@@ -20,4 +20,8 @@ export class InvoiceService {
   createInvoice(invoiceData: any): Observable<any> {
     return this.http.post(`http://sabatoursapi.runasp.net/api/Invoice/create`, invoiceData);
   }
+
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Invoice/users-emails`);
+  }
 }

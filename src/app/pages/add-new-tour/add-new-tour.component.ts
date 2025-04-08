@@ -16,6 +16,8 @@ import {
 } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import 'quill/dist/quill.snow.css';
+import { TourService } from '../../services/Tours/tour.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-new-tour',
@@ -43,7 +45,7 @@ export class AddNewTourComponent implements OnInit {
   ];
   newTag: string = ''; // تعريف المتغير
   modules: any; // ✅ تعريف متغير modules
-  selectedDates: Date[] = []; // قائمة الأيام المختارة
+  availableDates: { date: Date; price: number; maxGuests: number }[] = [];
 
   @ViewChild('mainImage') mainImageInput!: ElementRef;
   @ViewChild('headerImage') headerImageInput!: ElementRef;
@@ -57,7 +59,12 @@ export class AddNewTourComponent implements OnInit {
   displayedYear: number = this.currentDate.getFullYear();
   calendarData: any[] = [];
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private tourService: TourService,
+    private toostr : ToastrService
+  ) {
     this.tourForm = this.fb.group({
       tourTitle: [''],
       selectedCategory: [''],
@@ -81,6 +88,7 @@ export class AddNewTourComponent implements OnInit {
       places: this.fb.array([]),
       newTag: new FormControl(''),
       tags: this.fb.array([]),
+
       headerImage: [null],
       galleryImages: this.fb.array([]),
       tourDescription: [''],
@@ -91,7 +99,7 @@ export class AddNewTourComponent implements OnInit {
       includes: this.fb.array([]),
       excludes: this.fb.array([]),
       terms: this.fb.array([]),
-      selectedDates: [[]],
+      availableDates: [],
     });
 
     this.modules = {
@@ -168,10 +176,12 @@ export class AddNewTourComponent implements OnInit {
     this.tourForm.patchValue({ [field]: true });
   }
   addPlace() {
-    const newPlaceValue = this.tourForm.get('newPlace')?.value;
-    if (newPlaceValue && newPlaceValue.trim()) {
-      this.places.push(new FormControl(newPlaceValue.trim()));
-      this.tourForm.get('newPlace')?.setValue(''); // إعادة تعيين الاختيار بعد الإضافة
+    const newPlaceValue = this.tourForm.get('newPlace')?.value.trim(); // قيمة المكان المدخل
+
+    // نضيف المكان بناءً على الإدخال
+    if (newPlaceValue) {
+      this.places.push(new FormControl(newPlaceValue)); // إضافة المكان المدخل يدويًا
+      this.tourForm.get('newPlace')?.setValue(''); // إعادة تعيين القيمة
     }
   }
 
@@ -182,14 +192,17 @@ export class AddNewTourComponent implements OnInit {
   trackByFn(index: number): number {
     return index;
   }
-  addTag() {
-    const newTagValue = this.tourForm.get('newTag')?.value;
-    if (newTagValue && newTagValue.trim()) {
-      this.tags.push(new FormControl(newTagValue.trim()));
-      this.tourForm.get('newTag')?.setValue(''); // إعادة ضبط القيمة
+  // دالة لإضافة التاجات
+   // دالة لإضافة التاجات
+   addTag() {
+    const newTagValue = this.tourForm.get('newTag')?.value.trim(); // قيمة التاج المدخل
+
+    // نضيف التاج بناءً على الإدخال
+    if (newTagValue) {
+      this.tags.push(new FormControl(newTagValue)); // إضافة التاج المدخل يدويًا
+      this.tourForm.get('newTag')?.setValue(''); // إعادة تعيين القيمة
     }
   }
-
   removeTag(index: number) {
     this.tags.removeAt(index);
   }
@@ -249,11 +262,11 @@ export class AddNewTourComponent implements OnInit {
     return this.excludes.at(index) as FormGroup;
   }
   addInclude() {
-    this.includes.push(this.fb.group({ option: ['Choose multiple options'] }));
+    this.includes.push(this.fb.group({ option: [''] }));
   }
 
   addExclude() {
-    this.excludes.push(this.fb.group({ option: ['Choose multiple options'] }));
+    this.excludes.push(this.fb.group({ option: [''] }));
   }
 
   // حذف عنصر معين من `FormArray`
@@ -376,10 +389,14 @@ export class AddNewTourComponent implements OnInit {
         date: new Date(this.displayedYear, this.displayedMonth, day),
         price:
           Math.random() > 0.5 ? Math.floor(Math.random() * 5000) + 1000 : null,
+        optionsForm: false,
+        priceSet: false, // للتأكد من عرض السعر فقط بعد تحديده
+        maxGuests: 0,
+        adultPrice: 0,
+        childrenPrice: 0,
       });
     }
   }
-
   changeMonth(step: number) {
     this.displayedMonth += step;
     if (this.displayedMonth < 0) {
@@ -391,35 +408,112 @@ export class AddNewTourComponent implements OnInit {
     }
     this.generateCalendar();
   }
+
+  openOptionsForm(day: any) {
+    day.optionsForm = true; // فتح الفورم عند الضغط على السهم
+  }
   selectDate(day: any) {
-    const dateIndex = this.selectedDates.findIndex(
-      (d) => d.getTime() === day.date.getTime()
+    const dateIndex = this.availableDates.findIndex(
+      (d: any) => new Date(d.date).getTime() === day.date.getTime()
     );
 
     if (dateIndex !== -1) {
-      // إذا كان اليوم موجودًا بالفعل، قم بإزالته (إلغاء التحديد)
-      this.selectedDates.splice(dateIndex, 1);
+      this.availableDates.splice(dateIndex, 1);
     } else {
-      // إذا لم يكن موجودًا، أضفه إلى القائمة
-      this.selectedDates.push(day.date);
+      this.availableDates.push({
+        date: day.date,
+        price: day.price,
+        maxGuests: day.maxGuests,
+      });
     }
 
-    // تحديث الفورم بالقائمة الجديدة
-    this.tourForm.patchValue({ selectedDates: this.selectedDates });
+    this.tourForm.patchValue({ availableDates: this.availableDates });
   }
 
   isSelected(date: Date): boolean {
-    return this.selectedDates.some((d) => d.getTime() === date.getTime());
+    return this.availableDates.some((d) => d.date.getTime() === date.getTime());
   }
+
   updatePrice(day: any, event: any) {
     day.price = event.target.value;
   }
-
-  submitData() {
-    if (this.tourForm.valid) {
-      console.log('Form Data:', this.tourForm.value);
-    } else {
-      console.log('Form is invalid');
+  setPrice(day: any) {
+    if (day.maxGuests && day.adultPrice >= 0 && day.childrenPrice >= 0) {
+      const totalPrice =
+        day.adultPrice * day.maxGuests + day.childrenPrice * day.maxGuests;
+      console.log('Total Price:', totalPrice); // تحقق من السعر
+      day.price = totalPrice;
+      day.priceSet = true;
+      day.optionsForm = false;
+      console.log('Updated Day:', day); // تحقق من التحديثات
     }
+  }
+
+  prepareTourPayload(): any {
+    const formValue = this.tourForm.value;
+
+    const payload = {
+      id: 0,
+      tourTitle: formValue.tourTitle,
+      tourCategory: +formValue.selectedCategory,
+      tourDay: +formValue.tourDays,
+      tourNight: +formValue.tourNights,
+      tourPrice: +formValue.tourPrice,
+      adultPrice: +formValue.adultPrice,
+      childrenPrice: +formValue.childrenPrice,
+      infantPrice: +formValue.infantPrice,
+      guestsCapabilityAdult: +formValue.guests.adult,
+      guestsCapabilityChildren: +formValue.guests.child,
+      guestsCapabilityInfant: +formValue.guests.infant,
+      tourDescription: formValue.tourDescription,
+      mainImage: this.mainImageUrl,
+      headerImages: [this.headerImageUrl],
+      galleryImages: formValue.galleryImages,
+      places: formValue.places,
+      tourTags: formValue.tags,
+      tourPlans: formValue.tourPlans.map((plan: any) => ({
+        title: plan.title,
+        description: plan.description,
+      })),
+      tourIncludes: formValue.includes.map((i: any) => i.option),
+      tourExcludes: formValue.excludes.map((e: any) => e.option),
+      tourFacilities: formValue.facilities.map((f: any) => ({
+        title: f.title,
+        description: f.description,
+      })),
+      tourFacts: formValue.facts.map((f: any) => ({
+        title: f.title,
+        value: f.number,
+        description: f.description,
+      })),
+      additionalServiceFees: formValue.services.map((s: any) => ({
+        serviceName: s.name,
+        price: +s.price,
+        description: s.description,
+      })),
+      termsAndConditions: formValue.terms.map((t: any) => ({
+        title: t.title,
+        description: t.description,
+      })),
+      availableDates: this.availableDates,
+      isFeatured: formValue.featured,
+      isVerified: formValue.verified,
+      isDeleted: false,
+    };
+
+    return payload;
+  }
+
+  submitTour() {
+    const payload = this.prepareTourPayload();
+
+    this.tourService.submitTourData(payload).subscribe({
+      next: (res) => {
+        this.toostr.success('Tour created successfully', 'Success');
+      },
+      error: (err) => {
+        this.toostr.error('Error creating tour', 'Failed');
+      },
+    });
   }
 }

@@ -9,10 +9,12 @@
       <div class="search-box">
         <div class="search-item">
           <label for="Places">Location</label>
-          <select id="Places">
-            <option value="">Locations</option>
+          <select class="form-select" [(ngModel)]="searchCriteria.place">
+            <option value="">Select City...</option>
             <option value="Cairo">Cairo</option>
-            <option value="Alex">Alex</option>
+            <option value="Luxor">Luxor</option>
+            <option value="Sharm El Sheikh">Sharm El Sheikh</option>
+            <!-- Add more places here -->
           </select>
         </div>
       
@@ -20,10 +22,12 @@
       
         <div class="search-item">
           <label for="TourType">Tour Type</label>
-          <select id="TourType">
+          <select class="form-select" [(ngModel)]="searchCriteria.tourType">
             <option value="">Select Type</option>
-            <option value="Adventure">Adventure</option>
             <option value="Cultural">Cultural</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Relaxation">Relaxation</option>
+            <!-- Add more tour types here -->
           </select>
         </div>
       
@@ -32,7 +36,7 @@
         <div class="search-item">
           <label for="Date">Date</label>
           <div class="input-icon">
-            <input type="date" />
+            <input type="date" [(ngModel)]="searchCriteria.dateControl" />
           </div>
         </div>
       
@@ -41,7 +45,7 @@
         <div class="search-item">
           <label for="People">People</label>
           <div class="input-icon">
-            <select>
+            <select [(ngModel)]="searchCriteria.people">
               <option value="">0 Adults</option>
               <option value="1">1 Person</option>
               <option value="2">2 Persons</option>
@@ -56,7 +60,7 @@
             <i class="bi bi-sliders"></i>
           </button>
         
-          <button class="search-btn mt-3">
+          <button class="search-btn mt-3" (click)="onSearch()">
             Search
           </button>
         </div>

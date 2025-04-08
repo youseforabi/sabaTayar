@@ -1,3 +1,7 @@
+.container{
+  width: 90%;
+  margin: auto;
+}
 .create-btn {
   background-color: #2d60ff;
   color: white;
@@ -6,7 +10,6 @@
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  margin: 0 10px;
 }
 .delete {
   background-color: #fff !important;
@@ -120,7 +123,7 @@ td.Deleted {
 }
 
 .table-responsive {
-  width: 80%;
+  width: 97%;
   margin: 15px 0;
   background: white;
   padding: 15px;
@@ -153,26 +156,14 @@ td.Deleted {
     
    
 
-tfoot {
-  padding: 15px;
-  font-size: 14px;
-  color: #6c757d;
-}
-
-tfoot td {
-  text-align: left;
-}
-
-tfoot .see-more-btn {
-  float: right;
-  background-color: #2D60FF;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-}
+    .table-footer {
+      text-align: left; /* محاذاة النص للوسط */
+      padding: 15px;
+      font-size: 14px;
+      color: #555;
+      
+      
+    }
 
    
 .action-icons .material-icons {
@@ -223,4 +214,4 @@ tfoot .see-more-btn {
     }
   }
 
-  
+}

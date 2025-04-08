@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommentsService } from '../../services/comment/comments.service';
 
 @Component({
     selector: 'app-comments',
@@ -10,31 +11,36 @@ import { Component } from '@angular/core';
 })
 export class CommentsComponent {
 
-  filters: string[] = ['Guide Of Egypt', 'Classical Tour', 'Day Trip' ,'Deleted Comment' ];
-  selectedFilter: string = 'Guide Of Egypt';
+  // filters: string[] = ['Guide Of Egypt', 'Classical Tour', 'Day Trip' ,'Deleted Comment' ];
+  // selectedFilter: string = 'Guide Of Egypt';
+  commentsService = inject(CommentsService);  // حقن الخدمة هنا باستخدام inject
 
-
-  comments = [
-    { img: 'https://randomuser.me/api/portraits/men/1.jpg', name: 'John Doe', text: 'Amazing experience!', type : 'Guide Of Egypt' },
-    { img: 'https://randomuser.me/api/portraits/women/2.jpg', name: 'Sarah Smith', text: 'Excellent service!', type : 'Classical Tours' },
-    { img: 'https://randomuser.me/api/portraits/men/3.jpg', name: 'Michael Brown', text: 'Very professional!', type : 'Classical Tours' },
-    { img: 'https://randomuser.me/api/portraits/women/4.jpg', name: 'Emily Davis', text: 'Fast response!', type : 'Day Of Trips' },
-    { img: 'https://randomuser.me/api/portraits/men/5.jpg', name: 'Chris Wilson', text: 'Super happy with the experience!', type : 'Day Of Trips' },
-    { img: 'https://randomuser.me/api/portraits/women/6.jpg', name: 'Olivia Taylor', text: 'Absolutely fantastic!', type : 'Guide Of Egypt' },
-    { img: 'https://randomuser.me/api/portraits/women/6.jpg', name: 'Olivia Taylor', text: 'Absolutely fantastic!', type : 'Deleted Comments' },
-    { img: 'https://randomuser.me/api/portraits/women/6.jpg', name: 'Olivia Taylor', text: 'Absolutely fantastic!', type : 'Deleted Comments' }
-  ];
+  comments = [];
 
   ngOnInit(): void {
-    this.filter('Guide Of Egypt'); 
+    // this.filter('Guide Of Egypt'); 
+    this.loadComments();
 
   }
 
-  filteredComment = this.comments;
-  filter(type: string) {
-    this.filteredComment = this.comments.filter(comment => comment.type === type);
-    this.selectedFilter = type;
-
+  loadComments() {
+    this.commentsService.getAllCommentsForTours().subscribe({
+      next: (data) => {
+        // console.log('Loaded comments:', data);
+        this.comments = data;
+        // this.filter(this.selectedFilter); // تطبيق الفلتر بعد تحميل البيانات
+      },
+      error: (err) => {
+        console.error('Error loading comments:', err);
+      }
+    });
   }
+
+  // filteredComment = this.comments;
+  // filter(type: string) {
+  //   this.filteredComment = this.comments.filter(comment => comment.type === type);
+  //   this.selectedFilter = type;
+
+  // }
 
 }

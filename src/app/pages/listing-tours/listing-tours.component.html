@@ -1,68 +1,129 @@
 <div class="container mt-4">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-3">
-        <div class="filter-sidebar p-3 border rounded shadow-sm">
-          <h5>Filter</h5>
-          <label class="form-label">Places</label>
-          <select class="form-select">
-            <option>Select City...</option>
-          </select>
-  
-          <label class="form-label mt-2">Tour Type</label>
-          <select class="form-select">
-            <option>Select Type</option>
-          </select>
-  
-          <label class="form-label mt-2">Date</label>
-          <input type="date" class="form-control">
-  
-          <label class="form-label mt-2">People</label>
-          <select class="form-select">
-            <option>1-2 People</option>
-          </select>
-  
-          <button class="btn btn-primary mt-3 w-100">Find Tours</button>
+  <div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-md-3">
+      <div class="filter-sidebar p-3 border rounded shadow-sm mb-4">
+        <h5 class="mb-3">Places</h5>
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.place" (change)="applyFilters()">
+          <option value="">Select City...</option>
+          <option *ngFor="let place of uniquePlaces" [value]="place">{{place}}</option>
+        </select>
+
+        <h6 class="fw-bold">Tour Type</h6>
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.tourType" (change)="applyFilters()">
+          <option value="">Select Type</option>
+          <option *ngFor="let type of uniqueTourTypes" [value]="type">{{type}}</option>
+        </select>
+
+        <h6 class="fw-bold">Date</h6>
+        <input type="date" class="form-control mb-3" [(ngModel)]="searchCriteria.date" (change)="applyFilters()">
+
+        <h6 class="fw-bold">People</h6>
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.people" (change)="applyFilters()">
+          <option value="">Select People</option>
+          <option *ngFor="let peopleOption of peopleOptions" [value]="peopleOption">{{peopleOption}}</option>
+        </select>
+
+        <h6 class="fw-bold">Price</h6>
+        <div class="d-flex justify-content-between mb-2">
+          <span>${{searchCriteria.priceMin}}</span>
+          <span>${{searchCriteria.priceMax}}</span>
         </div>
-      </div>
-  
-<!-- Main Content -->
-<div class="col-md-9">
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let tour of paginatedTours">
-        <div class="card shadow-sm border-0">
-          <div class="position-relative">
-            <img [src]="tour.image" class="card-img-top" alt="Tour Image">
-            <span class="badge bg-primary position-absolute top-0 start-0 m-2">{{ tour.category }}</span>
-            <button class="btn btn-light position-absolute top-0 end-0 m-2" (click)="toggleLike(tour)">
-              <i class="bi" [class.bi-heart-fill]="tour.liked" [class.bi-heart]="!tour.liked"></i>
-            </button>
-          </div>
-          <div class="card-body">
-            <h6 class="card-title">{{ tour.title }}</h6>
-            <p class="text-muted small"><i class="bi bi-geo-alt"></i> {{ tour.location }}</p>
-            <p class="text-muted small"><i class="bi bi-calendar"></i> {{ tour.duration }}</p>
-            <p class="text-warning mb-1">
-              <i class="bi bi-star-fill" *ngFor="let star of getFullStars(tour.rating)"></i>
-              <i class="bi bi-star-half" *ngIf="hasHalfStar(tour.rating)"></i>
-            </p>
-            <p><strong>Starting from ${{ tour.price }}</strong></p>
-            <button class="btn btn-primary w-100">Explore</button>
-          </div>
+        <input type="range" class="form-range mb-3" min="100" max="3000" step="100" 
+               [(ngModel)]="searchCriteria.priceMin" (input)="applyFilters()">
+        <input type="range" class="form-range mb-3" min="100" max="5000" step="100" 
+               [(ngModel)]="searchCriteria.priceMax" (input)="applyFilters()">
+
+        <h5 class="mt-4 mb-3">Amenities</h5>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="transportation" 
+                 [(ngModel)]="searchCriteria.amenities.transportation" (change)="applyFilters()">
+          <label class="form-check-label" for="transportation">Transportation</label>
         </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="tourGuide" 
+                 [(ngModel)]="searchCriteria.amenities.tourGuide" (change)="applyFilters()">
+          <label class="form-check-label" for="tourGuide">Tour Guide</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="mealsIncluded" 
+                 [(ngModel)]="searchCriteria.amenities.mealsIncluded" (change)="applyFilters()">
+          <label class="form-check-label" for="mealsIncluded">Meals Included</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="hotelPickup" 
+                 [(ngModel)]="searchCriteria.amenities.hotelPickup" (change)="applyFilters()">
+          <label class="form-check-label" for="hotelPickup">Hotel Pickup & Drop-off</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="photography" 
+                 [(ngModel)]="searchCriteria.amenities.photography" (change)="applyFilters()">
+          <label class="form-check-label" for="photography">Photography Service</label>
+        </div>
+
+        <h5 class="mt-4 mb-3">Review Score</h5>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="reviewScore" id="anyScore" value="" 
+                 [(ngModel)]="searchCriteria.minRating" (change)="applyFilters()">
+          <label class="form-check-label" for="anyScore">Any</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="reviewScore" id="score3" value="3" 
+                 [(ngModel)]="searchCriteria.minRating" (change)="applyFilters()">
+          <label class="form-check-label" for="score3">3+ or more</label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="reviewScore" id="score5" value="5" 
+                 [(ngModel)]="searchCriteria.minRating" (change)="applyFilters()">
+          <label class="form-check-label" for="score5">5</label>
+        </div>
+
+        <button class="btn btn-primary w-100 mt-3">Find tours</button>
       </div>
     </div>
-  
-    <!-- Pagination -->
-    <nav>
-        <ul class="pagination justify-content-center mt-3">
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let tour of paginatedTours">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="position-relative">
+              <img [src]="tour.image" class="card-img-top" alt="Tour Image">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-2">{{ tour.category }}</span>
+              <button class="btn btn-light position-absolute top-0 end-0 m-2" (click)="toggleLike(tour)">
+                <i class="bi" [class.bi-heart-fill]="tour.liked" [class.bi-heart]="!tour.liked"></i>
+              </button>
+            </div>
+            <div class="card-body">
+              <h6 class="card-title">{{ tour.title }}</h6>
+              <p class="text-muted small"><i class="bi bi-geo-alt"></i> {{ tour.location }}</p>
+              <p class="text-muted small"><i class="bi bi-calendar"></i> {{ tour.duration }}</p>
+              <p class="text-warning mb-1">
+                <i class="bi bi-star-fill" *ngFor="let star of getFullStars(tour.rating)"></i>
+                <i class="bi bi-star-half" *ngIf="hasHalfStar(tour.rating)"></i>
+                <span class="text-muted ms-1">{{ tour.rating }}</span>
+              </p>
+              <p class="mt-2"><strong>Starting from ${{ tour.price }}</strong></p>
+              <button class="btn btn-primary w-100 mt-2">Explore</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No results message -->
+      <div *ngIf="filteredTours.length === 0" class="text-center py-5">
+        <h4>No tours found matching your criteria</h4>
+        <p>Try adjusting your filters</p>
+      </div>
+
+      <!-- Pagination -->
+      <nav *ngIf="filteredTours.length > 0">
+        <ul class="pagination justify-content-center mt-4">
           <li class="page-item" *ngFor="let page of totalPages">
             <a class="page-link" (click)="changePage(page)" [class.active]="currentPage === page">{{ page }}</a>
           </li>
         </ul>
       </nav>
-  </div>
-  
     </div>
   </div>
-  
+</div>

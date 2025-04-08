@@ -3,16 +3,16 @@
         <div class="left-section">
             <div class="customer">
                 <span>All Users</span>
-                <strong>{{usersCount}}</strong>
+                <strong>{{usersCount.allUsers}}</strong>
             </div>
             <div class="customer">
                 <span>Customer</span>
-                <strong>1,950</strong>
+                <strong>{{usersCount.customer}}</strong>
             </div>
         </div>
 
         <div class="right-section">
-            <button class="create-btn">+ Create New User</button>
+            <button class="create-btn" routerLink="/dashboard/create-new-user">+ Create New User</button>
             <input type="text" placeholder="Search for user..." [(ngModel)]="searchTerm" />
         </div>
     </div>
@@ -31,19 +31,19 @@
         <div class="user-cards">
             <div *ngFor="let user of filteredUser" class="user-card">
                 <div class="user-info">
-                    <img [src]="user.image" alt="User Image" class="user-image" />
+                    <img [src]="user.profilePicture" alt="User Image" class="user-image" />
                     <p>{{ user.name }}</p>
                     <span>{{ user.email }}</span>
-                    <span>{{ user.joinDate }}</span>
+                    <span>{{ user.createdAt | date: 'medium' }}</span>
                 </div>
                 <div class="icons">
                     <i class="bi bi-chat-dots"></i>
-                    <i class="bi bi-x-circle"></i>
+                    <i class="bi bi-x-circle " (click)="deleteUser(user)"></i>  <!-- عند الضغط على الإكس، يتم حذف المستخدم -->
                 </div>
             </div>
         </div>
 
     </div>
 
-    <button class="see-more">See more</button>
+    <!-- <button class="see-more">See more</button> -->
 </div>

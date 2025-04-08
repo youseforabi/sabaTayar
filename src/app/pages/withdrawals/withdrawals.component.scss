@@ -1,8 +1,12 @@
+.overview{
+  margin: auto;
+  width: 90%;
+
+}
 .stats {
-    width: 85%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    gap: 60px;
+    gap: 20px;
   }
   
   .stat-card {
@@ -11,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    width: 90%;
+    width: 350px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: 0.3s;
@@ -38,7 +42,8 @@
   }
   .filters {
     display: flex;
-    margin: 20px auto;
+    width: 100%;
+    margin: 20px 0;
     gap: 20px;
   }
   
@@ -100,7 +105,7 @@
   }
   
   .table-responsive {
-    width: 80%;
+    width: 97%;
     margin: 15px 0;
     background: white;
     padding: 15px;
@@ -158,25 +163,17 @@
       }
    
   
-  tfoot {
-    padding: 15px;
-    font-size: 14px;
-    color: #6c757d;
-  }
-  
-  tfoot td {
-    text-align: left;
-  }
-  
-  tfoot .see-more-btn {
-    float: right;
-    background-color: #2D60FF;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+    
+   
+
+      .table-footer {
+        text-align: left; /* محاذاة النص للوسط */
+        padding: 15px;
+        font-size: 14px;
+        color: #555;
+        
+        
+      }
 
   // ✅ جعل الجدول متجاوبًا بشكل مثالي على الأجهزة المختلفة
   @media (max-width: 992px) {

@@ -3,6 +3,20 @@
     margin: 16px auto;
     width: 85%;
 }
+
+.no-results-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff4d4d;  // لون أحمر لافت للنظر (يمكنك تغييره حسب رغبتك)
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .no-results-message span {
+    font-style: italic;
+    color: #333;
+  }
+  
 h2{
     color: #2D60FF;
 }
@@ -210,3 +224,5 @@ span {
         font-size: 10px;
       }
 }
+
+

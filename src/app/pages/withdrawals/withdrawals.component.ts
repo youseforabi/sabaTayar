@@ -4,12 +4,13 @@ import { RouterModule } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
 import { catchError, of, take, tap } from 'rxjs';
 import { PaymentService } from '../../services/payment/payment.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-withdrawals',
     standalone:true,
 
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule,FormsModule],
     templateUrl: './withdrawals.component.html',
     styleUrls: ['./withdrawals.component.scss'] // ✅ هنا كان الخطأ
   })
@@ -19,13 +20,16 @@ export class WithdrawalsComponent implements OnInit  {
   paymentLastWeek : number = 0; 
   
   currentPage: number = 1;
-pageSize: number = 10; // عدد العناصر لكل صفحة
-totalEntries: number = 0; // إجمالي عدد العناصر
+    pageSize: number = 10; // عدد العناصر لكل صفحة
+    totalEntries: number = 0; // إجمالي عدد العناصر
 
+    startDate: string = '';
+    endDate: string = '';
   
    
     constructor(private dashboardService: DashboardService,private paymentService : PaymentService) {}
     transactions: any[] = []; // تعريف المصفوفة لاستقبال البيانات من API
+    filteredTransactions: any[] = [];
 
 
   getStatusClass(status: string): string {
@@ -60,6 +64,18 @@ totalEntries: number = 0; // إجمالي عدد العناصر
       )
       .subscribe((data) => this.transactions = data.slice(0, this.pageSize)); 
   }
+  filterByDate(): void {
+    if (this.startDate && this.endDate) {
+        this.filteredTransactions = this.transactions.filter(transaction => {
+            const transactionDate = new Date(transaction.paymentDate);
+            const start = new Date(this.startDate);
+            const end = new Date(this.endDate);
+            return transactionDate >= start && transactionDate <= end;
+        });
+    } else {
+        this.filteredTransactions = [...this.transactions]; // إذا لم يتم اختيار تاريخ، عرض كل المعاملات
+    }
+}
 
   fetchDashStats(): void {
     this.paymentService.getAllDashStats()
@@ -68,7 +84,7 @@ totalEntries: number = 0; // إجمالي عدد العناصر
         tap((data: any) => { // تأكد من أن data هو كائن
           console.log('Fetched Dashboard Stats:', data);
   
-          // ✅ استخراج القيم الصحيحة من الكائن
+          // ✅ استخراج القيم الصحيح  ة من الكائن
           this.myWalletBalance = this.extractCurrencyValue(data.myWalletBalance);
           this.allRefunds = this.extractCurrencyValue(data.allRefunds);
           this.paymentLastWeek = this.extractCurrencyValue(data.paymentLastWeek);

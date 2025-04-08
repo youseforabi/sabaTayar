@@ -18,6 +18,11 @@ export class AddNewBlogComponent {
   @ViewChild('galleryImage') galleryImageInput!: ElementRef;
 
   mainImageUrl: string | null = null;
+  availablePlaces: string[] = ['Paris', 'London', 'New York', 'Tokyo']; // القائمة المقررة مسبقًا
+  availableCategories = ['Technology', 'Lifestyle', 'Travel', 'Food'];  // فئات مدخلة مسبقًا
+  availableTags = ['Travel', 'Tech', 'Lifestyle', 'Food', 'Health'];  // وسوم مدخلة مسبقًا
+
+
 
 
   constructor(private fb: FormBuilder,private cdr: ChangeDetectorRef ,
@@ -70,7 +75,6 @@ export class AddNewBlogComponent {
       this.blogForm.get('newPlace')?.setValue(''); // إعادة تعيين الاختيار بعد الإضافة
     }
   }
-
   trackByFn(index: number): number {
     return index;
   }
@@ -82,7 +86,7 @@ export class AddNewBlogComponent {
     const newTagValue = this.blogForm.get('newTag')?.value;
     if (newTagValue && newTagValue.trim()) {
       this.tags.push(new FormControl(newTagValue.trim()));
-      this.blogForm.get('newTag')?.setValue(''); // إعادة ضبط القيمة
+      this.blogForm.get('newTag')?.setValue('');  // إعادة تعيين المدخل بعد الإضافة
     }
   }
 
@@ -94,10 +98,9 @@ export class AddNewBlogComponent {
     const newCategoryValue = this.blogForm.get('newCategory')?.value;
     if (newCategoryValue && newCategoryValue.trim()) {
       this.categories.push(new FormControl(newCategoryValue.trim()));
-      this.blogForm.get('newCategory')?.setValue(''); // إعادة ضبط القيمة
+      this.blogForm.get('newCategory')?.setValue('');  // إعادة تعيين المدخل بعد الإضافة
     }
   }
-
   removeCategory(index: number) {
     this.categories.removeAt(index);
   }

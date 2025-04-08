@@ -1,4 +1,5 @@
-<div class="blog-container">
+<div class="container">
+  <div class="blog-container">
    
 
     <div class="header">
@@ -46,10 +47,10 @@
     <div class="recent-comments">
         <h3>Recent Comments</h3>
         <div class="comment-list">
-          <div class="comment" *ngFor="let comment of comments">
-            <img [src]="comment.profilePicture" alt="User Avatar" class="avatar">
+          <div class="comment" *ngFor="let comment of commentsBlogs">
+            <img [src]="comment.user.profilePicture" alt="User Avatar" class="avatar">
             <div class="comment-content">
-              <p class="user-name">{{ comment.name }}</p>
+              <p class="user-name">{{ comment.user.name }}</p>
               <p class="comment-text" [innerHTML]="comment.content"></p>
               <p class="timestamp">{{ comment.createdAt }}</p>
             </div>
@@ -60,3 +61,4 @@
       
   </div>
   
+</div>

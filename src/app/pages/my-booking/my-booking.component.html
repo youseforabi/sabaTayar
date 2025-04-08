@@ -13,8 +13,11 @@
               Deleted Booking
               <span class="badge" [ngClass]="'deleted'">{{ getCount('Deleted') }}</span>
             </button>
+            <button (click)="filter('Pending')">
+              Pending Booking
+              <span class="badge" [ngClass]="'pending'">{{ getCount('Pending') }}</span>
+            </button>
           </div>
-          
           
           <div>
             <button class="addBtn" routerLink="/dashboard/add-new-booking" >Add New Booking</button>
@@ -22,6 +25,9 @@
     </div>
     <h2>Recent Tours:</h2>
 
+    <div *ngIf="filteredBooking.length === 0">
+        <p class="no-results-message">No {{ currentFilter }} bookings available.</p>
+      </div>
 
     <div *ngFor="let tour of filteredBooking" class="tour-card">
         <div class="tour-header">

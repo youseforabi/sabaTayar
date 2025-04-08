@@ -1,12 +1,16 @@
-import { NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgFor } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../../services/dashboard.service';
 import { catchError, of, take, tap } from 'rxjs';
+import { UserManagementService } from '../../services/userManagement/user-management.service';
+import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-management',
-  imports: [FormsModule, NgFor],
+  standalone: true,
+  imports: [FormsModule, NgFor,CommonModule,RouterLink],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.scss'
 })
@@ -14,32 +18,27 @@ export class UserManagementComponent implements OnInit {
 
   searchTerm: string = '';
   selectedStatus: string = 'all';
-  usersCount : number = 0; 
+  usersCount : any = 0; 
 
-  users = [
-    { id: 1, image: 'assets/user1jpg.jpg', name: 'User1', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'active' },
-    { id: 2, image: 'assets/user1jpg.jpg', name: 'User2', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'active' },
-    { id: 3, image: 'assets/user1jpg.jpg', name: 'User3', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'blocked' },
-    { id: 4, image: 'assets/user1jpg.jpg', name: 'User4', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'blocked' },
-    { id: 5, image: 'assets/user1jpg.jpg', name: 'User5', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'active' },
-    { id: 6, image: 'assets/user1jpg.jpg', name: 'User6', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'deleted' },
-    { id: 7, image: 'assets/user1jpg.jpg', name: 'User7', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'deleted' },
-    { id: 8, image: 'assets/user1jpg.jpg', name: 'User8', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'active' },
-    { id: 9, image: 'assets/user1jpg.jpg', name: 'User9', email: 'email@username.com', joinDate: '2025-01-01 00:01:02', status: 'pending' },
-  ];
+  users :any[] = [];
 
   ngOnInit(): void {
     this.getUsersCount();
+    this.loadUsers();
+
   }
-  constructor(private dashboardService: DashboardService) {}
+  private dashboardService = inject(DashboardService);
+  private userService = inject(UserManagementService);
+  private toastr = inject(ToastrService);
+
 
   get filteredUser() {
     return this.users.filter(user => {
       const matchesSearch = user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
                             user.email.toLowerCase().includes(this.searchTerm.toLowerCase());
-
+  
       const matchesStatus = this.selectedStatus === 'all' || user.status === this.selectedStatus;
-
+  
       return matchesSearch && matchesStatus;
     });
   }
@@ -52,9 +51,45 @@ export class UserManagementComponent implements OnInit {
     console.log('Chat with:', user);
   }
 
-  deleteUser(user: any) {
-    this.users = this.users.filter(u => u.id !== user.id);
+  deleteUser(user: any): void {
+    if (user && user.userID) {
+  
+      // التأكد من حالة الحذف
+      if (user.isDeleted) {
+        this.toastr.warning('This user is already deleted.');
+        return;
+      }
+  
+      this.userService.getUserById(user.userID).subscribe({
+        next: (fetchedUser) => {
+          if (fetchedUser.isDeleted) {
+            this.toastr.warning('This user is already deleted.');
+            return;
+          }
+  
+          // إذا لم يكن المستخدم محذوفًا بالفعل، نقوم بحذفه
+          this.userService.deleteUserById(user.userID).subscribe({
+            next: () => {
+              this.users = this.users.filter(u => u.userID !== user.userID);
+              this.toastr.success(`User ${user.name} has been deleted.`);
+            },
+            error: (err) => {
+              this.toastr.error('Error deleting user. Please try again.');
+            }
+          });
+        },
+        error: (err) => {
+          this.toastr.error('Error fetching user data before delete.');
+        }
+      });
+    } else {
+      this.toastr.error('User ID is missing.');
+    }
   }
+  
+  
+  
+  
 
   loadMore() {
     console.log('Load more users');
@@ -72,6 +107,39 @@ export class UserManagementComponent implements OnInit {
             return of(0);
           })
         )
-        .subscribe((count) => this.usersCount = count);
+        .subscribe((count) => {
+          console.log(count);
+          
+          this.usersCount = count
+        });
     }
+
+    loadUsers(): void {
+      this.userService.getAllUsers()
+        .pipe(
+          take(1),
+          catchError((err) => {
+            console.error('Error loading users:', err);
+            return of([]);
+          })
+        )
+        .subscribe((data) => {
+          this.users = data.map((user: any) => {
+            let status = 'active';
+            if (user.isDeleted) {
+              status = 'deleted';
+            } else if (user.isBanned) {
+              status = 'blocked';
+            } else if (!user.isEmailConfirmed) {
+              status = 'pending';
+            }
+    
+            return {
+              ...user,
+              status,
+            };
+          });
+        });
+    }
+    
 }

@@ -158,8 +158,8 @@
       
         .subtitle {
           color: #121212;
-          font-size: 1.0rem;
-          font-weight: bold;
+          font-size: 1.2rem;
+          font-weight:bolder;
           line-height: 1.4;
         }
       }
@@ -218,3 +218,28 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.no-data-message {
+  background-color: #f8d7da; /* خلفية حمراء فاتحة */
+  color: #721c24; /* لون النص باللون الأحمر الداكن */
+  border: 1px solid #f5c6cb; /* حدود خفيفة باللون الأحمر */
+  padding: 15px;
+  border-radius: 5px; /* زاوية دائرية للخلفية */
+  margin-top: 20px;
+  text-align: center; /* محاذاة النص في الوسط */
+  font-size: 16px; /* حجم الخط */
+  font-weight: bold; /* جعل النص عريض */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف حول الرسالة */
+  transition: all 0.3s ease; /* تأثير التغيير السلس عند التفاعل مع الرسالة */
+
+  &:hover {
+    background-color: #f5c6cb; /* تغيير الخلفية عند المرور بالفأرة */
+    border-color: #f1b0b7; /* تغيير حدود الرسالة */
+  }
+}
+
+// .location{
+//   font-size: smaller;
+//   font-weight: 100;
+//   width: 100%;
+// }

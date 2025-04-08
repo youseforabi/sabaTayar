@@ -1,4 +1,6 @@
 .user-management {
+    width: 90%;
+    margin: auto;
     padding: 20px;
     font-family: 'Roboto', sans-serif;
 }
@@ -13,7 +15,7 @@
 
 .left-section {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap; /* يسمح بتكديس العناصر عند الحاجة */
 }
 
@@ -24,7 +26,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 .customer span {
@@ -92,11 +94,28 @@ input:focus {
     color: white;
     cursor: pointer;
 }
-
+.icons i {
+  cursor: pointer;
+}
 .user-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
+    max-height: 400px; /* يمكنك تعديل الارتفاع حسب الحاجة */
+    overflow-y: auto;
+}
+/* تخصيص الـ Scrollbar */
+.user-cards::-webkit-scrollbar {
+    width: 8px;
+}
+
+.user-cards::-webkit-scrollbar-thumb {
+    background-color: #2D60FF;
+    border-radius: 4px;
+}
+
+.user-cards::-webkit-scrollbar-track {
+    background: #f1f1f1;
 }
 
 .user-card {

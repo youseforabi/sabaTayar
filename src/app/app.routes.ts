@@ -22,6 +22,7 @@ import { AddNewBlogComponent } from './pages/add-new-blog/add-new-blog.component
 import { ListingToursComponent } from './pages/listing-tours/listing-tours.component';
 import { BlogPostComponent } from './pages/blog-post/blog-post.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { CreateNewUserComponent } from './pages/user-management/create-new-user/create-new-user.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent }, 
@@ -33,6 +34,7 @@ export const routes: Routes = [
          children:[
             {path:'',component:InnerdashboardComponent},
             {path:'user-management',component:UserManagementComponent},
+            {path:'create-new-user',component:CreateNewUserComponent},
             {path:'chat',component:ChatComponent},
             {path:'myToors',component:MyToorsComponent},
             {path:'myBooking',component:MyBookingComponent},

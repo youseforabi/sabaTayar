@@ -19,13 +19,26 @@ export class InvoicesComponent implements OnInit {
 
   startDate: string = '';  // تخزين تاريخ البداية
   endDate: string = '';    // تخزين تاريخ النهاية
+  currentPage: number = 1; // الصفحة الحالية
+  itemsPerPage: number = 10; // عدد العناصر في الصفحة الواحدة
 
   constructor(private invoiceService: InvoiceService) {}
 
   ngOnInit(): void {
     this.fetchInvoices();
   }
-
+  getDisplayedInvoices(): Invoice[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = this.currentPage * this.itemsPerPage;
+    return this.Invoices.slice(startIndex, endIndex);
+  }
+  getEntriesInfoText(): string {
+    const totalInvoices = this.Invoices.length;
+    const displayedInvoices = this.getDisplayedInvoices().length;
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(start + displayedInvoices - 1, totalInvoices);
+    return `Showing ${start} to ${end} of ${totalInvoices} entries`;
+  }
   getStatusClass(status: string): string {
     switch (status) {
       case 'Completed': return 'completed';
