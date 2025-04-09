@@ -38,6 +38,20 @@ export class TourService {
     return this.http.delete(`${this.apiUrl}/Tour/permanent/${id}`);
   }
 
+
+  getAllToursWithComments(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tour/all-tours-with-comments`);
+  }
+
+  getTopTags(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tour/TopTags`);
+  }
+
+  getRecentComment(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tour/RecentComments`);
+  }
+
+
   
   
 }

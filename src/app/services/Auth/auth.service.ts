@@ -31,7 +31,9 @@ export class AuthService {
         .pipe(
           tap((res: any) => {
             if (res?.token) {
-              this.setToken(res.token);
+              // this.setToken(res.token);
+              // console.log(res.token);
+              
               
             }
           }),

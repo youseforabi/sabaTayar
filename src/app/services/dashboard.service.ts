@@ -12,16 +12,19 @@ export class DashboardService {
 
     constructor(private http: HttpClient) {}
 
-    getBookingsCount(): Observable<number> {
-      return this.http.get<number>(`${this.baseUrl}/GetBookingsCount`);
+    getAllDashCount(): Observable<{ tourCount: number, bookingCount: number, commentCount: number }> {
+      return this.http.get<{ tourCount: number, bookingCount: number, commentCount: number }>(`${this.baseUrl}/summary`);
     }
 
-    getToursCount(): Observable<number>{
-      return this.http.get<number>(`${this.baseUrl}/GetToursCount`)
-    }
+    // getToursCount(): Observable<number>{
+    //   return this.http.get<number>(`${this.baseUrl}/tour-statistics`)
+    // }
 
     getUsersCount(): Observable<number>{
       return this.http.get<number>(`${this.baseUrlApi}/ManageUser/GetUserCounts`)
+    }
+    getRecentActivities(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.baseUrl}/recent-activities`); // تأكد من أن الـ API يعيد الأنشطة
     }
     // getTotalWalletBalance(): Observable<number>{
     //   return this.http.get<number>(`${this.baseUrl}/GetTotalWalletBalance`)
@@ -34,6 +37,7 @@ export class DashboardService {
     // }
 
     createTour(tourData: any): Observable<any> {
+      
       return this.http.post<any>(`https://sabatoursapi.runasp.net/api/Tour`, tourData);
     }
 

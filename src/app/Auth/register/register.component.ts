@@ -112,6 +112,9 @@ export class RegisterComponent {
       }
     });
   
+    // إضافة log لبيانات النموذج
+    console.log('Form Data:', userData);  // إضافة تسجيل بيانات المستخدم
+  
     if (this.selectedFile) {
       formData.append('ProfilePicture', this.selectedFile);
       const reader = new FileReader();
@@ -119,13 +122,13 @@ export class RegisterComponent {
         const base64Image = e.target.result;
         userData['profilePicture'] = base64Image; // تخزين الصورة في الـ localStorage كـ base64
         localStorage.setItem('userData', JSON.stringify(userData));
-
+  
+        console.log('Base64 Image:', base64Image);  // إضافة تسجيل الصورة
+  
       };
       reader.readAsDataURL(this.selectedFile);
     } else {
       localStorage.setItem('userData', JSON.stringify(userData));
-
-      
     }
   
     this.authService.register(formData).subscribe({
@@ -140,6 +143,7 @@ export class RegisterComponent {
       },
     });
   }
+  
   
   
 
