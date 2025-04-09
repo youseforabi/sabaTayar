@@ -94,6 +94,57 @@
       </div>
     </div>
 
+    <div class="forma">
+      <!-- Start Tour Section -->
+<div class="form-group places-container">
+  <div class="input-row">
+    <label>Start Tour</label>
+    <button (click)="addStartTour()" type="button" class="btn">Add</button>
+    <div class="tags-container">
+      <span *ngFor="let startTour of startTours.controls; let i = index" class="tag">
+        {{ startTour.value }}
+        <button (click)="removeStartTour(i)" type="button" class="remove-btn">&times;</button>
+      </span>
+    </div>
+  </div>
+  
+  <div class="select-box">
+    <input list="startToursList" formControlName="newStartTour" id="startTour-select" placeholder="Choose or write a start tour location" />
+    <datalist id="startToursList">
+      <option value="From Hotel">
+      <option value="City Center">
+      <option value="Airport">
+      <option value="Tourist Office">
+    </datalist>
+  </div>
+</div>
+
+<!-- Pick Up Section -->
+<div class="form-group places-container">
+  <div class="input-row">
+    <label>Pick Up</label>
+    <button (click)="addPickUp()" type="button" class="btn">Add</button>
+    <div class="tags-container">
+      <span *ngFor="let pickUp of pickUps.controls; let i = index" class="tag">
+        {{ pickUp.value }}
+        <button (click)="removePickUp(i)" type="button" class="remove-btn">&times;</button>
+      </span>
+    </div>
+  </div>
+  
+  <div class="select-box">
+    <input list="pickUpsList" formControlName="newPickUp" id="pickUp-select" placeholder="Choose or write a pick up location" />
+    <datalist id="pickUpsList">
+      <option value="Hotel Lobby">
+      <option value="Airport Terminal">
+      <option value="Train Station">
+      <option value="Custom Location">
+    </datalist>
+  </div>
+</div>
+
+    </div>
+
     <div class="thirdForm">
       <!-- First Row -->
       <div class="thirdForm1">

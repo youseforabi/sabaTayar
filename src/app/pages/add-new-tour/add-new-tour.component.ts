@@ -89,6 +89,14 @@ export class AddNewTourComponent implements OnInit {
       newTag: new FormControl(''),
       tags: this.fb.array([]),
 
+      
+      newStartTour: new FormControl(''),
+      startTours: this.fb.array([]),
+      newPickUp: new FormControl(''),
+      pickUps: this.fb.array([]),
+
+
+
       headerImage: [null],
       galleryImages: this.fb.array([]),
       tourDescription: [''],
@@ -134,6 +142,14 @@ export class AddNewTourComponent implements OnInit {
 
   get tags(): FormArray {
     return this.tourForm.get('tags') as FormArray;
+  }
+
+  get startTours(): FormArray {
+    return this.tourForm.get('startTours') as FormArray;
+  }
+  
+  get pickUps(): FormArray {
+    return this.tourForm.get('pickUps') as FormArray;
   }
   // إرجاع الـ FormArray بشكل صحيح
   get facilities(): FormArray {
@@ -188,6 +204,32 @@ export class AddNewTourComponent implements OnInit {
   removePlace(index: number) {
     this.places.removeAt(index);
   }
+
+  addStartTour() {
+    const newStartTourValue = this.tourForm.get('newStartTour')?.value.trim();
+    if (newStartTourValue) {
+      this.startTours.push(new FormControl(newStartTourValue));
+      this.tourForm.get('newStartTour')?.setValue('');
+    }
+  }
+
+  removeStartTour(index: number) {
+    this.startTours.removeAt(index);
+  }
+  
+  // Add methods for pickUp
+  addPickUp() {
+    const newPickUpValue = this.tourForm.get('newPickUp')?.value.trim();
+    if (newPickUpValue) {
+      this.pickUps.push(new FormControl(newPickUpValue));
+      this.tourForm.get('newPickUp')?.setValue('');
+    }
+  }
+
+  removePickUp(index: number) {
+    this.pickUps.removeAt(index);
+  }
+  
 
   trackByFn(index: number): number {
     return index;
@@ -466,6 +508,9 @@ export class AddNewTourComponent implements OnInit {
       guestsCapabilityChildren: +formValue.guests.child,
       guestsCapabilityInfant: +formValue.guests.infant,
       tourDescription: formValue.tourDescription,
+
+      startTour: formValue.startTours.length > 0 ? formValue.startTours[0] : "",
+      pickUp: formValue.pickUps.length > 0 ? formValue.pickUps[0] : "",
       mainImage: this.mainImageUrl,
       headerImages: [this.headerImageUrl],
       galleryImages: formValue.galleryImages,
