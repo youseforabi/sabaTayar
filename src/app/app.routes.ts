@@ -24,6 +24,7 @@ import { BlogPostComponent } from './pages/blog-post/blog-post.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { CreateNewUserComponent } from './pages/user-management/create-new-user/create-new-user.component';
 import { BlogDetailsComponent } from './pages/home/blog-details/blog-details.component';
+import { TourDetailsComponent } from './pages/tour-details/tour-details.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent }, 
@@ -54,6 +55,8 @@ export const routes: Routes = [
     { path: 'listingTours', component: ListingToursComponent, canActivate: [authGuard] },
     { path: 'blogPosts', component: BlogPostComponent, canActivate: [authGuard] },
     { path: 'blog/:id', component: BlogDetailsComponent }, // مسار صفحة التفاصيل
+    { path: 'tours/:id', component: TourDetailsComponent },
+
 
     { path: 'contactUs', component: ContactUsComponent },
 

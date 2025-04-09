@@ -4,22 +4,22 @@
     <div class="col-md-3">
       <div class="filter-sidebar p-3 rounded shadow-sm mb-4">
         <h5 class="mb-3">Places</h5>
-        <select class="form-select mb-3"  >
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.place" (change)="onPlaceChange($event)">
           <option value="">Select City...</option>
           <option *ngFor="let place of uniquePlaces" [value]="place">{{place}}</option>
         </select>
 
         <h6 class="fw-bold">Tour Type</h6>
-        <select class="form-select mb-3"  >
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.tourType" (change)="onTourTypeChange($event)">
           <option value="">Select Type</option>
           <option *ngFor="let type of uniqueTourTypes" [value]="type">{{type}}</option>
         </select>
 
         <h6 class="fw-bold">Date</h6>
-        <input type="date" class="form-control mb-3"  >
+        <input type="date" class="form-control mb-3" [(ngModel)]="searchCriteria.date" (change)="onDateChange($event)">
 
         <h6 class="fw-bold">People</h6>
-        <select class="form-select mb-3"  >
+        <select class="form-select mb-3" [(ngModel)]="searchCriteria.people" (change)="onPeopleChange($event)">
           <option value="">Select People</option>
           <option *ngFor="let peopleOption of peopleOptions" [value]="peopleOption">{{peopleOption}}</option>
         </select>
@@ -29,65 +29,45 @@
           <span>${{searchCriteria.priceMin}}</span>
           <span>${{searchCriteria.priceMax}}</span>
         </div>
-        <input type="range" class="form-range mb-3" min="100" max="3000" step="100" >
-        <!-- [(ngModel)]="searchCriteria.priceMin" (input)="applyFilters()" -->
+        <input type="range" class="form-range mb-3" min="100" max="3000" step="100" 
+               [(ngModel)]="searchCriteria.priceMin" (input)="updatePriceMin($event)">
 
         <input type="range" class="form-range mb-3" min="100" max="5000" step="100" 
-               >
-               <!-- [(ngModel)]="searchCriteria.priceMax" (input)="applyFilters()" -->
-        <h5 class="mt-4 mb-3">tags</h5>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="transportation" 
-                 >
-          <label class="form-check-label" for="transportation">Transportation</label>
+               [(ngModel)]="searchCriteria.priceMax" (input)="updatePriceMax($event)">
+               
+        <h5 class="mt-4 mb-3">Tags</h5>
+        <div class="form-check mb-2" *ngFor="let tag of topTags">
+          <input class="form-check-input"
+                 type="checkbox"
+                 [id]="tag.tagName"
+                 [value]="tag.tagName"
+                 (change)="onTagFilterChange(tag.tagName, $event)">
+          <label class="form-check-label" [for]="tag.tagName">
+            {{ tag.tagName }}
+          </label>
         </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="tourGuide" 
-                 >
-          <label class="form-check-label" for="tourGuide">Tour Guide</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="mealsIncluded" 
-                 >
-          <label class="form-check-label" for="mealsIncluded">Meals Included</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="hotelPickup" 
-                 >
-          <label class="form-check-label" for="hotelPickup">Hotel Pickup & Drop-off</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="photography" 
-                >
-          <label class="form-check-label" for="photography">Photography Service</label>
+               
+        <h5 class="mt-4 mb-3">Comments</h5>
+        <div class="form-check mb-2" *ngFor="let user of recentComments">
+         <input
+         class="form-check-input"
+         type="checkbox"
+         [id]="user"
+         [value]="user"
+         (change)="onUserToggle(user, $event)"
+       />
+          <label class="form-check-label" [for]="user">{{ user }}</label>
         </div>
 
-        <h5 class="mt-4 mb-3">Review Score</h5>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="radio" name="reviewScore" id="anyScore" value="" 
-                >
-          <label class="form-check-label" for="anyScore">Any</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="radio" name="reviewScore" id="score3" value="3" 
-                >
-          <label class="form-check-label" for="score3">3+ or more</label>
-        </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="radio" name="reviewScore" id="score5" value="5" 
-                >
-          <label class="form-check-label" for="score5">5</label>
-        </div>
-
-        <button class="btn btn-primary w-100 mt-3">Find tours</button>
+        <button class="btn btn-primary w-100 mt-3" (click)="applyFilters()">Find tours</button>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="col-md-9">
       <div class="row">
-        <div class="col-md-4 mb-4" *ngFor="let tour of allTours">
-          <div class="card custom-shadow border-0 h-100">
+        <div class="col-md-4 mb-4" *ngFor="let tour of paginatedTours">
+          <div class="card custom-shadow border-0 h-100" (click)="viewTourDetails(tour.id)">
             <div class="position-relative">
               <img [src]="tour.mainImage" class="card-img-top" alt="Tour Image">
               <span class="badge bg-primary position-absolute top-0 start-0 m-2">{{ tour.tourCategory }}</span>
@@ -108,11 +88,6 @@
               <h1 class="card-title fw-bold">{{ tour.tourTitle }}</h1>
 
               <p class="text-muted small"><i class="bi bi-calendar"></i> {{ tour.tourDay }} / {{tour.tourNight}}</p>
-              <!-- <p class="text-warning mb-1">
-                <i class="bi bi-star-fill" *ngFor="let star of getFullStars(tour.rating)"></i>
-                <i class="bi bi-star-half" ></i>
-                <span class="text-muted ms-1">{{ tour.rating }}</span>
-              </p> -->
               <hr>
               <div class="d-flex justify-content-between align-items-center">
                 <p class="mt-2 "><strong>Starting from ${{ tour.tourPrice }}</strong></p>
@@ -124,10 +99,10 @@
       </div>
 
       <!-- No results message -->
-      <!-- <div *ngIf="filteredTours.length === 0" class="text-center py-5">
+      <div *ngIf="filteredTours.length === 0" class="text-center py-5">
         <h4>No tours found matching your criteria</h4>
         <p>Try adjusting your filters</p>
-      </div> -->
+      </div>
 
       <!-- Pagination -->
       <nav *ngIf="filteredTours.length > 0">
