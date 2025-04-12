@@ -1,12 +1,15 @@
+:host {
+  font-family: 'Barlow', sans-serif;
+}
 .top-destinations {
   background-color: #f8f9fa;
   padding: 4rem 0;
 
   .section-title {
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
+    font-size:44px;
+    color: #121212;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
   }
 
   .section-subtitle {
@@ -80,7 +83,7 @@
   }
 
   .tour-count {
-    background: rgba(255,255,255,0.2);
+    color: #64666C;
     display: inline-block;
     padding: 0.5rem 1rem;
     border-radius: 20px;

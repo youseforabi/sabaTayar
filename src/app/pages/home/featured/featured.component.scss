@@ -1,5 +1,8 @@
 
 
+:host {
+  font-family: 'Barlow', sans-serif;
+}
 .featured-tours {
   font-family: 'Arial', sans-serif;
   max-width: 1200px;
@@ -11,14 +14,17 @@
     text-align: center;
     margin-bottom: 2rem;
 
-    h2 {
-      font-size: 2rem;
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
+    h3 {
+      font-size: 44px;
+      font-weight: 600;
+      color: #121212;
+      margin-bottom: 1.5rem;
     }
 
     p {
-      color: #7f8c8d;
+      font-size: 18px;
+      font-weight: 400;
+      color: #64666C;
       margin-bottom: 1rem;
     }
 
@@ -38,6 +44,8 @@
       border: 1px solid #ddd;
       background-color: #F5F2F2;
       cursor: pointer;
+    font-weight: 500;
+
       transition: all 0.3s;
 
       &.active {
@@ -158,8 +166,8 @@
       
         .subtitle {
           color: #121212;
-          font-size: 1.2rem;
-          font-weight:bolder;
+          font-size: 18px;
+          font-weight:600;
           line-height: 1.4;
         }
       }
@@ -182,9 +190,14 @@
       
         .price {
           color: #64666C;
-          font-weight: bold;
-          font-size: 1.1rem;
+          font-size: 16px;
+      font-weight: 400;
+
           margin: 0;
+          span{
+            font-size: 18px;
+      font-weight: 600;
+          }
         }
       
         .book-now {
@@ -238,8 +251,8 @@
   }
 }
 
-// .location{
-//   font-size: smaller;
-//   font-weight: 100;
-//   width: 100%;
-// }
+.location{
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+}

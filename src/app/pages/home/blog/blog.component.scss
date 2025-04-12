@@ -1,3 +1,6 @@
+:host {
+  font-family: 'Barlow', sans-serif;
+}
 /* ✅ تنسيق القسم */
 .blog-section {
   padding: 50px 0;
@@ -7,16 +10,18 @@
 
 /* ✅ العنوان الرئيسي */
 .blog-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: black;
+  font-size: 44px;
+  font-weight: 600;
+  color: #121212;
+  margin-bottom: 25px;
   text-align: center; /* جعل العنوان في اليسار */
 }
 
 /* ✅ العنوان الفرعي */
 .blog-subtitle {
-  font-size: 15px;
-  color: #777;
+  font-size: 18px;
+  font-weight: 400;
+  color: #64666C;
   margin-bottom: 40px;
   text-align: center; /* جعل العنوان الفرعي في اليسار */
 }
@@ -57,35 +62,44 @@
 .blog-content {
   padding: 15px 0;
   text-align: left; /* جعل النص داخل المحتوى في اليسار */
+  
 }
 
 /* ✅ عنوان المقال */
 .blog-heading {
-  font-size: 14px;
-  color: #18458B;
-  font-weight: bolder;
+  font-size: 24px;
+  color: #121212;
+  font-weight: 600;
   margin-bottom: 10px;
   text-align: left; /* جعل العنوان في اليسار */
 }
 
 /* ✅ نص المقال */
 .blog-text {
-  font-size: 10px;
-  color: #555;
+  font-size: 16px;
+  font-weight: 400;
+
+  color: #64666C;
   line-height: 1.5;
   margin-bottom: 15px;
-  text-align: ce; /* جعل النص في اليسار */
-}
-
-/* ✅ معلومات المقال */
-.blog-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: #777;
   text-align: left; /* جعل النص في اليسار */
 }
+span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #64666C;
+
+}
+
+// /* ✅ معلومات المقال */
+// .blog-meta {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   font-size: 12px;
+//   color: #777;
+//   text-align: left; /* جعل النص في اليسار */
+// }
 
 /* ✅ زر "Read All News" */
 .blog-button-container {
@@ -105,6 +119,7 @@
 }
 
 .blog-button span {
+
   margin-left: 8px;
 }
 

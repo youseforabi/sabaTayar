@@ -1,6 +1,6 @@
 <section class="history-section">
   <div class="header">
-    <h1 class="fw-bold">Explore The History</h1>
+    <div class="explore">Explore The History</div>
 
     <!-- أزرار السلايدر -->
     <div class="slider-controls">
@@ -14,7 +14,7 @@
     <div class="items-container" #slider>
       <div *ngFor="let item of data.items" class="item-card">
         <img [src]="item.imageUrl" [alt]="item.title" class="item-image">
-        <h1 class="item-title">{{ item.title }}</h1>
+        <h6 class="item-title">{{ item.title }}</h6>
       </div>
     </div>
   </div>

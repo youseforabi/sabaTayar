@@ -1,3 +1,6 @@
+:host {
+  font-family: 'Barlow', sans-serif;
+}
 /* تصميم عام للـ Slider */
 .slider-container {
 
@@ -24,7 +27,13 @@
   .slider::-webkit-scrollbar {
     display: none;
   }
-  
+  .slider .h1{
+
+  }
+
+  .desc{
+    
+  }
   .tour-card {
     position: relative;
     background: white;
@@ -64,8 +73,10 @@
   }
   
   .tour-card h6, .tour-card p {
+    font-size: 16px;
+    font-weight: 400;
     margin: 5px 0;
-    color: black; /* لون النص الافتراضي */
+    color: #64666C; /* لون النص الافتراضي */
     transition: color 0.3s ease-in-out;
     white-space: normal;
     overflow: visible;

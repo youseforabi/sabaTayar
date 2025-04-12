@@ -1,6 +1,6 @@
 <section class="featured-tours">
   <div class="header">
-    <h2>Featured Egypt Tours</h2>
+    <h3>Featured Egypt Tours</h3>
     <p>Discover the magic of Egypt with our top-rated tours!</p>
   </div>
 
@@ -44,14 +44,17 @@
               <span class="rating-value">{{tour.rating}}</span>
             </div>
           </div>
-          <h2 class="subtitle fw-bolder">{{tour.title}}</h2>
+          <h2 class="subtitle ">{{tour.title}}</h2>
         </div>
         <div class="tour-details">
-          <div class="duration">{{tour.tourDay}} Days / {{tour.tourNight}} Nights</div>
           <div class="group-size">{{tour.peopleCount}} People</div>
+
+          <div class="duration">{{tour.tourDay}} Days / {{tour.tourNight}} Nights</div>
         </div>
         <div class="price-section">
-          <div class="price">Starting from: ${{tour.price}}</div>
+          <div class="price">Starting from: 
+            <span class="">${{tour.price}}</span>
+          </div>
           <button class="book-now">Book Now</button>
         </div>
       </div>
