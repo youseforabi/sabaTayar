@@ -52,8 +52,12 @@ export const routes: Routes = [
             {path:'add-new-blog',component:AddNewBlogComponent},
          ] 
     },
-    { path: 'listingTours', component: ListingToursComponent, canActivate: [authGuard] },
-    { path: 'blogPosts', component: BlogPostComponent, canActivate: [authGuard] },
+    { path: 'listingTours', component: ListingToursComponent,
+        //  canActivate: [authGuard] 
+        },
+    { path: 'blogPosts', component: BlogPostComponent,
+        //  canActivate: [authGuard]
+         },
     { path: 'blog/:id', component: BlogDetailsComponent }, // مسار صفحة التفاصيل
     { path: 'tours/:id', component: TourDetailsComponent },
 
