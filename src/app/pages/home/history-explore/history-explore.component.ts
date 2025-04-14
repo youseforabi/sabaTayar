@@ -4,7 +4,7 @@ import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-history-explore',
-  imports: [NgFor,NgClass],
+  imports: [NgFor],
   templateUrl: './history-explore.component.html',
   styleUrl: './history-explore.component.scss'
 })
