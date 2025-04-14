@@ -16,6 +16,8 @@ export class InvoicesComponent implements OnInit {
   filters: string[] = ['All', 'Deleted'];
   originalInvoices: Invoice[] = [];
   Invoices: Invoice[] = [];
+  statusOptions: string[] = ['Pending', 'OnReview', 'Completed', 'Failed', 'Rejected', 'Canceled'];
+
 
   startDate: string = '';  // تخزين تاريخ البداية
   endDate: string = '';    // تخزين تاريخ النهاية
@@ -26,6 +28,13 @@ export class InvoicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchInvoices();
+  }
+  onStatusChange(invoice: Invoice): void {
+    // هنا تقدر تبعت التغيير للسيرفر لو حبيت
+    console.log(`Status changed for invoice ${invoice.invoiceNumber} to ${invoice.status}`);
+    
+    // مثال على إرسال التحديث إلى الـ backend (لو عندك endpoint لذلك)
+    // this.invoiceService.updateInvoiceStatus(invoice.id, invoice.status).subscribe(...);
   }
   getDisplayedInvoices(): Invoice[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -41,15 +50,23 @@ export class InvoicesComponent implements OnInit {
   }
   getStatusClass(status: string): string {
     switch (status) {
-      case 'Completed': return 'completed';
-      case 'Pending': return 'pending';
-      case 'Failed': return 'failed';
-      case 'Rejected': return 'rejected';
-      case 'OnReview': return 'on-review';
-      case 'Canceled': return 'canceled';
-      default: return '';
+      case 'Pending':
+        return 'status-pending';
+      case 'OnReview':
+        return 'status-review';
+      case 'Completed':
+        return 'status-completed';
+      case 'Failed':
+        return 'status-failed';
+      case 'Rejected':
+        return 'status-rejected';
+      case 'Canceled':
+        return 'status-canceled';
+      default:
+        return '';
     }
   }
+  
   filter(status: string) {
     if (status === 'All') {
       this.startDate = ''; // إعادة ضبط تاريخ البداية

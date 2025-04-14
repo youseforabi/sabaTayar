@@ -39,7 +39,8 @@
     <button class="btn Show">Show / Hide columns</button>
   </div>
   
-
+<div class="cont">
+  
   <div class="table-responsive">
     <table class="table">
       <thead>
@@ -62,8 +63,15 @@
           <td>{{ invoice.issueDate | date:'yyyy-MM-dd' }}</td>
           <td>{{ invoice.dueDate | date:'yyyy-MM-dd' }}</td>
           <td>{{ invoice.tourAmount | currency }}</td>
-          <td [class]="getStatusClass(invoice.status)">
-            {{ invoice.status }}
+          <td>
+            <div [ngClass]="getStatusClass(invoice.status)" class="rounded px-2 py-1 w-100">
+              <select 
+                class="form-select custom-select"
+                [(ngModel)]="invoice.status" 
+                (change)="onStatusChange(invoice)">
+                <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+              </select>
+            </div>
           </td>
           <td class="action-icons">
             <span class="material-icons link">link</span>
@@ -86,6 +94,7 @@
     </table>
   </div>
   
+</div>
   
 
 </div>

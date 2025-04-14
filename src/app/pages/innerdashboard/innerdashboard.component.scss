@@ -1,6 +1,8 @@
 .container{
   width: 90%;
   margin: auto;
+  font-family: 'Inter', sans-serif;
+
 }
 .stats {
     width: 90%;
@@ -14,8 +16,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
-    width: 70%;
+    padding: 20px 15px;
+    width: 320px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: 0.3s;
@@ -25,19 +27,21 @@
     transform: translateY(-5px);
   }
   
-  .stat-card h4 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #2D60FF;
+  .stat-card .title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #718EBF;
   }
   
-  .stat-card h2 {
-    font-size: 24px;
-    font-weight: bold;
+  .stat-card .cont {
+    font-size: 36px;
+    font-weight: 600;
+    color: #232323;
   }
   
-  .stat-card fa-icon {
-    font-size: 28px;
+  .stat-card i {
+    margin-top: 10px;
+    font-size:45px;
     color: #2D60FF;
   }
   
@@ -86,13 +90,27 @@
     justify-content: space-between;
     gap: 15px;
   }
-  
+  .recent-activities h3{
+    color: #2D60FF;
+    font-size: 24px;
+    font-weight: 500;
+  }
   .recent-activities, .history {
     background: white;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 55%;
+  }
+  .history h3{
+    color: #2D60FF;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  .history .hist{
+    color: #000000;
+    font-size: 11px;
+    font-weight: 500;
   }
   
   @media (max-width: 768px) {

@@ -12,14 +12,13 @@ export class AuthService {
     
     }
   
-    register(formData: FormData): Observable<any> {
-      return this.http.post(`${this.baseUrl}/Auth/register`, formData)
-        .pipe(
-          tap((res: any) => {
-            
-          }),
-          catchError(this.handleError)
-        );
+    register(userData: any) {
+      // Set content type to application/json
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+      
+      return this.http.post<any>(`${this.baseUrl}/Auth/register`, userData, { headers });
     }
   
     login(email: string, password: string): Observable<any> {

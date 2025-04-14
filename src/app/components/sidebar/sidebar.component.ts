@@ -18,7 +18,7 @@ export class SidebarComponent {
   menuItems = [
     { label: 'Dashboard', icon: 'bi-speedometer2', route: '/dashboard' },
     { label: 'User Management', icon: 'bi-person', route: '/dashboard/user-management' },
-    { label: 'Live Chat', icon: 'bi-chat-dots', route: '/dashboard/chat' },
+    // { label: 'Live Chat', icon: 'bi-chat-dots', route: '/dashboard/chat' },
     { label: 'All Tours', icon: 'bi-list-ul', route: '/dashboard/myToors' },
     { label: 'All Booking', icon: 'bi-calendar-check', route: '/dashboard/myBooking' },
     { label: 'All Comments', icon: 'bi-chat-left-text', route: '/dashboard/comments' },

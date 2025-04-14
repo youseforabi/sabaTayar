@@ -35,6 +35,7 @@
 
       </div>
 
+
       <!-- أضف هذا الكود في قسم نظرة عامة على الجولة (Overview tab) -->
 
   
@@ -42,27 +43,60 @@
       <div class="row mb-4">
         <div class="col-lg-8">
           <!-- Main Image -->
-          <div class="main-image-container position-relative mb-3">
-            <img 
-              [src]="tourDetails.headerImages && tourDetails.headerImages.length > 0 ? 
-                    tourDetails.headerImages[activeImageIndex] : tourDetails.mainImage" 
-              class="img-fluid rounded w-100" 
-              style="height: 400px; object-fit: cover;" 
-              alt="Tour Image">
+          <!-- معرض الصور الرئيسي -->
+          <div class="gallery-container d-flex gap-3">
+            <!-- الصورة الرئيسية (اليسار) -->
+            <div class="main-image-container flex-grow-1">
+              <img 
+                [src]="getActiveImage()" 
+                class=" rounded h-100 main-image" 
+                
+                alt="Tour Image">
+            </div>
+            
+            <!-- الصور المصغرة (اليمين) -->
+            <div class="thumbnail-container d-flex flex-column gap-2">
+             
+              
+              <div class="thumbnail-scroll">
+                <div *ngFor="let image of tourDetails?.headerImages; let i = index" class="thumbnail-item">
+                  <img 
+                    [src]="image" 
+                    class="thumbnail-img" 
+                    [class.active]="i === activeImageIndex"
+                    (click)="setActiveImage(i)"
+                    alt="Thumbnail">
+                </div>
+              </div>
+              <button class="view-all-btn btn btn-light  mb-2" (click)="openImageModal(activeImageIndex)">
+                <i class="bi bi-images me-2"></i>View All Photos
+              </button>
+            </div>
+            
           </div>
           
-          <!-- Thumbnail Gallery -->
-          <div class="row g-2">
-            <div class="col-2" *ngFor="let image of tourDetails.headerImages; let i = index">
-              <img 
-                [src]="image" 
-                class="img-thumbnail cursor-pointer" 
-                [class.border-primary]="i === activeImageIndex"
-                style="height: 80px; object-fit: cover;" 
-                (click)="setActiveImage(i)"
-                alt="Thumbnail">
-            </div>
-          </div>
+          <!-- مودال عرض جميع الصور (يبقى كما هو) --> 
+
+<!-- مودال عرض جميع الصور -->
+<div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="image-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeModal()">&times;</button>
+    <div class="modal-main-image">
+      <img [src]="getModalImage()" class="modal-image" alt="Tour Image">
+    </div>
+    <div class="modal-thumbnails">
+      <div *ngFor="let image of tourDetails?.headerImages; let i = index">
+        <img 
+          [src]="image" 
+          class="modal-thumbnail" 
+          [class.active]="i === modalImageIndex"
+          (click)="setModalImage(i)"
+          alt="Thumbnail">
+      </div>
+    </div>
+  </div>
+</div>
+
           <div class="tour-highlights">
             <div class="highlight-item">
               <div class="highlight-icon">
@@ -80,7 +114,7 @@
               </div>
               <div class="highlight-content">
                 <h5>Duration</h5>
-                <p>{{ tourDetails.tourDay }} Days / {{ tourDetails.tourNight }} Nights</p>
+                <p>{{ tourDetails.tourDay }} Days</p>
               </div>
             </div>
           
@@ -103,7 +137,10 @@
                 <p>{{ tourDetails.places.join(', ') }}</p>
               </div>
             </div>
+
           </div>
+          <hr class="mt-5 mb-3">
+
         </div>
         <div class="col-lg-4 mb-0">
             <div class="card shadow-sm border-0">
@@ -224,15 +261,16 @@
             <!-- Description Tab -->
             <div  class="tab-pane fade show active">
               <div class="tour-description mb-4">
-                <h1 class="mb-3">Tour Overview</h1>
+                <div class="titllle">Tour Overview</div>
                 <p [innerHTML]="tourDetails.tourDescription"></p>
               </div>
+            <hr class="my-5">
               
            
               
               <!-- Tour Tags -->
               <div class="tour-tags mb-4" *ngIf="tourDetails.tourTags && tourDetails.tourTags.length > 0">
-                <h1 class="mb-3">Tour Tags</h1>
+                <div class="titllle">Tour Tags</div>
                 <div class="d-flex flex-wrap gap-2">
                   <span class="badge bg-light text-dark p-2" *ngFor="let tag of tourDetails.tourTags">
                     {{ tag }}
@@ -242,13 +280,14 @@
             </div>
             
             <!-- Itinerary Tab -->
+            <hr class="my-5">
            
             <!-- Includes/Excludes Tab -->
             <div  class="tab-pane fade show active">
               <div class="row">
                 <!-- Includes -->
                 <div class="col-md-12 mb-4">
-                  <h1 class="mb-3">What's Included</h1>
+                  <div class="titllle">What's Included</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex align-items-center" *ngFor="let item of tourDetails.tourIncludes">
                       <i class="bi bi-check-circle-fill text-success me-2"></i>
@@ -259,7 +298,7 @@
                 
                 <!-- Excludes -->
                 <div class="col-md-12 mb-4">
-                  <h1 class="mb-3">What's Not Included</h1>
+                  <div class="titllle">What's Not Included</div>
                   <ul class="list-group">
                     <li class="list-group-item d-flex align-items-center" *ngFor="let item of tourDetails.tourExcludes">
                       <i class="bi bi-x-circle-fill text-danger me-2"></i>
@@ -269,12 +308,13 @@
                 </div>
               </div>
             </div>
+            <hr class="my-5">
             
             <!-- Tour Facts Tab -->
-            <div  class="tab-pane fade show active">
+            <div  class="tab-pane fade show active ">
               
               <div  class="tab-pane fade show active">
-                <h1 class="mb-3">Plans</h1>
+                <div class="titllle">Plans</div>
                 <div class="accordion" id="termsAccordion">
                   <div class="accordion-item mb-3 border rounded shadow-sm" *ngFor="let term of tourDetails.tourPlans; let i = index">
                     <h1 class="accordion-header">
@@ -291,29 +331,45 @@
                 </div>
               </div>
               
-              
+              <hr class="my-5">
               <!-- Tour Availability Calendar -->
-              <div class="mt-4">
-                <h1 class="mb-3">Tour Availability</h1>
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <thead class="table-primary">
-                      <tr>
-                        <th>Date</th>
-                        <th>Price</th>
-                        <th>Availability</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let date of tourDetails.availableDates">
-                        <td>{{ getDateString(date.date) }}</td>
-                        <td>${{ date.price }}</td>
-                        <td>{{ date.maxGuests }} spots available</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div class="calendar-container mb-5">
+                <div class="calendar-header">
+                  <div class="available-dates">Calendar & Price
+                  </div>
+                  <div class="month-navigation ">
+                    <button type="button" class="" (click)="changeMonth(-1)">&#8249;</button>
+                    <span class="months">{{ displayedYear }} {{ months[displayedMonth] }}</span>
+                    <button type="button" class="" (click)="changeMonth(1)">&#8250;</button>
+                  </div>
+                </div>
+                
+                <div class="calendar-grid">
+                  <!-- أيام الأسبوع -->
+                  <div class="day-label text-end days p-2 " *ngFor="let day of weekDays">{{ day }}</div>
+              
+                  <!-- أيام الشهر -->
+                  <div class="calendar-day p-2 text-center border " 
+                  *ngFor="let day of calendarData" 
+                  [class.disabled]="!day.date || !day.priceSet"
+                  [class.bg-light]="!day.date"
+                  [class.no-price]="day.date && !day.priceSet"
+                  [class.notDisabled]="day.date && day.priceSet"
+                  (click)="selectDate(day)">
+                    
+                    <div *ngIf="day.date" class="text-end">
+                      <div class="">{{ day.date.getDate() }}</div>
+                      
+                      <!-- إذا كان التاريخ متاحًا -->
+                      <div *ngIf="day.priceSet" class="notDisabled mt-1">
+                        <div class="">${{ day.price }}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            <hr class="my-5">
+
             </div>
             
             <!-- Terms & Conditions Tab -->
@@ -334,6 +390,8 @@
                 </div>
               </div>
             </div>
+            <hr class="my-5">
+
             <div class="faq-section container my-4">
                 <h2 class="section-title mb-4">FAQs</h2>
               
@@ -415,23 +473,28 @@
                   </div>
 
                  <div *ngIf="tourDetails?.comments?.length > 0" class="comments-list">
-                    <div *ngFor="let comment of tourDetails.comments.slice(0, showAllComments ? tourDetails.comments.length : 3)" class="comment-item mb-4">
-                      <div class="d-flex">
-                        <div class="comment-avatar me-3">
-                          <img [src]="comment.profilePicture || 'assets/images/default-avatar.png'" alt="User Avatar" class="rounded-circle" width="40" height="40">
-                        </div>
-                        <div class="comment-content flex-grow-1">
-                          <div class="d-flex justify-content-between align-items-start">
-                            <h5 class="comment-author mb-1">{{ comment.userName }}</h5>
-                            <div class="comment-rating">
-                              <span *ngFor="let star of [1,2,3,4,5]" class="text-warning">★</span>
-                            </div>
+                  <div *ngFor="let comment of tourDetails?.comments?.slice(0, showAllComments ? tourDetails.comments.length : 3)" class="comment-item mb-4">
+                    <div class="d-flex">
+                      <div class="comment-avatar me-3">
+                        <img [src]="comment.user?.profilePicture || 'assets/images/default-avatar.png'" 
+                             alt="User Avatar" 
+                             class="rounded-circle" 
+                             width="50" 
+                             height="50">
+                      </div>
+                      <div class="comment-content flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div class="comment-author mb-1">{{ comment.user?.userName || 'Anonymous' }}</div>
+                          <div class="comment-rating">
+                            <span *ngFor="let star of [1,2,3,4,5]" class="text-warning">★</span>
                           </div>
-                          <p class="comment-text mb-1">{{ comment.content }}</p>
-                          <small class="text-muted">{{ comment.createdAt }}</small>
                         </div>
+                        <small class="smal">{{ formatTimestamp(comment.createdAt) }}</small>
+                        <div class="comment-text mb-1">{{ comment.content }}</div>
+
                       </div>
                     </div>
+                  </div>
                 
                 <!-- Show More / Show Less Button -->
 <div class="text-center" *ngIf="tourDetails.comments && tourDetails.comments.length > 3">

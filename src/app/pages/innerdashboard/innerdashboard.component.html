@@ -3,22 +3,22 @@
     <div class="stats">
       <div class="stat-card">
         <div>
-          <h4>My Tours</h4>
-          <h2>{{toursCount}}</h2>
+          <h2 class="title">My Tours</h2>
+          <h4 class="cont">{{toursCount}}</h4>
         </div>
         <i class="bi bi-list"></i>
       </div>
       <div class="stat-card">
         <div>
-          <h4>Booking</h4>
-          <h2>{{ bookingsCount }}</h2>
+          <h2 class="title">Booking</h2>
+          <h4 class="cont">{{ bookingsCount }}</h4>
         </div>
         <i class="bi bi-calendar"></i>
       </div>
       <div class="stat-card">
         <div>
-          <h4>Comments</h4>
-          <h2>{{commentCounts}}</h2>
+          <h2 class="title" >Comments</h2>
+          <h4 class="cont">{{commentCounts}}</h4>
         </div>
         <i class="bi bi-chat-left-text"></i>
       </div>
@@ -46,7 +46,7 @@
   <div class="activities">
     <div class="recent-activities">
       <h3><i class="bi bi-clock-history"></i> Recent Activities</h3>
-      <ul>
+      <ul class="hist">
         <li *ngFor="let activity of recentActivities">
           <i class="bi bi-check-circle-fill activity-icon"></i> {{ activity.description }}
         </li>
@@ -54,7 +54,7 @@
     </div>
     <div class="history">
       <h3><i class="bi bi-archive"></i> History</h3>
-      <ul>
+      <ul class="hist">
         <li *ngFor="let item of history">
           <i class="bi bi-clock"></i> {{ item }}
         </li>

@@ -1,10 +1,10 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { HomeService } from '../../../services/Home/home.service';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-history-explore',
-  imports: [NgFor],
+  imports: [NgFor,NgClass],
   templateUrl: './history-explore.component.html',
   styleUrl: './history-explore.component.scss'
 })

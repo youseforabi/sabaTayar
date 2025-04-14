@@ -41,7 +41,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group(
       {
-        userID: [''],
+        userID: [''],  // This will be auto-generated in onSubmit
         name: ['', Validators.required],
         birthDate: [''],
         phone: ['', Validators.required],
@@ -92,57 +92,101 @@ export class RegisterComponent {
     }
   }
 
-  onSubmit() {
-    if (this.registerForm.invalid) {
-      this.toastr.error('Please fill in all required fields correctly', 'Error');
-      return;
+// In register.component.ts
+onSubmit() {
+  if (this.registerForm.invalid) {
+    this.toastr.error('Please fill in all required fields correctly', 'Error');
+    return;
+  }
+
+  this.loading = true;
+  this.errorMessage = null;
+
+  // Generate a valid UUID for userID if empty
+  const userID = this.registerForm.get('userID')?.value || this.generateUUID();
+
+  // Format birthDate properly
+  const birthDateValue = this.registerForm.get('birthDate')?.value;
+  let formattedBirthDate = null;
+
+  if (birthDateValue) {
+    // If it's a Date object
+    if (birthDateValue instanceof Date) {
+      formattedBirthDate = birthDateValue.toISOString().split('T')[0];
+    } 
+    // If it's already a string
+    else if (typeof birthDateValue === 'string' && birthDateValue.trim() !== '') {
+      formattedBirthDate = new Date(birthDateValue).toISOString().split('T')[0];
     }
-  
-    this.loading = true;
-    this.errorMessage = null;
-  
-    const formData = new FormData();
-    const userData: any = {}; // كائن لتخزين البيانات المدخلة من الفورم
-  
-    Object.keys(this.registerForm.controls).forEach((key) => {
-      const value = this.registerForm.get(key)?.value;
-      if (value) {
-        formData.append(key, value);
-        userData[key] = value; // تخزين البيانات في الكائن
-      }
-    });
-  
-    // إضافة log لبيانات النموذج
-    console.log('Form Data:', userData);  // إضافة تسجيل بيانات المستخدم
-  
-    if (this.selectedFile) {
-      formData.append('ProfilePicture', this.selectedFile);
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const base64Image = e.target.result;
-        userData['profilePicture'] = base64Image; // تخزين الصورة في الـ localStorage كـ base64
-        localStorage.setItem('userData', JSON.stringify(userData));
-  
-        console.log('Base64 Image:', base64Image);  // إضافة تسجيل الصورة
-  
-      };
-      reader.readAsDataURL(this.selectedFile);
-    } else {
-      localStorage.setItem('userData', JSON.stringify(userData));
-    }
-  
-    this.authService.register(formData).subscribe({
+  }
+
+  // Create registration data object
+  const registrationData = {
+    userID: userID,
+    name: this.registerForm.get('name')?.value || '',
+    birthDate: formattedBirthDate,
+    phone: this.registerForm.get('phone')?.value || '',
+    location: this.registerForm.get('location')?.value || '',
+    email: this.registerForm.get('email')?.value || '',
+    password: this.registerForm.get('password')?.value || '',
+    confirmPassword: this.registerForm.get('confirmPassword')?.value || '',
+    profilePicture: '',
+    model: {} // Add the required model field
+  };
+
+  // Log the data to be sent
+  console.log('Registration data to be sent:', registrationData);
+
+  const processRegistration = () => {
+    // Save non-sensitive user data locally 
+    const localUserData = {
+      name: registrationData.name,
+      email: registrationData.email,
+      phone: registrationData.phone,
+      location: registrationData.location
+    };
+    localStorage.setItem('userData', JSON.stringify(localUserData));
+
+    // Send registration request
+    this.authService.register(registrationData).subscribe({
       next: (response) => {
         this.toastr.success(response.message || 'Registration successful!', 'Success');
         this.loading = false;
         this.openOtpModal();
       },
       error: (error) => {
-        this.toastr.error(error.error.message || 'Registration failed. Please try again.', 'Error');
+        console.error('Registration error:', error);
+        // Detailed error logging
+        if (error.error && error.error.errors) {
+          console.log('Validation errors:', error.error.errors);
+        }
+        this.toastr.error(error.error?.message || 'Registration failed. Please try again.', 'Error');
         this.loading = false;
       },
     });
+  };
+
+  // Handle image if selected
+  if (this.selectedFile) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      registrationData.profilePicture = e.target.result.split(',')[1]; // Remove "data:image/..." prefix
+      processRegistration();
+    };
+    reader.readAsDataURL(this.selectedFile);
+  } else {
+    processRegistration();
   }
+}
+
+// Helper method to generate a UUID
+generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0, 
+          v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
   
   
   

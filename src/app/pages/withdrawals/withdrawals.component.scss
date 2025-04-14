@@ -15,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    width: 350px;
+    width: 320px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: 0.3s;
@@ -26,18 +26,20 @@
   }
   
   .stat-card h4 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #2D60FF;
+    font-size: 20px;
+    font-weight: 400;
+    color: #718EBF;
   }
   
   .stat-card h2 {
+
     font-size: 24px;
     font-weight: bold;
   }
   
-  .stat-card fa-icon {
-    font-size: 50px;
+  .stat-card i {
+margin-top: 10px;
+    font-size:45px;
     color: #2D60FF;
   }
   .filters {

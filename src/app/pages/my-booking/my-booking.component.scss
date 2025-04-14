@@ -1,7 +1,37 @@
+.component-class {
+  font-family: 'Inter', sans-serif;
+}
 .recent-tours {
     padding: 16px;
     margin: 16px auto;
     width: 85%;
+    
+    
+}
+/* نلف الـ tour cards داخل Wrapper */
+.booking-scroll-wrapper {
+  max-height: 600px; /* أو حسب الارتفاع اللي يناسبك */
+  overflow-y: auto;
+  padding-right: 10px; /* عشان مفيش حاجات تتقص */
+}
+
+/* تخصيص شكل السكرول */
+.booking-scroll-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.booking-scroll-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.booking-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #2D60FF; /* الأزرق */
+  border-radius: 10px;
+}
+
+.booking-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #1c3fb3; /* أزرق أغمق عند التحويم */
 }
 
 .no-results-message {
@@ -40,6 +70,8 @@ h2{
       color: black;
       padding: 8px 25px;
       border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       position: relative; 
@@ -82,13 +114,15 @@ h2{
     background-color: #2D60FF;
     border: none;
     color: white;
+    font-size: 16px;
+    font-weight: 600;
     padding: 8px 25px;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
-  
+
 .tour-header {
     display: flex;
     align-items: center;
@@ -210,6 +244,7 @@ span {
     .tour-actions button {
         width: 100%; /* الأزرار بعرض كامل */
         padding: 10px;
+        
     }
     button {
         padding: 10px 20px; /* تصغير الحشو */
@@ -219,10 +254,34 @@ span {
       .badge {
         top: -8px;
         right: -8px;
+        
         width: 18px;
         height: 18px;
         font-size: 10px;
       }
+}
+
+.price {
+  background-color: #2D60FF;
+  width: fit-content;
+  padding: 12px;
+  border-radius: 15px;
+  font-size:20px ;
+  font-weight: 800;
+  color: white;
+  
+  
+  .spanPrice{
+    color: white;
+    font-size: 20px;
+    font-weight: 200;
+  }
+}
+
+.black{
+  color: #121212;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 

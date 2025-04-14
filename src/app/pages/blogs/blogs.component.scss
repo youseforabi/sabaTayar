@@ -1,4 +1,9 @@
+.container{
+    font-family: 'Inter', sans-serif;
+}
 .blog-container {
+
+  
     background: #f9fafb;
     width: 90%;
     padding: 20px;
@@ -30,8 +35,9 @@
     }
     
     .customer span {
-        color: #6b7280;
-        font-size: 14px;
+        color: #718EBF;
+        font-size: 18px;
+        font-weight: 500;
     }
     
     .customer strong {
@@ -52,6 +58,8 @@
         color: white;
         padding: 10px 35px;
         border: none;
+        font-size: 16px;
+        font-weight: 700;
         border-radius: 15px;
         cursor: pointer;
     }
@@ -73,6 +81,8 @@
         outline: none;
     }
   
+
+   
     .blog-grid {
       max-height: 800px; /* تحديد أقصى ارتفاع للبلوجات */
   overflow-y: auto; /* تفعيل التمرير الرأسي */
@@ -99,9 +109,9 @@
         .blog-content {
           padding: 15px;
   
-          h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
+          .blogTtile{
+            font-size: 15px;
+            font-weight: 700;
           }
   
           p {
@@ -264,3 +274,5 @@
     background: #f1f1f1;
   }
   
+
+

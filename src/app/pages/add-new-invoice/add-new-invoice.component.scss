@@ -21,7 +21,8 @@
     flex-direction: column;
 
     label {
-      font-weight: 600;
+      font-weight: 400;
+      font-size: 15px;
       margin-bottom: 5px;
     }
 
@@ -85,9 +86,8 @@
 
 input::placeholder {
   color: #8BA3CB;
-  font-size: 14px;
-  font-style: italic;
-  opacity: 1;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .error {

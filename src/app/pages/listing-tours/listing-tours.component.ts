@@ -93,59 +93,96 @@ export class ListingToursComponent implements OnInit {
 
   applyFilters(): void {
     this.filteredTours = this.allTours.filter(tour => {
+      // For debugging
+      console.log('Filtering tour:', tour.tourTitle);
+      
       // Filter by place
-      if (this.searchCriteria.place && (!tour.places || !tour.places.includes(this.searchCriteria.place))) {
-        return false;
+      if (this.searchCriteria.place && this.searchCriteria.place !== '') {
+        // Check if tour.places exists and contains the selected place
+        if (!tour.places || !tour.places.some(place => place === this.searchCriteria.place)) {
+          console.log(`Filtered out by place: ${this.searchCriteria.place}`);
+          return false;
+        }
       }
-
+  
       // Filter by tour type
-      if (this.searchCriteria.tourType && tour.tourCategory !== this.searchCriteria.tourType) {
-        return false;
+      if (this.searchCriteria.tourType && this.searchCriteria.tourType !== '') {
+        if (tour.tourCategory !== this.searchCriteria.tourType) {
+          console.log(`Filtered out by tour type: ${this.searchCriteria.tourType}`);
+          return false;
+        }
       }
-
+  
       // Filter by date
-      if (this.searchCriteria.date) {
-        // Assuming tour has a date field that can be compared
-        const tourDate = new Date(tour.tourDate);
+      if (this.searchCriteria.date && this.searchCriteria.date !== '') {
+        // Make sure tour.tourDate exists and is a valid date
+        if (!tour.tourDate && !tour.availableDates?.length) {
+          console.log('Filtered out by missing date');
+          return false;
+        }
+        
+        const tourDate = tour.tourDate ? new Date(tour.tourDate) : 
+                        (tour.availableDates?.length ? new Date(tour.availableDates[0].date) : null);
         const selectedDate = new Date(this.searchCriteria.date);
-        if (isNaN(tourDate.getTime()) || tourDate < selectedDate) {
+        
+        if (!tourDate || isNaN(tourDate.getTime()) || tourDate < selectedDate) {
+          console.log(`Filtered out by date: ${this.searchCriteria.date}`);
           return false;
         }
       }
-
+  
       // Filter by people count
-      if (this.searchCriteria.people) {
-        // Assuming tour has a capacity or similar field
-        if (tour.capacity < parseInt(this.searchCriteria.people)) {
+      if (this.searchCriteria.people && this.searchCriteria.people !== '') {
+        const peopleCount = parseInt(this.searchCriteria.people);
+        
+        // Handle '6+' case specially
+        const maxPeople = this.searchCriteria.people === '6+' ? 6 : peopleCount;
+        
+        // Check either capacity or guestsCapabilityAdult
+        const tourCapacity = tour.capacity || tour.guestsCapabilityAdult || 0;
+        
+        if (tourCapacity < maxPeople) {
+          console.log(`Filtered out by people: ${this.searchCriteria.people}`);
           return false;
         }
       }
-
+  
       // Filter by price range
-      if (tour.tourPrice < this.searchCriteria.priceMin || tour.tourPrice > this.searchCriteria.priceMax) {
+      // Use tourPrice field based on the sample data
+      if ((tour.tourPrice < this.searchCriteria.priceMin) || 
+          (tour.tourPrice > this.searchCriteria.priceMax)) {
+        console.log(`Filtered out by price range: ${this.searchCriteria.priceMin}-${this.searchCriteria.priceMax}`);
         return false;
       }
-
-      // Filter by tags
+  
+      // Filter by tags - corrected to use tourTags
       if (this.searchCriteria.selectedTags.length > 0) {
-        if (!tour.tags || !this.searchCriteria.selectedTags.some(tag => tour.tags.includes(tag))) {
+        // Use tourTags instead of tags based on the sample data
+        if (!tour.tourTags || !Array.isArray(tour.tourTags) || 
+            !this.searchCriteria.selectedTags.some(tag => tour.tourTags.includes(tag))) {
+          console.log(`Filtered out by tags: ${this.searchCriteria.selectedTags.join(', ')}`);
           return false;
         }
       }
-
+  
       // Filter by selected users' comments
       if (this.searchCriteria.selectedUsers.length > 0) {
-        if (!tour.comments || !tour.comments.some(comment => 
-          this.searchCriteria.selectedUsers.includes(comment.userName))) {
+        // Check if tour has comments and at least one comment from a selected user
+        // Based on the sample data structure, access the userName property correctly
+        if (!tour.comments.content   || !Array.isArray(tour.comments.content) || 
+        this.searchCriteria.selectedUsers.some(comment => tour.comments.content.includes(comment))) {
+          console.log(`Filtered out by comments: ${this.searchCriteria.selectedUsers.join(', ')}`);
           return false;
         }
       }
-
+  
+      // Tour passed all filters
       return true;
     });
-
+  
     // Reset to first page when filters change
     this.currentPage = 1;
+    console.log(`Filtered tours: ${this.filteredTours.length} of ${this.allTours.length}`);
   }
 
   onTagFilterChange(tag: string, event: Event): void {

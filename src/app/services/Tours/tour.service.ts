@@ -40,7 +40,7 @@ export class TourService {
   }
 
   deleteTour(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/Tour/${id}`);
+    return this.http.delete(`${this.apiUrl}/Tour/${id}SoftDeleteTour`);
   }
 
   restoreTour(id: number): Observable<any> {
@@ -48,7 +48,7 @@ export class TourService {
   }
 
   deletePermanently(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/Tour/permanent/${id}`);
+    return this.http.delete(`${this.apiUrl}/Tour/DeleteTour/${id}`);
   }
 
 

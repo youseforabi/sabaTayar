@@ -38,25 +38,26 @@ interface AvailableDate {
   maxGuests: number;
 }
 
-interface User {
-  id: string;
-  userName: string;
-  profilePicture: string;
-}
 
-interface Reply {
+
+// interface Reply {
+//   id: number;
+//   content: string;
+//   createdAt: string;
+//   user: User;
+// }
+interface Comment {
   id: number;
   content: string;
   createdAt: string;
-  user: User;
+  replies: null;
+  user: {
+    id: string;
+    profilePicture: string;
+    userName: string; // تأكد من وجود هذه الخاصية هنا
+  };
 }
 
-interface Comment {
-  userName: string;
-  profilePicture: string;
-  content: string;
-  createdAt: string;
-}
 
 interface TourDetails {
   id: number;
@@ -122,7 +123,6 @@ export class TourDetailsComponent {
   totalPrice: number = 0;
   
   // UI state
-  activeImageIndex: number = 0;
   activeTab: string = 'description';
   
   constructor(
@@ -135,6 +135,8 @@ export class TourDetailsComponent {
         
     
   ) {}
+
+  
   bookingForm: FormGroup; // نموذج الحجز
   formatTime(dateStr: string): string {
     const date = new Date(dateStr);
@@ -157,6 +159,8 @@ export class TourDetailsComponent {
    
   }
 
+  
+
   toggleComments() {
     this.showAllComments = !this.showAllComments;
   }
@@ -165,7 +169,11 @@ export class TourDetailsComponent {
     this.tourService.getTourDetails(this.tourId).subscribe({
       next: (data) => {
         this.tourDetails = data;
+        console.log(data);
+        
         this.calculateTotalPrice();
+        this.generateCalendar();
+
         this.loading = false;
       },
       error: (err) => {
@@ -229,6 +237,69 @@ export class TourDetailsComponent {
     this.totalPrice = total;  // تحديث السعر الإجمالي
   }
   
+  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  weekDays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  displayedMonth: number = new Date().getMonth();
+  displayedYear: number = new Date().getFullYear();
+  calendarData: any[] = [];
+  selectedDatee: any = null;
+  generateCalendar(): void {
+    this.calendarData = [];
+    const firstDay = new Date(this.displayedYear, this.displayedMonth, 1).getDay();
+    const daysInMonth = new Date(this.displayedYear, this.displayedMonth + 1, 0).getDate();
+  
+    // أيام فارغة في بداية الشهر
+    for (let i = 0; i < firstDay; i++) {
+      this.calendarData.push({ date: null, price: null, maxGuests: null });
+    }
+  
+    // أيام الشهر
+    for (let i = 1; i <= daysInMonth; i++) {
+      const currentDate = new Date(this.displayedYear, this.displayedMonth, i);
+      const dateStr = currentDate.toISOString().split('T')[0];
+      
+      // البحث عن تاريخ متاح في بيانات الرحلة
+      const availableDate = this.tourDetails?.availableDates?.find(d => {
+        const apiDate = new Date(d.date);
+        return apiDate.getFullYear() === currentDate.getFullYear() && 
+               apiDate.getMonth() === currentDate.getMonth() && 
+               apiDate.getDate() === currentDate.getDate();
+      });
+  
+      this.calendarData.push({
+        date: currentDate,
+        price: availableDate?.price || null,
+        maxGuests: availableDate?.maxGuests || null,
+        priceSet: !!availableDate,
+        optionsForm: false
+      });
+    }
+  }
+
+  changeMonth(offset: number): void {
+    this.displayedMonth += offset;
+    
+    // تصحيح السنة إذا تجاوزنا الحدود
+    if (this.displayedMonth > 11) {
+      this.displayedMonth = 0;
+      this.displayedYear++;
+    } else if (this.displayedMonth < 0) {
+      this.displayedMonth = 11;
+      this.displayedYear--;
+    }
+    
+    this.generateCalendar();
+  }
+  // تحديد تاريخ
+selectDate(day: any): void {
+  if (!day.date || !day.priceSet) return;
+  this.selectedDate = day;
+  this.bookingForm.patchValue({
+    selectedDate: day.date.toISOString()
+  });
+  this.calculateTotalPrice();
+}
+  
 
 
 
@@ -278,7 +349,7 @@ export class TourDetailsComponent {
   
     this.tourService.addComment(commentData).subscribe({
       next: (response: any) => {
-        const newComment: Comment = {
+        const newComment: any = {
           userName: response.user?.userName || 'Anonymous',
           profilePicture: response.user?.profilePicture || 'assets/images/default-avatar.png',
           content: response.content,
@@ -293,6 +364,8 @@ export class TourDetailsComponent {
           this.newComment.content = '';
   
           this.cdr.detectChanges();
+          this.loadTourDetails(); // إعادة جلب التفاصيل بما فيها التعليقات
+
   
           // ✅ Show success toast
           this.toastr.success('Comment added successfully!', 'Success');
@@ -313,7 +386,38 @@ export class TourDetailsComponent {
   
   selectedTime: string = '';  // الوقت المحدد
 
+// أضف هذه الخصائص
+activeImageIndex: number = 0;
+isModalOpen: boolean = false;
+modalImageIndex: number = 0;
 
+// دوال التحكم بالصور
+getActiveImage(): string {
+  return this.tourDetails?.headerImages?.length > 0 ? 
+         this.tourDetails.headerImages[this.activeImageIndex] : 
+         this.tourDetails?.mainImage || '';
+}
+
+
+// دوال المودال
+openImageModal(index: number): void {
+  this.modalImageIndex = index;
+  this.isModalOpen = true;
+  document.body.style.overflow = 'hidden'; // لمنع التمرير عند فتح المودال
+}
+
+closeModal(): void {
+  this.isModalOpen = false;
+  document.body.style.overflow = 'auto';
+}
+
+getModalImage(): string {
+  return this.tourDetails?.headerImages?.[this.modalImageIndex] || '';
+}
+
+setModalImage(index: number): void {
+  this.modalImageIndex = index;
+}
   // تحديث عدد الضيوف
 
   // تحديث إجمالي السعر بناءً على عدد الأشخاص
