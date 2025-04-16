@@ -34,8 +34,8 @@
               <span class="category">{{ blog.category }}</span>
             </div>
             <div class="buttons">
-              <button class="edit"> Edit</button>
-              <button class="delete"> Delete</button>
+              <button class="edit" [routerLink]="['/dashboard/add-new-blog', blog.id]">Edit</button>
+              <button class="delete" (click)="deleteBlog(blog.id)">Delete</button>
             </div>
           </div>
           

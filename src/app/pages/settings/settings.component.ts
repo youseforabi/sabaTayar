@@ -210,25 +210,29 @@ export class SettingsComponent {
   }
 
   updateProfile() {
-    const formData = new FormData();
-    Object.keys(this.editProfileForm.controls).forEach((key) => {
-      const value = this.editProfileForm.get(key)?.value;
-      if (value !== null && value !== undefined) {
-        formData.append(key, value);
-      }
-    });
-
+    // Create an object that matches the expected API format
+    const userData = {
+      name: this.editProfileForm.get('name')?.value,
+      birthDate: this.editProfileForm.get('dateOfBirth')?.value,
+      phone: "", // Add this field if available in your form
+      location: this.editProfileForm.get('location')?.value,
+      email: this.editProfileForm.get('email')?.value,
+      password: "", // Add if needed
+      confirmPassword: "", // Add if needed
+      profilePicture: this.selectedImage || this.user.profileImage
+    };
+  
     this.authService
-      .updateProfile(formData)
+      .updateProfile(userData)
       .pipe(
         tap({
           next: (response) => {
             this.toostr.success('Profile updated successfully!', 'Success');
             console.log(response);
-            
           },
           error: (error) => {
             this.toostr.error('Error updating profile', 'Error');
+            console.error('Update error:', error);
           },
         })
       )

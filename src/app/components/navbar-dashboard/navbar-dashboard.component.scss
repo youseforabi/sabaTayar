@@ -1,3 +1,4 @@
+// navbar-dashboard.component.scss
 .navbar {
   width: calc(100% - 200px);
   display: flex;
@@ -21,86 +22,166 @@
   margin: 0;
 }
 
-/* ✅ صندوق البحث */
-.search-box {
+// Right side elements container
+.navbar-right {
   display: flex;
   align-items: center;
-  background: #F5F7FA;
-  border: 1px solid #ddd;
-  padding: 8px 12px;
-  border-radius: 25px;
-  width: 180px;
-  transition: width 0.3s;
+  gap: 20px;
 }
 
-.search-box .search-icon {
-  color: #adb5bd;
-  font-size: 16px;
-  margin-right: 8px;
-}
-
-.search-box input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  color: #495057;
-}
-
-/* ✅ أيقونات */
-.icons {
+// Language selector
+.language-selector {
   display: flex;
   align-items: center;
-  gap: 15px;
-}
-
-.icon {
-  font-size: 18px;
+  gap: 5px;
   color: #6c757d;
+  font-size: 14px;
   cursor: pointer;
-  transition: color 0.3s;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  
+  i {
+    font-size: 16px;
+    color: #2d60ff;
+  }
+  
+  i.bi-chevron-down {
+    font-size: 12px;
+    color: #6c757d;
+  }
 }
 
-.icon:hover {
-  color: #2d60ff;
-}
-
-
-
-.notification-icon {
-  color: #e83e8c;
-}
-
-/* ✅ صورة البروفايل */
-.profile-img {
-  width: 40px;
-  height: 40px;
+// Rounded icon containers
+.rounded-circle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F7FA;
+  padding: 8px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background 0.3s;
+
+  i {
+    font-size: 18px;
+    color: #2d60ff;
+  }
+
+  &:hover {
+    background-color: #e2e6ea;
+  }
 }
 
-/* ✅ عند تصغير السايدبار */
+// User profile section (تعديل حجم الصورة والمسافات)
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6c757d;
+    font-size: 14px;
+
+    i {
+      font-size: 12px;
+    }
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 180px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1050;
+
+    a {
+      display: block;
+      padding: 8px 15px;
+      color: #495057;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f8f9fa;
+        color: #2d60ff;
+      }
+    }
+  }
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  margin-top: 10px;
+  z-index: 1050; // Increased z-index
+  display: block; // Ensure it's displayed
+  visibility: visible; // Make sure it's visible
+  
+  a {
+    display: block;
+    padding: 8px 15px;
+    color: #495057;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+    
+    &:hover {
+      background: #f8f9fa;
+      color: #2d60ff;
+    }
+  }
+} 
+// Notification icon
+.notification-icon {
+  font-size: 20px;
+  color: #6c757d;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #2d60ff;
+  }
+}
+
+
+/* When sidebar is collapsed */
 .sidebar.collapsed + .navbar {
   left: 60px;
   width: calc(100% - 60px);
 }
 
-/* ✅ الميديا كويري للشاشات المتوسطة */
+/* Media queries */
 @media (max-width: 1024px) {
   .navbar {
     left: 60px;
     width: calc(100% - 60px);
   }
-
-  .search-box {
-    width: 150px;
-  }
 }
 
-/* ✅ الميديا كويري للشاشات الصغيرة */
 @media (max-width: 768px) {
   .navbar {
     left: 0;
@@ -112,32 +193,25 @@
     font-size: 18px;
     margin-left: 50px;
   }
-
-  .search-box {
-    width: 120px;
+  
+  .language-selector span {
+    display: none;
   }
-
-  .backToHome {
-    padding: 8px 12px;
-    font-size: 12px;
+  
+  .user-profile .user-info span {
+    display: none;
   }
-
-  .icon {
-    font-size: 16px;
-  }
-
+  
   .profile-img {
     width: 35px;
     height: 35px;
   }
-
-  .icons {
-    margin-right: 10px;
-    gap: 10px;
+  
+  .navbar-right {
+    gap: 15px;
   }
 }
 
-/* ✅ الميديا كويري للجوال */
 @media (max-width: 480px) {
   .navbar {
     padding: 8px 10px;
@@ -146,21 +220,17 @@
   .navbar h2 {
     font-size: 16px;
   }
-
-  .search-box {
-    width: 100px;
-  }
-
-  .icon {
-    font-size: 14px;
-  }
-
+  
   .profile-img {
     width: 30px;
     height: 30px;
   }
-
-  .icons {
-    gap: 8px;
+  
+  .navbar-right {
+    gap: 10px;
+  }
+  
+  .language-selector {
+    padding: 3px 6px;
   }
 }

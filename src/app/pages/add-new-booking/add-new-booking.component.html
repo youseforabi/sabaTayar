@@ -130,59 +130,6 @@
         <!-- Order Summary -->
         <div class="col-md-5">
           <h4>Order Summary</h4>
-          <h5>Payment Gateway</h5>
-          <select class="form-control" formControlName="paymentGateway">
-            <option value="">Select gateway...</option>
-            <option value="visa">Visa/MasterCard</option>
-          </select>
-  
-          <!-- Card Details (Only If Visa Selected) -->
-          <div *ngIf="bookingForm.get('paymentGateway')?.value === 'visa'" formGroupName="cardDetails">
-            <h5>Card Details</h5>
-            <div class="form-group">
-                <label>Card Number</label>
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  formControlName="cardNumber" 
-                  placeholder="1234 5678 9012 3456"
-                  (input)="formatCardNumber($event)" />
-                
-                <div *ngIf="bookingForm.get('cardDetails.cardNumber')?.invalid && bookingForm.get('cardDetails.cardNumber')?.touched" class="text-danger">
-                  Card number must be 16 digits, formatted as XXXX XXXX XXXX XXXX.
-                </div>
-              </div>
-  
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>Expiry Month</label>
-                  <input type="text" class="form-control" formControlName="expiryMonth" placeholder="MM" />
-                  <div *ngIf="bookingForm.get('cardDetails.expiryMonth')?.invalid && bookingForm.get('cardDetails.expiryMonth')?.touched" class="text-danger">
-                    Enter a valid month (01-12).
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>Expiry Year</label>
-                  <input type="text" class="form-control" formControlName="expiryYear" placeholder="YYYY" />
-                  <div *ngIf="bookingForm.get('cardDetails.expiryYear')?.invalid && bookingForm.get('cardDetails.expiryYear')?.touched" class="text-danger">
-                    Enter a valid year (e.g., 2025).
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>CVC</label>
-                  <input type="text" class="form-control" formControlName="cvc" placeholder="CVC" />
-                  <div *ngIf="bookingForm.get('cardDetails.cvc')?.invalid && bookingForm.get('cardDetails.cvc')?.touched" class="text-danger">
-                    Enter a valid CVC (3-4 digits).
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
   
           <button class="btn btn-primary" type="submit" [disabled]="bookingForm.invalid">Complete Order</button>
           <p class="payment-text mt-3 text-muted">

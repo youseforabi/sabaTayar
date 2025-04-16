@@ -1,5 +1,6 @@
 <div class="blog-form-container">
-    <h1 class="fw-bolder">Basic Informations</h1>
+  <div class="blog-form-container">
+    <h1 class="fw-bolder">{{ isEditMode ? 'Edit Blog' : 'Add New Blog' }}</h1>
 
     <form [formGroup]="blogForm" (ngSubmit)="submitBlog()">
         <div class="forma">
@@ -129,9 +130,10 @@
                 placeholder="Write your description here..."></quill-editor>
         </div>
 
+      
         <div class="buttons">
-            <button type="submit" class="submit-btn">Submit Now</button>
-            <button type="button" class="cancel-btn">Cancel</button>
-        </div>
+          <button type="submit" class="submit-btn">{{ isEditMode ? 'Update Blog' : 'Submit Now' }}</button>
+          <button type="button" class="cancel-btn" (click)="router.navigate(['/dashboard/blogs'])">Cancel</button>
+      </div>
     </form>
 </div>

@@ -41,51 +41,20 @@ export class AddNewBookingComponent {
         ]
       ],
   
-      paymentGateway: ['', Validators.required],
   
-      cardDetails: this.fb.group({
-        cardNumber: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern('^([0-9]{4} ){3}[0-9]{4}$') 
-          ]
-        ],
-        expiryMonth: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern('^(0[1-9]|1[0-2])$')
-          ]
-        ],
-        expiryYear: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern('^20[2-9][0-9]$') 
-          ]
-        ],
-        cvc: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern('^[0-9]{3,4}$') 
-          ]
-        ]
-      })
     });
   }
   
-  formatCardNumber(event: any) {
-    let input = event.target.value.replace(/\s+/g, '');
-    let formattedInput = input.replace(/(\d{4})/g, '$1 ').trim(); 
-    this.bookingForm.get('cardDetails.cardNumber')?.setValue(formattedInput, { emitEvent: false });
-  }
+  // formatCardNumber(event: any) {
+  //   let input = event.target.value.replace(/\s+/g, '');
+  //   let formattedInput = input.replace(/(\d{4})/g, '$1 ').trim(); 
+  //   this.bookingForm.get('cardDetails.cardNumber')?.setValue(formattedInput, { emitEvent: false });
+  // }
   
 
-  getCardNumberWithoutSpaces(): string {
-    return this.bookingForm.get('cardDetails.cardNumber')?.value.replace(/\s+/g, '');
-  }
+  // getCardNumberWithoutSpaces(): string {
+  //   return this.bookingForm.get('cardDetails.cardNumber')?.value.replace(/\s+/g, '');
+  // }
   submitBooking() {
     if (this.bookingForm.invalid) {
       this.bookingForm.markAllAsTouched();

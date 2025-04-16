@@ -17,6 +17,88 @@
 .nav-link:hover {
   color: #18458B;
 }
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6c757d;
+    font-size: 14px;
+
+    i {
+      font-size: 12px;
+    }
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 180px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1050;
+
+    a {
+      display: block;
+      padding: 8px 15px;
+      color: #495057;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f8f9fa;
+        color: #2d60ff;
+      }
+    }
+  }
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  margin-top: 10px;
+  z-index: 1050; // Increased z-index
+  display: block; // Ensure it's displayed
+  visibility: visible; // Make sure it's visible
+  
+  a {
+    display: block;
+    padding: 8px 15px;
+    color: #495057;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+    
+    &:hover {
+      background: #f8f9fa;
+      color: #2d60ff;
+    }
+  }
+} 
 
 /* أنيميشن القائمة المنسدلة */
 .animate-dropdown {

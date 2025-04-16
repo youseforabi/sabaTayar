@@ -1,17 +1,32 @@
+<!-- navbar-dashboard.component.html -->
 <nav class="navbar">
   <h2>{{ pageTitle }}</h2>
-
-  <div class="icons">
-    <input class="search-box" type="text" placeholder="Search for something..." />
-   
-
-    <!-- أيقونة الجرس (إشعارات) -->
-    <i class="bi bi-bell-fill icon notification-icon"></i>
-
-    <!-- صورة الملف الشخصي -->
-     <a href="/dashboard/settings">
-    <img [src]="profileImage" alt="Profile" class="profile-img" />
-
-     </a>
+  <div class="navbar-right">
+    <!-- Language Selector -->
+    <div class="language-selector rounded-circle-icon">
+      <i class="bi bi-globe"></i>
+      <span>English</span>
+      <i class="bi bi-chevron-down"></i>
+    </div>
+  
+    <!-- Notification Icon -->
+    <div class="notification rounded-circle-icon">
+      <i class="bi bi-bell-fill notification-icon"></i>
+    </div>
+  
+    <!-- User Info & Profile -->
+    <div class="user-profile">
+      <div class="user-info" (click)="toggleDropdown()">
+        <span>Hi, {{ userRole }}</span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <img [src]="profileImage" alt="Profile" class="profile-img" (click)="toggleDropdown()">
+  
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+        <a href="/dashboard/settings">Settings</a>
+        <a (click)="logOut()">Logout</a>
+      </div>
+    </div>
   </div>
+  
 </nav>

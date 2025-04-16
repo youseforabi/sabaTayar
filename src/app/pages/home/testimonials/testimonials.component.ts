@@ -1,41 +1,45 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommentsService } from '../../../services/comment/comments.service';
 
 @Component({
   selector: 'app-testimonials',
-  standalone:true,
+  standalone: true,
   imports: [NgFor],
   templateUrl: './testimonials.component.html',
   styleUrl: './testimonials.component.scss'
 })
 export class TestimonialsComponent {
-  testimonials = [
-    {
-      rating: 5,
-      comment: "I've used this travel booking site multiple times and have never been disappointed. The search filters are great for narrowing down options, and the prices are always competitive.",
-      author: "Pete Jones",
-      position: "Founder, Themesthat",
-      gender: "male"
-    },
-    {
-      rating: 4,
-      comment: "Great platform! Booking is easy, and I always find good deals for my travels.",
-      author: "Sarah Connor",
-      position: "Traveler",
-      gender: "female"
-    },
-    {
-      rating: 5,
-      comment: "Excellent service and user-friendly interface. I always use this site for my bookings.",
-      author: "John Doe",
-      position: "Freelancer",
-      gender: "male"
-    }
-  ];
-
+  testimonials: any[] = [];
+  displayedTestimonials: any[] = []; // سيحتوي على 3 تعليقات عشوائية
   activeIndex = 0;
 
-  setActiveIndex(index: number) {
+  constructor(private commentService: CommentsService) {}
+
+  ngOnInit(): void {
+    this.commentService.getAllComments().subscribe({
+      next: (data) => {
+        this.testimonials = data;
+        this.selectRandomTestimonials(); // اختيار 3 تعليقات عشوائية
+        console.log(this.displayedTestimonials);
+      },
+      error: (err) => {
+        console.error("Error fetching comments:", err);
+      }
+    });
+  }
+
+  // دالة لاختيار 3 تعليقات عشوائية
+  selectRandomTestimonials(): void {
+    if (this.testimonials.length <= 3) {
+      this.displayedTestimonials = [...this.testimonials];
+    } else {
+      const shuffled = [...this.testimonials].sort(() => 0.5 - Math.random());
+      this.displayedTestimonials = shuffled.slice(0, 3);
+    }
+  }
+
+  setActiveIndex(index: number): void {
     if (index !== this.activeIndex) {
       this.activeIndex = index;
     }

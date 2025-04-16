@@ -7,6 +7,7 @@ import { CommentsBlogs } from '../../Intrerfaces/CommentsBlogs';
 import { RouterModule } from '@angular/router';
 import { BlogService } from '../../services/dashBlog/blog.service';
 import { CommentsService } from '../../services/comment/comments.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-blogs',
@@ -22,7 +23,7 @@ export class BlogsComponent implements OnInit {
 
 
   commentsBlogs: any[]= [];
-  constructor(private blogService : BlogService , private commentService : CommentsService){}
+  constructor(private blogService : BlogService , private commentService : CommentsService,private toastr:ToastrService){}
   ngOnInit(): void {
 
     this.blogService.getAllBlogs().subscribe({
@@ -50,7 +51,33 @@ export class BlogsComponent implements OnInit {
     })
   }
 
+  deleteBlog(id: number) {
+      this.blogService.deleteBlog(id).subscribe({
+        next: (res) => {
+          this.blogs = this.blogs.filter(blog => blog.id !== id);
+          this.toastr.success('Blog deleted successfully');
+        },
+        error: (err) => {
+          console.error("Error deleting blog", err);
+          this.toastr.error('Error deleting blog');
+        }
+      });
+    
+  }
 
+  deleteComment(id: number) {
+    this.commentService.deleteCommentById(id).subscribe({
+      next: (res) => {
+        this.commentsBlogs = this.commentsBlogs.filter(comment => comment.id !== id);
+        this.toastr.success(res.message);
+      },
+      error: (err) => {
+        console.error("Error deleting comment", err);
+        this.toastr.error('حدث خطأ أثناء حذف التعليق');
+      }
+    });
+  }
+  
 
   
 
@@ -70,7 +97,7 @@ export class BlogsComponent implements OnInit {
     this.selectedCategory = category;
   }
 
-  deleteComment(id: number) {
-    this.commentsBlogs = this.commentsBlogs.filter(comment => comment.id !== id);
-  }
+  // deleteComment(id: number) {
+  //   this.commentsBlogs = this.commentsBlogs.filter(comment => comment.id !== id);
+  // }
 }

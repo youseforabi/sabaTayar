@@ -31,6 +31,11 @@ export class TourService {
   }
 
 
+  
+  getCategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/Tour/categories`);
+  }
+
   getAllTours(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/Tour`);
   }

@@ -12,6 +12,11 @@ import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { authGuard } from './Guards/auth.guard';
+import {
+  adminGuard,
+  userGuard,
+  anyRoleGuard,
+} from './services/Auth/admin.gurad';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { AddNewTourComponent } from './pages/add-new-tour/add-new-tour.component';
 import { AdsManagerComponent } from './pages/ads-manager/ads-manager.component';
@@ -25,46 +30,88 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { CreateNewUserComponent } from './pages/user-management/create-new-user/create-new-user.component';
 import { BlogDetailsComponent } from './pages/home/blog-details/blog-details.component';
 import { TourDetailsComponent } from './pages/tour-details/tour-details.component';
+import { UsersComponent } from './pages/users/users.component';
+import { MyWalletComponent } from './pages/users/my-wallet/my-wallet.component';
+import { MyBookingsUserComponent } from './pages/users/my-bookings-user/my-bookings-user.component';
+import { MyCommentsUserComponent } from './pages/users/my-comments-user/my-comments-user.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent }, 
-    { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
 
-    {
-         path: 'dashboard', 
-         component: DashboardComponent,
-         children:[
-            {path:'',component:InnerdashboardComponent},
-            {path:'user-management',component:UserManagementComponent},
-            {path:'create-new-user',component:CreateNewUserComponent},
-            {path:'chat',component:ChatComponent},
-            {path:'myToors',component:MyToorsComponent},
-            {path:'myBooking',component:MyBookingComponent},
-            {path:'comments',component:CommentsComponent},
-            {path:'withdrawals',component:WithdrawalsComponent},
-            {path:'adsManager',component:AdsManagerComponent},
-            {path:'invoices',component:InvoicesComponent},
-            {path:'settings',component:SettingsComponent},
-            {path:'add-new-tour',component:AddNewTourComponent},
-            {path:'add-new-booking',component:AddNewBookingComponent},
-            {path:'add-new-invoice',component:AddNewInvoiceComponent},
-            {path:'blogs',component:BlogsComponent},
-            {path:'add-new-blog',component:AddNewBlogComponent},
-         ] 
-    },
-    { path: 'listingTours', component: ListingToursComponent,
-        //  canActivate: [authGuard] 
-        },
-    { path: 'blogPosts', component: BlogPostComponent,
-        //  canActivate: [authGuard]
-         },
-    { path: 'blog/:id', component: BlogDetailsComponent }, // مسار صفحة التفاصيل
-    { path: 'tours/:id', component: TourDetailsComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [anyRoleGuard],
+    children: [
+      { path: '', component: InnerdashboardComponent },
 
+      // Admin only routes
+      {
+        path: 'user-management',
+        component: UserManagementComponent,
+        canActivate: [adminGuard],
+      },
+      {
+        path: 'create-new-user',
+        component: CreateNewUserComponent,
+        canActivate: [adminGuard],
+      },
+      {
+        path: 'adsManager',
+        component: AdsManagerComponent,
+        canActivate: [adminGuard],
+      },
+      {
+        path: 'add-new-tour',
+        component: AddNewTourComponent,
+        canActivate: [adminGuard],
+      },
+      {
+        path: 'add-new-blog',
+        component: AddNewBlogComponent,
+        canActivate: [adminGuard],
+      },
+      {
+        path: 'add-new-blog/:id',
+        component: AddNewBlogComponent,
+        canActivate: [adminGuard],
+      },
 
-    { path: 'contactUs', component: ContactUsComponent },
+      {
+        path: 'userInvoice',
+        component: UsersComponent,
+        canActivate: [userGuard], // فقط للمستخدمين العاديين
+      },
 
-    {path:'login',component:LoginComponent},
-    {path:'register',component:RegisterComponent}
+      // { path: 'edit-blog/:id', component: AddNewBlogComponent, canActivate: [adminGuard] },
 
+      // Common routes (accessible by both admin and user)
+      { path: 'chat', component: ChatComponent },
+      { path: 'myToors', component: MyToorsComponent,canActivate: [adminGuard], },
+      { path: 'myBooking', component: MyBookingComponent,canActivate: [adminGuard], },
+      { path: 'myBookingUser', component: MyBookingsUserComponent,canActivate: [userGuard], },
+      { path: 'comments', component: CommentsComponent,canActivate: [adminGuard], },
+      { path: 'myComments', component: MyCommentsUserComponent,canActivate: [userGuard], },
+      { path: 'withdrawals', component: WithdrawalsComponent,canActivate: [adminGuard], },
+      { path: 'userWithdrawal', component: MyWalletComponent,canActivate: [userGuard], },
+      {
+        path: 'invoices',
+        component: InvoicesComponent,
+        canActivate: [adminGuard], // فقط للمديرين
+      },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'add-new-booking', component: AddNewBookingComponent },
+      { path: 'add-new-invoice', component: AddNewInvoiceComponent },
+      { path: 'blogs', component: BlogsComponent,canActivate: [adminGuard], },
+    ],
+  },
+  { path: 'listingTours', component: ListingToursComponent },
+  { path: 'blogPosts', component: BlogPostComponent },
+  { path: 'blog/:id', component: BlogDetailsComponent },
+  { path: 'tours/:id', component: TourDetailsComponent },
+  { path: 'contactUs', component: ContactUsComponent },
+
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];

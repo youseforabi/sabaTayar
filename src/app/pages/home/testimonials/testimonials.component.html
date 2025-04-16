@@ -4,30 +4,32 @@
       </div>
   
       <div class="testimonials-slider">
-        <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === activeIndex">
-
+        <div class="testimonial-card" *ngFor="let testimonial of displayedTestimonials; let i = index" [class.active]="i === activeIndex">
           <div class="testimonial-content">
-            <img src="assets/annnncientjpg.jpg" alt="{{testimonial.author}}" class="author-image">
-  
+            <img [src]="testimonial.user.profilePicture" [alt]="testimonial.user.name" class="author-image">
+            
             <div class="text-content">
-        <h2 class="section-title">What They Are Say!</h2>
-
+              <h2 class="section-title">What They Are Say!</h2>
               <div class="rating">
-                <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= testimonial.rating">★</span>
+                <!-- يمكنك إضافة التقييم إذا كان موجودًا في البيانات -->
+                <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= (testimonial.rating || 5)">★</span>
               </div>
-              <p class="comment">{{ testimonial.comment }}</p>
+              <p class="comment">{{ testimonial.content }}</p>
               <div class="author-info">
-                <strong>{{ testimonial.author }}</strong>
-                <div class="position">{{ testimonial.position }}</div>
+                <strong>{{ testimonial.user.name }}</strong>
+                <div class="position">{{ testimonial.commentedOn.title }}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-  
+      
       <!-- نقاط التنقل -->
       <div class="dots-container">
-        <span *ngFor="let testimonial of testimonials; let i = index" class="dot" [class.active]="i === activeIndex" (click)="setActiveIndex(i)"></span>
+        <span *ngFor="let testimonial of displayedTestimonials; let i = index" 
+              class="dot" 
+              [class.active]="i === activeIndex" 
+              (click)="setActiveIndex(i)"></span>
       </div>
     </div>
   </section>

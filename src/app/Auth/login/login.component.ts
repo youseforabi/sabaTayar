@@ -8,14 +8,14 @@ import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule], // ✅ إضافة ReactiveFormsModule هنا بشكل صحيح
+  imports: [NgIf, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
 
-  private fb = inject(FormBuilder); // ✅ استخدام inject بدلاً من الحقن التقليدي
+  private fb = inject(FormBuilder);
 
   constructor(
     private authService: AuthService,
@@ -42,9 +42,13 @@ export class LoginComponent {
       this.authService.login(Email, Password).subscribe({
         next: (res) => {
           this.toastr.success('Login successful!', 'Success');
-          localStorage.setItem("token",res.token)
+          console.log('User data:', res.userData);
           
-          this.router.navigate(['/home']);
+          // Redirect based on role
+          const roleId = res.userData.roleId;
+          
+          // Always redirect to dashboard after successful login
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           this.toastr.error('Invalid email or password. Please try again.', 'Error');

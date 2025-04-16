@@ -32,11 +32,18 @@
       </ul>
     </div>
 
-    <!-- أيقونة الحساب -->
-    <div class="d-flex align-items-center ms-auto">
-      <a class="nav-link mx-2" routerLink="/profile">
-        <img src="assets/user1jpg.jpg" alt="Profile" class="profile-img">
-      </a>
+ 
+    <div class="user-profile">
+      <div class="user-info" (click)="toggleDropdown()">
+        <span>Hi, {{ userRole }}</span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <img [src]="profileImage" alt="Profile" class="profile-img" (click)="toggleDropdown()">
+  
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+        <a href="/dashboard/settings">Settings</a>
+        <a (click)="logOut()">Logout</a>
+      </div>
     </div>
   </div>
 </nav>

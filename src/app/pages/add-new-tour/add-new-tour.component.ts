@@ -134,7 +134,12 @@ export class AddNewTourComponent implements OnInit {
     this.displayedMonth = this.currentDate.getMonth();
     this.displayedYear = this.currentDate.getFullYear();
     this.generateCalendar(); // توليد التقويم للشهر الحالي
+    
   }
+
+
+  
+
 
   get places(): FormArray {
     return this.tourForm.get('places') as FormArray;
@@ -439,6 +444,7 @@ export class AddNewTourComponent implements OnInit {
       });
     }
   }
+  
   changeMonth(step: number) {
     this.displayedMonth += step;
     if (this.displayedMonth < 0) {
@@ -549,6 +555,8 @@ export class AddNewTourComponent implements OnInit {
     return payload;
   }
 
+
+
   submitTour() {
     const payload = this.prepareTourPayload();
 
@@ -557,7 +565,10 @@ export class AddNewTourComponent implements OnInit {
         this.toostr.success('Tour created successfully', 'Success');
       },
       error: (err) => {
-        this.toostr.error('Error creating tour', 'Failed');
+
+        console.log(err);
+        
+        this.toostr.error('Tour Failed To Create', 'Failed');
       },
     });
   }
