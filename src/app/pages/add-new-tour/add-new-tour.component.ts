@@ -18,6 +18,7 @@ import { QuillModule } from 'ngx-quill';
 import 'quill/dist/quill.snow.css';
 import { TourService } from '../../services/Tours/tour.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-tour',
@@ -61,6 +62,7 @@ export class AddNewTourComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private cdr: ChangeDetectorRef,
     private tourService: TourService,
     private toostr : ToastrService
@@ -563,6 +565,9 @@ export class AddNewTourComponent implements OnInit {
     this.tourService.submitTourData(payload).subscribe({
       next: (res) => {
         this.toostr.success('Tour created successfully', 'Success');
+
+        this.router.navigate(['/dashboard/myToors']); // غير '/tours' حسب اسم الصفحة اللي عايز تروّح لها
+
       },
       error: (err) => {
 
