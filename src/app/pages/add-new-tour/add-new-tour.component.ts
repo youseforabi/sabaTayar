@@ -566,7 +566,7 @@ export class AddNewTourComponent implements OnInit {
       next: (res) => {
         this.toostr.success('Tour created successfully', 'Success');
 
-        this.router.navigate(['/dashboard/myToors']); // غير '/tours' حسب اسم الصفحة اللي عايز تروّح لها
+        this.router.navigate(['/listingTours']); // غير '/tours' حسب اسم الصفحة اللي عايز تروّح لها
 
       },
       error: (err) => {

@@ -159,7 +159,17 @@ export class TourDetailsComponent {
    
   }
 
+  nextImage(): void {
+    if (this.tourDetails?.galleryImages) {
+      this.modalImageIndex = (this.modalImageIndex + 1) % this.tourDetails.galleryImages.length;
+    }
+  }
   
+  prevImage(): void {
+    if (this.tourDetails?.galleryImages) {
+      this.modalImageIndex = (this.modalImageIndex - 1 + (this.tourDetails.galleryImages?.length || 0)) % (this.tourDetails.galleryImages?.length || 1);
+    }
+  }
 
   toggleComments() {
     this.showAllComments = !this.showAllComments;
@@ -393,8 +403,8 @@ modalImageIndex: number = 0;
 
 // دوال التحكم بالصور
 getActiveImage(): string {
-  return this.tourDetails?.headerImages?.length > 0 ? 
-         this.tourDetails.headerImages[this.activeImageIndex] : 
+  return this.tourDetails?.galleryImages?.length > 0 ? 
+         this.tourDetails.galleryImages[this.activeImageIndex] : 
          this.tourDetails?.mainImage || '';
 }
 
@@ -403,7 +413,7 @@ getActiveImage(): string {
 openImageModal(index: number): void {
   this.modalImageIndex = index;
   this.isModalOpen = true;
-  document.body.style.overflow = 'hidden'; // لمنع التمرير عند فتح المودال
+  document.body.style.overflow = 'hidden';
 }
 
 closeModal(): void {
@@ -411,8 +421,12 @@ closeModal(): void {
   document.body.style.overflow = 'auto';
 }
 
+
 getModalImage(): string {
-  return this.tourDetails?.headerImages?.[this.modalImageIndex] || '';
+  if (!this.tourDetails?.galleryImages || this.tourDetails.galleryImages.length === 0) {
+    return this.tourDetails?.mainImage || '';
+  }
+  return this.tourDetails.galleryImages[this.modalImageIndex];
 }
 
 setModalImage(index: number): void {

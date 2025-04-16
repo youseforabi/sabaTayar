@@ -59,7 +59,7 @@
              
               
               <div class="thumbnail-scroll">
-                <div *ngFor="let image of tourDetails?.headerImages; let i = index" class="thumbnail-item">
+                <div *ngFor="let image of tourDetails?.galleryImages; let i = index" class="thumbnail-item">
                   <img 
                     [src]="image" 
                     class="thumbnail-img" 
@@ -78,14 +78,21 @@
           <!-- مودال عرض جميع الصور (يبقى كما هو) --> 
 
 <!-- مودال عرض جميع الصور -->
+<!-- مودال عرض جميع الصور -->
 <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()">
   <div class="image-modal" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="closeModal()">&times;</button>
-    <div class="modal-main-image">
-      <img [src]="getModalImage()" class="modal-image" alt="Tour Image">
+    
+    <div class="modal-navigation">
+      
+      <div class="modal-main-image">
+        <img [src]="getModalImage()" class="modal-image" alt="Tour Image">
+      </div>
+      
     </div>
+    
     <div class="modal-thumbnails">
-      <div *ngFor="let image of tourDetails?.headerImages; let i = index">
+      <div *ngFor="let image of tourDetails?.galleryImages; let i = index">
         <img 
           [src]="image" 
           class="modal-thumbnail" 
@@ -93,6 +100,10 @@
           (click)="setModalImage(i)"
           alt="Thumbnail">
       </div>
+    </div>
+    
+    <div class="image-counter">
+      {{ modalImageIndex + 1 }} / {{ tourDetails?.galleryImages?.length || 1 }}
     </div>
   </div>
 </div>
