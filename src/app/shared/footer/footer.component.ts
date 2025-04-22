@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
+  email:string= 'info@sabatours.com'
 
 
   showNavBarFooter: boolean = true;

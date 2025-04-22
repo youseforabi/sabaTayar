@@ -1,6 +1,7 @@
 :host {
   font-family: 'Barlow', sans-serif;
 }
+
 .history-section {
   margin: 0 auto;
   margin-top: 45px;
@@ -8,13 +9,16 @@
   font-family: 'Arial', sans-serif;
   position: relative;
   max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header {
   display: flex;
-  justify-content: space-between; /* يجعل الزرارين على اليمين */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .slider-controls {
@@ -25,10 +29,10 @@
 .slider-btn {
   background: white;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 16px;
   transition: 0.3s;
 }
 
@@ -39,20 +43,25 @@
 
 .slider-container {
   width: 100%;
+  overflow: hidden;
 }
 
 .items-container {
   display: flex;
   gap: 1rem;
   transition: transform 0.5s ease-in-out;
+  flex-wrap: nowrap;
 }
 
 .item-card {
-  min-width: 300px;
+  min-width: calc((100% - 2rem) / 3); /* عرض ثلاث كروت مع مراعاة الـ gap */
+  max-width: calc((100% - 2rem) / 3);
   border-radius: 12px;
   text-align: center;
+  cursor: pointer;
   transition: all 0.4s ease-in-out;
   overflow: hidden;
+  flex: 0 0 calc((100% - 2rem) / 3);
 }
 
 .item-card:hover .item-image {
@@ -62,18 +71,258 @@
 
 .item-image {
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
 }
-.explore{
+
+.explore {
   font-weight: 600;
-  font-size: 44px;
+  font-size: 2.5rem;
 }
+
 .item-title {
   padding: 1rem;
   margin: 0;
   color: #121212;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
+/* Media Queries للشاشات المختلفة */
+
+/* شاشات متوسطة (Tablets) */
+@media (max-width: 768px) {
+  .history-section {
+    padding: 1.5rem;
+    margin-top: 30px;
+  }
+
+  .explore {
+    font-size: 2rem;
+  }
+
+  .item-card {
+    min-width: calc((100% - 1rem) / 2); /* عرض كرتين */
+    max-width: calc((100% - 1rem) / 2);
+    flex: 0 0 calc((100% - 1rem) / 2);
+  }
+
+  .item-image {
+    height: 250px;
+  }
+
+  .item-title {
+    font-size: 1.25rem;
+  }
+
+  .slider-btn {
+    padding: 6px;
+    font-size: 14px;
+  }
+}
+
+/* شاشات صغيرة (Mobiles) */
+@media (max-width: 480px) {
+  .history-section {
+    padding: 1rem;
+    margin-top: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .explore {
+    font-size: 1.5rem;
+  }
+
+  .slider-controls {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .item-card {
+    min-width: 100%; /* عرض كرت واحد */
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .item-image {
+    height: 200px;
+  }
+
+  .item-title {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .slider-btn {
+    padding: 5px;
+    font-size: 12px;
+  }
+}:host {
+  font-family: 'Barlow', sans-serif;
+}
+
+.history-section {
+  margin: 0 auto;
+  margin-top: 45px;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.slider-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.slider-btn {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.slider-btn:hover {
+  background: #007bff;
+  color: white;
+}
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.items-container {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.5s ease-in-out;
+  flex-wrap: nowrap;
+}
+
+.item-card {
+  min-width: calc((100% - 2rem) / 3); /* عرض ثلاث كروت مع مراعاة الـ gap */
+  max-width: calc((100% - 2rem) / 3);
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+  flex: 0 0 calc((100% - 2rem) / 3);
+}
+
+.item-card:hover .item-image {
+  transform: scale(1.05);
+  transition: transform 0.4s ease-in-out;
+}
+
+.item-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.explore {
+  font-weight: 600;
+  font-size: 2.5rem;
+}
+
+.item-title {
+  padding: 1rem;
+  margin: 0;
+  color: #121212;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Media Queries للشاشات المختلفة */
+
+/* شاشات متوسطة (Tablets) */
+@media (max-width: 768px) {
+  .history-section {
+    padding: 1.5rem;
+    margin-top: 30px;
+  }
+
+  .explore {
+    font-size: 2rem;
+  }
+
+  .item-card {
+    min-width: calc((100% - 1rem) / 2); /* عرض كرتين */
+    max-width: calc((100% - 1rem) / 2);
+    flex: 0 0 calc((100% - 1rem) / 2);
+  }
+
+  .item-image {
+    height: 250px;
+  }
+
+  .item-title {
+    font-size: 1.25rem;
+  }
+
+  .slider-btn {
+    padding: 6px;
+    font-size: 14px;
+  }
+}
+
+/* شاشات صغيرة (Mobiles) */
+@media (max-width: 480px) {
+  .history-section {
+    padding: 1rem;
+    margin-top: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .explore {
+    font-size: 1.5rem;
+  }
+
+  .slider-controls {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .item-card {
+    min-width: 100%; /* عرض كرت واحد */
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .item-image {
+    height: 200px;
+  }
+
+  .item-title {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .slider-btn {
+    padding: 5px;
+    font-size: 12px;
+  }
+}

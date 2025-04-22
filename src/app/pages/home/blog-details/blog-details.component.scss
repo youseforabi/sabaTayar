@@ -59,21 +59,39 @@
         object-fit: contain;
       }
     }
-    
     .blog-header-images {
-      .header-image {
-        border-radius: 8px;
-        overflow: hidden;
-        height: 200px;
-        
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-        }
+      margin-bottom: 2rem;
+      
+      .header-image-single, .header-image-multiple {
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+          
+          img {
+              width: 100%;
+              object-fit: contain;
+              display: block;
+          }
       }
-    }
-    
+      
+      .header-image-single {
+          img {
+            width: 100%;
+            object-fit: cover;
+
+              max-height: 350px; // ارتفاع أكبر للصورة المفردة
+          }
+      }
+      
+      .header-image-multiple {
+          height: 300px; // ارتفاع ثابت للصور المتعددة
+          
+          img {
+              height: 100%;
+              object-fit: cover; // أو contain حسب ما تفضل
+          }
+      }
+  }
     .blog-description {
       font-size: 1.1rem;
       line-height: 1.7;
@@ -184,4 +202,9 @@
         }
       }
     }
+  }
+
+  .card-img-top{
+    height: 300px;
+    object-fit: cover;
   }

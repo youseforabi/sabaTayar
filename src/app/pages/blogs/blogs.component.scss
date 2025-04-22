@@ -4,11 +4,11 @@
 .blog-container {
 
   
-    background: #f9fafb;
-    width: 90%;
-    padding: 20px;
-    border-radius: 12px;
-    margin: auto;
+    width: 100%;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.701);
+  margin: 20px auto;
+  border-radius: 15px;
   
     .header {
         display: flex;
@@ -88,10 +88,10 @@
   overflow-y: auto; /* تفعيل التمرير الرأسي */
       display: grid;
       grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
-      gap: 15px; /* تباعد بين العناصر */
+      gap: 25px; /* تباعد بين العناصر */
       background-color: #FFFFFF;
       padding: 25px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
       border-radius: 8px;
 
    
@@ -102,8 +102,8 @@
   
         img {
           width: 100%;
-          height: 180px;
-          object-fit: contain;
+          height: 200px;
+          object-fit: cover;
         }
   
         .blog-content {

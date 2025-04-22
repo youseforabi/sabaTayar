@@ -32,10 +32,16 @@
       </div>
       <div class="actions">
         <div class="d-flex">
-          <button class="icon-btn">&#128172;</button> <!-- Chat icon -->
-          <button class="icon-btn">&#10006;</button> <!-- Close icon -->
+          <button class="icon-btn btn btn-light me-2">
+            <i class="bi bi-chat-dots-fill"></i> <!-- Chat icon -->
+          </button>
+          <button class="icon-btn btn btn-light" (click)="deleteComment(comment.id)">
+            <i class="bi bi-x-lg"></i> <!-- Close icon -->
+          </button>
         </div>
-        <button class="reply-btn">↩ Reply</button>
+        <!-- <button class="reply-btn">↩ Reply</button> -->
+      </div>
+        <!-- <button class="reply-btn">↩ Reply</button> -->
       </div>
     </div>
     
@@ -43,4 +49,3 @@
     <!-- <button class="see-more" >
       See more
     </button> -->
-    </div>

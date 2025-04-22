@@ -34,6 +34,12 @@ import { UsersComponent } from './pages/users/users.component';
 import { MyWalletComponent } from './pages/users/my-wallet/my-wallet.component';
 import { MyBookingsUserComponent } from './pages/users/my-bookings-user/my-bookings-user.component';
 import { MyCommentsUserComponent } from './pages/users/my-comments-user/my-comments-user.component';
+import { TravelTipsComponent } from './pages/travel-tips/travel-tips.component';
+import { ReelsComponent } from './pages/reels/reels.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { ClassicTourComponent } from './pages/classic-tour/classic-tour.component';
+import { DayTourComponent } from './pages/day-tour/day-tour.component';
+import { GuideTourComponent } from './pages/guide-tour/guide-tour.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -107,10 +113,19 @@ export const routes: Routes = [
     ],
   },
   { path: 'listingTours', component: ListingToursComponent },
+  { path: 'travelTips', component: TravelTipsComponent },
+  { path: 'reels', component: ReelsComponent },
+  { path: 'classical', component: ClassicTourComponent },
+  { path: 'day', component: DayTourComponent },
+  { path: 'guide', component: GuideTourComponent },
+  
+
   { path: 'blogPosts', component: BlogPostComponent },
   { path: 'blog/:id', component: BlogDetailsComponent },
   { path: 'tours/:id', component: TourDetailsComponent },
   { path: 'contactUs', component: ContactUsComponent },
+  { path: 'about', component: AboutUsComponent },
+  
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

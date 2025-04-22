@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../services/Auth/auth.service';
 import { NgFor } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-my-comments-user',
@@ -12,6 +13,7 @@ import { NgFor } from '@angular/common';
 export class MyCommentsUserComponent {
 
    authService = inject(AuthService);  // حقن الخدمة هنا باستخدام inject
+   toastr = inject(ToastrService);  // حقن الخدمة هنا باستخدام inject
   
     comments = [];
 
@@ -34,6 +36,20 @@ export class MyCommentsUserComponent {
       },
       error: (err) => {
         console.error('Error loading comments:', err);
+      }
+    });
+  }
+
+  deleteComment(id: number): void {
+    this.authService.deleteCommentById(id).subscribe({
+      next: () => {
+        // تحديث القائمة بعد الحذف
+        this.comments = this.comments.filter(comment => comment.id !== id);
+        this.toastr.success('Comment deleted successfully!', 'Deleted');
+
+      },
+      error: (err) => {
+        this.toastr.error('Failed to delete comment.', 'Error');
       }
     });
   }

@@ -1,6 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CommentsService } from '../../services/comment/comments.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-comments',
@@ -14,7 +15,7 @@ export class CommentsComponent {
   // filters: string[] = ['Guide Of Egypt', 'Classical Tour', 'Day Trip' ,'Deleted Comment' ];
   // selectedFilter: string = 'Guide Of Egypt';
   commentsService = inject(CommentsService);  // حقن الخدمة هنا باستخدام inject
-
+  toastr = inject(ToastrService)
   comments = [];
 
   ngOnInit(): void {
@@ -42,5 +43,20 @@ export class CommentsComponent {
   //   this.selectedFilter = type;
 
   // }
+  deleteComment(id: number): void {
+    this.commentsService.deleteCommentById(id).subscribe({
+      next: () => {
+        // تحديث القائمة بعد الحذف
+        this.comments = this.comments.filter(comment => comment.id !== id);
+  
+        // إظهار رسالة تأكيد بالتوستر
+        this.toastr.success('Comment deleted successfully!', 'Deleted');
+      },
+      error: (err) => {
+        this.toastr.error('Failed to delete comment.', 'Error');
+      }
+    });
+  }
+  
 
 }

@@ -14,9 +14,9 @@
     <!-- Tour Content -->
     <div *ngIf="!loading && !error && tourDetails" class="tour-details">
       <!-- Header Section -->
-      <div class="row mb-4">
+      <div class="row ">
         <div class="col-lg-8">
-          <h1 class="fw-bold mb-2">{{ tourDetails.tourTitle }}</h1>
+          <h1 class="fw-bold ">{{ tourDetails.tourTitle }}</h1>
           <div class="d-flex align-items-center mb-3">
             <span class="badge bg-primary me-2">{{ tourDetails.tourCategory }}</span>
             <span class="badge bg-secondary me-2">{{ tourDetails.tourDay }} Days / {{ tourDetails.tourNight }} Night </span>
@@ -40,7 +40,7 @@
 
   
       <!-- Gallery Section -->
-      <div class="row mb-4">
+      <div class="row ">
         <div class="col-lg-8">
           <!-- Main Image -->
           <!-- معرض الصور الرئيسي -->
@@ -49,7 +49,7 @@
             <div class="main-image-container flex-grow-1">
               <img 
                 [src]="getActiveImage()" 
-                class=" rounded h-100 main-image" 
+                class=" rounded  main-image" 
                 
                 alt="Tour Image">
             </div>
@@ -150,7 +150,7 @@
             </div>
 
           </div>
-          <hr class="mt-5 mb-3">
+          <hr class="my-0">  <!-- أو يمكنك إزالته تمامًا إذا كنت لا تريد الخط -->
 
         </div>
         <div class="col-lg-4 mb-0">

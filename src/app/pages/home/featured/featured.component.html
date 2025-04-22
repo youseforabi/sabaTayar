@@ -18,7 +18,7 @@
       *ngFor="let category of categories"
       [class.active]="activeCategory === category"
       (click)="filterTours(category)">
-      {{ category }}
+      {{ category |formatCategory }}
     </div>
   </div>
 
@@ -32,7 +32,7 @@
       <div class="tour-image">
         <img [src]="tour.mainImageUrl" [alt]="tour.title">
         <div class="tour-type-badge" [ngClass]="'type-' + tour.category">
-          {{ getTypeName(tour.category) }}
+          {{tour.category |formatCategory }}
         </div>
       </div>
       <div class="tour-content">

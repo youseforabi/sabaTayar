@@ -1,7 +1,7 @@
 /* footer.component.scss */
 .footer-section {
   position: relative;
-  height: 50vh;
+  height: 28vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@
   background-position: center 30%;
   background-repeat: no-repeat;
   color: white;
-  text-align: center;
+  text-align: left;
   padding: 20px;
   margin-bottom: 50px;
   
@@ -39,7 +39,7 @@
 .breadcrumb-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
   margin-bottom: 20px;
   font-size: 14px;
@@ -78,12 +78,28 @@
 .card {
     border: none;
     border-radius: 12px;
+    
+  }
+  .card:hover .card-img-top {
+  }
+  .card-img-top {
+    height: 400px;
+    object-fit: cover;
+    animation: zoomIn 1s ease forwards;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.5s ease;
+
   }
   
-  .card-img-top {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    height: 400px;
+  
+  
+  
+  @keyframes zoomIn {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
   
   .date-box {
@@ -141,3 +157,41 @@
     margin-right: 5px;
   }
   
+  .blog-post {
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .card {
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      
+      &-img-top {
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      &:hover .card-img-top {
+        transform: scale(1.05);
+      }
+      
+      &-body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
+        .blog-excerpt {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+  
+  // باقي الأنماط تبقى كما هي

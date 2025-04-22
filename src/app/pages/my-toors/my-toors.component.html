@@ -17,7 +17,7 @@
       </button>
     </div>
   </div>
-
+<div class="r">
   <div class="tour-card">
     <div class="tour-item" *ngFor="let tour of filteredTours">
       <img [src]="tour.mainImage" alt="Tour Image" class="tour-image" />
@@ -40,13 +40,19 @@
           </div>
           <div class="price">${{ tour.tourPrice }}</div>
         </div>
+        
       </div>
+      
     </div>
+    
   </div>
+</div>
+
+  
 
   <div class="no-tours-message" *ngIf="filteredTours.length === 0">
     <p>No tours available for this category.</p>
   </div>
 
-  <button class="see-more">See more</button>
+  <!-- <button class="see-more">See more</button> -->
 </div>

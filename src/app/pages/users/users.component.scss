@@ -1,6 +1,9 @@
 .container {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.701);
+  margin: 30px auto;
+  border-radius: 15px;
+  padding: 35px;
       font-family: 'Inter', sans-serif;
     
   }
@@ -151,29 +154,34 @@
   //   font-weight: bold;
   // }
   .status-pending {
-    color: #dfaa0e;
+    
+    color: #856404;
   }
   
   .status-review {
-    color: #004085;
+    
+    color: #0c5460;
   }
   
   .status-completed {
+    
     color: #155724;
   }
   
-  .status-failed {
+  .status-rejected {
+    
     color: #721c24;
   }
   
-  .status-rejected {
-    color: #7f3d00;
-  }
-  
   .status-canceled {
+    
     color: #383d41;
   }
   
+  .status-onprogress {
+    
+    color: #004085;
+  }
   .form-select {
     background-color: transparent !important; /* يشيل الخلفية */
     box-shadow: none !important;             /* يشيل الظل */
@@ -208,12 +216,13 @@
   }
   
   .table-container {
+    
     display: flex;
     justify-content: center;
   }
   
   .table-responsive {
-    width: 85%;
+    width: 88%;
     margin: 15px 0;
     background: white;
     padding: 15px;

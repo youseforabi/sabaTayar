@@ -1,11 +1,34 @@
 .tours-container {
+  width: 90%;
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding: 20px;
-  background: #f8f9fa;
+  background-color: rgba(255, 255, 255, 0.701);
+  margin: 20px auto;
+  border-radius: 10px;
+  max-height: 700px; /* تحديد أقصى ارتفاع للعنصر */
+  overflow-y: auto; /* إضافة شريط التمرير عند الحاجة */
+}
+
+.tours-container::-webkit-scrollbar {
+  width: 10px; /* عرض شريط التمرير */
+}
+
+.tours-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* لون خلفية شريط التمرير */
   border-radius: 10px;
 }
+
+.tours-container::-webkit-scrollbar-thumb {
+  background: #2D60FF; /* اللون الأزرق لشريط التمرير */
+  border-radius: 10px;
+}
+
+.tours-container::-webkit-scrollbar-thumb:hover {
+  background: #1a4bbd; /* لون عند التحويم */
+}
+
 .no-tours-message {
   text-align: center;
   font-weight: bold;
@@ -106,19 +129,36 @@
   flex-wrap: wrap;
 }
 
+/* إزالة الخط من الـ row */
+.row {
+  border-bottom: none; /* إزالة الخط الزائد */
+}
+
 .tour-item {
   display: flex;
   flex-direction: row;
   gap: 20px;
   align-items: center;
   flex: 1 1 calc(50% - 20px);
+  position: relative; /* لضبط الخط الأفقي */
+  padding-bottom: 15px; /* مسافة بين العنصر والخط */
+}
+
+/* إضافة الخط الأفقي بين العناصر */
+.tour-item:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0; /* خط أفقي بين العناصر */
+}
+
+/* لضمان أن الخط يظهر في المنتصف عند وجود عنصرين في الصف */
+.tour-card {
+  position: relative;
 }
 
 .tour-image {
   width: 150px;
-  height: 120px;
-  border-radius: 12px;
+  height: 150px;
   object-fit: cover;
+  border-radius: 12px;
 }
 
 .tour-details {
@@ -188,17 +228,22 @@
 
 /* تحسين الاستجابة للأجهزة اللوحية */
 @media (max-width: 768px) {
-  
   .tour-item {
     flex: 1 1 100%;
     flex-direction: column;
     text-align: center;
+    padding-bottom: 15px;
+  }
+
+  .tour-item:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0; /* خط أفقي بين العناصر */
   }
 
   .tour-image {
     width: 200px;
     height: 200px;
   }
+
   .filter-buttons {
     display: flex;
     gap: 10px;
@@ -217,11 +262,18 @@
     gap: 15px;
   }
 
+  .tour-item {
+    padding-bottom: 15px;
+  }
+
+  .tour-item:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0; /* خط أفقي بين العناصر */
+  }
+
   .tour-image {
     width: 150px;
     height: 150px;
   }
-
 
   .tour-details h3 {
     font-size: 14px;

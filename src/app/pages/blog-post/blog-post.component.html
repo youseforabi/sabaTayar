@@ -6,6 +6,8 @@
       <span class="breadcrumb-separator">/</span>
       <span class="breadcrumb-current">Blog Post</span>
     </div>
+    <h1 class="fs-1">Blog Post</h1>
+
   </div>
 </section>
 
@@ -13,31 +15,33 @@
   <div class="row">
     <!-- القسم الأساسي -->
     <div class="col-lg-8">
-      <div class="blog-post" *ngFor="let blog of paginatedBlogs" [routerLink]="['/blog', blog.id]">
-        <div class="card mb-4">
-          <div class="position-relative">
-            <img [src]="blog.mainImage" class="card-img-top rounded-top" alt="Blog Image" />
-            <div class="date-box position-absolute">
-              <span class="day">{{ blog.date }}</span>
-              <span class="month">{{ blog.month }}</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <div class="meta-info mb-2">
-                <span class="author"><i class="bi bi-person"></i> By Sabatours --</span>
-                <span class="category"><i class="bi bi-folder"></i> {{ blog.category }}</span>
-              </div>
-              <div class="blog-stats">
-                <span><i class="bi bi-chat"></i> {{ blog.commentCount }}</span>
-                <span><i class="bi bi-eye"></i> {{ blog.viewCount }}</span>
+      <!-- صفوف المدونات -->
+      <div class="row mb-4" *ngFor="let row of blogRows">
+        <div class="col-md-6" *ngFor="let blog of row">
+          <div class="blog-post card h-100" [routerLink]="['/blog', blog.id]">
+            <div class="position-relative">
+              <img [src]="blog.mainImage" class="card-img-top" alt="Blog Image" />
+              <div class="date-box position-absolute">
+                <span class="day">{{ blog.date }}</span>
+                <span class="month">{{ blog.month }}</span>
               </div>
             </div>
-            <h5 class="card-title fw-bold">{{ blog.title }}</h5>
-            <p class="blog-excerpt">
-              June is Pride Month, a time to celebrate and support the LGBTQ+ community. 
-              In this article, we explore how brands can develop authentic Pride Month marketing strategies...
-            </p>
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="meta-info mb-2">
+                  <span class="author"><i class="bi bi-person"></i> By Sabatours --</span>
+                  <span class="category"><i class="bi bi-folder"></i> {{ blog.category }}</span>
+                </div>
+                <div class="blog-stats">
+                  <span><i class="bi bi-chat"></i> {{ blog.commentCount }}</span>
+                  <span><i class="bi bi-eye"></i> {{ blog.viewCount }}</span>
+                </div>
+              </div>
+              <h5 class="card-title fw-bold">{{ blog.title }}</h5>
+              <p class="blog-excerpt">
+                {{ blog.excerpt || 'June is Pride Month, a time to celebrate and support the LGBTQ+ community...' }}
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -5,9 +5,9 @@
 .slider-container {
 
     position: relative;
-    max-width: 71%;
+    max-width: 75%;
     margin: 25px auto;
-    padding: 20px 0;
+    padding: 35px 0;
     text-align: left;
 
   }
@@ -28,6 +28,8 @@
     display: none;
   }
   .slider .h1{
+    font-weight:600;
+    font-size: 30px; 
 
   }
 
@@ -36,11 +38,12 @@
   }
   .tour-card {
     position: relative;
+    cursor: pointer;
     background: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 15px;
     text-align: left; /* محاذاة النص لليسار */
-    width: 200px;
+    width: 245px;
     height: 230px;
     flex-shrink: 0;
     display: flex;

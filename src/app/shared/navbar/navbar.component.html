@@ -1,75 +1,154 @@
-<nav class="navbar navbar-expand-lg">
+<div class="top-navbar">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="navbar-brand">
+        <span>Welcome to Saba Tours</span>
+        <span class="d-none d-md-inline"><i class="bi bi-telephone-fill mx-2"></i> (+2)0100006782855</span>
+      </div>
+      <div class="navbar-contact">
+        <span class="d-none d-md-inline"><i class="bi bi-envelope-fill mx-2"></i> {{email}}</span>
+        <span class="d-none d-lg-inline"><i class="bi bi-geo-alt-fill mx-2"></i> Ouia AT Haram, El Omraniya, Giza Governorate</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="main-navbar navbar navbar-expand-lg">
   <div class="container-fluid">
     <!-- اللوجو في المنتصف -->
-    <a class="navbar-brand mx-auto" routerLink="/">
+    <a class="navbar-brand mx-lg-auto" routerLink="/">
       <img src="assets/sabba.png" alt="Logo" class="logo">
     </a>
 
-    <!-- زر القائمة الجانبية في الشاشات الصغيرة -->
-    <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+    <!-- زر القائمة الجانبية -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- القائمة في الشاشات الكبيرة -->
-    <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a class="nav-link" routerLink="/">Homepage</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/listingTours">Tour List</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/blogPosts">Blog</a></li>
-
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Homepage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/listingTours" routerLinkActive="active-link">Tour List</a>
+        </li>
+        <!-- Category Dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link d-flex align-items-center" href="#" id="infoDropdown" role="button" data-bs-toggle="dropdown">
+          <a class="nav-link d-flex align-items-center" href="#" id="categoryDropdown">
+            Category
+            <span class="dropdown-icon ms-1">
+              <i class="bi bi-chevron-down"></i>
+            </span>
+          </a>
+          <ul class="dropdown-menu animate-dropdown" aria-labelledby="categoryDropdown">
+            <li><a class="dropdown-item" routerLink="/guide" routerLinkActive="active-link">Guide Of Egypt</a></li>
+            <li><a class="dropdown-item" routerLink="/day" routerLinkActive="active-link">Day Of Trip</a></li>
+            <li><a class="dropdown-item" routerLink="/classical" routerLinkActive="active-link">Classical</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/travelTips" routerLinkActive="active-link">Travel Tips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blogPosts" routerLinkActive="active-link">Blog</a>
+        </li>
+        <!-- Info Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link d-flex align-items-center" href="#" id="infoDropdown">
             Info
             <span class="dropdown-icon ms-1">
               <i class="bi bi-chevron-down"></i>
             </span>
           </a>
           <ul class="dropdown-menu animate-dropdown" aria-labelledby="infoDropdown">
-            <li><a class="dropdown-item" routerLink="/about">About Us</a></li>
-            <li><a class="dropdown-item" routerLink="/contactUs">Contact</a></li>
+            <li><a class="dropdown-item" routerLink="/about" routerLinkActive="active-link">About Us</a></li>
+            <li><a class="dropdown-item" routerLink="/contactUs" routerLinkActive="active-link">Contact</a></li>
           </ul>
         </li>
       </ul>
-    </div>
-
- 
-    <div class="user-profile">
-      <div class="user-info" (click)="toggleDropdown()">
-        <span>Hi, {{ userRole }}</span>
-        <i class="bi bi-chevron-down"></i>
-      </div>
-      <img [src]="profileImage" alt="Profile" class="profile-img" (click)="toggleDropdown()">
-  
-      <div class="dropdown-menu" *ngIf="isDropdownOpen">
-        <a href="/dashboard/settings">Settings</a>
-        <a (click)="logOut()">Logout</a>
+      
+      <div class="dropdown" #userDropdown>
+        <div class="user-profile" data-bs-toggle="dropdown">
+          <div class="user-info">
+            <span>Hi, {{ userRole }}</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <img [src]="profileImage || 'assets/default-profile.png'" alt="Profile" class="profile-img">
+        </div>
+      
+        <ul class="dropdown-menu dropdown-menu-end">
+          <ng-container *ngIf="!isLoggedIn">
+            <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+            <li><a class="dropdown-item" routerLink="/register">Register</a></li>
+          </ng-container>
+          <ng-container *ngIf="isLoggedIn">
+            <li><a class="dropdown-item" href="/dashboard/settings">Settings</a></li>
+            <li><a class="dropdown-item" (click)="logOut()">Logout</a></li>
+          </ng-container>
+        </ul>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- ✅ القائمة الجانبية في الشاشات الصغيرة -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title">Menu</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
-    <ul class="navbar-nav text-start align-items-start w-100">
-      <li class="nav-item"><a class="nav-link" routerLink="/">Homepage</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/listingTours">Tour List</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/blogPosts">Blog</a></li>
-
+    <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link collapsed " data-bs-toggle="collapse" href="#infoMenu">
+        <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Homepage</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/listingTours" routerLinkActive="active-link">Tour List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#categoryMenu">
+          Category <i class="bi bi-chevron-down dropdown-icon"></i>
+        </a>
+        <div class="collapse" id="categoryMenu">
+          <ul class="list-unstyled ps-3">
+            <li><a class="dropdown-item" routerLink="/guide" routerLinkActive="active-link">Guide Of Egypt</a></li>
+            <li><a class="dropdown-item" routerLink="/day" routerLinkActive="active-link">Day Of Trip</a></li>
+            <li><a class="dropdown-item" routerLink="/classical" routerLinkActive="active-link">Classical</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/travelTips" routerLinkActive="active-link">Travel Tips</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/blogPosts" routerLinkActive="active-link">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#infoMenu">
           Info <i class="bi bi-chevron-down dropdown-icon"></i>
         </a>
-        <ul class="collapse list-unstyled ps-3" id="infoMenu">
-          <li><a class="dropdown-item" routerLink="/about">About Us</a></li>
-          <li><a class="dropdown-item" routerLink="/contactUs">Contact</a></li>
-        </ul>
+        <div class="collapse" id="infoMenu">
+          <ul class="list-unstyled ps-3">
+            <li><a class="dropdown-item" routerLink="/about" routerLinkActive="active-link">About Us</a></li>
+            <li><a class="dropdown-item" routerLink="/contactUs" routerLinkActive="active-link">Contact</a></li>
+          </ul>
+        </div>
       </li>
     </ul>
-
+    
+    <div class="mobile-user-profile mt-4">
+      <div class="d-flex align-items-center">
+        <img [src]="profileImage || 'assets/default-profile.png'" alt="Profile" class="profile-img me-3">
+        <div>
+          <div class="fw-bold">Hi, {{ userRole }}</div>
+          <div class="small text-muted">{{email}}</div>
+        </div>
+      </div>
+      <div class="mt-3">
+        <a href="/dashboard/settings" class="d-block py-2">Settings</a>
+        <a (click)="logOut()" class="d-block py-2">Logout</a>
+      </div>
+    </div>
   </div>
 </div>

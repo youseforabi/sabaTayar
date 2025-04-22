@@ -3,12 +3,13 @@ import { AuthService } from '../../services/Auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { InvoiceService } from '../../services/Invoice/invoice.service';
 
 @Component({
     selector: 'app-users',
     standalone:true,
 
-    imports: [NgIf,NgFor,DatePipe,FormsModule,CommonModule],
+    imports: [NgFor,DatePipe,FormsModule,CommonModule],
     templateUrl: './users.component.html',
     styleUrl: './users.component.scss'
 })
@@ -17,17 +18,21 @@ export class UsersComponent {
     isLoading = true;
     currentPage: number = 1; // الصفحة الحالية
   itemsPerPage: number = 10; // عدد العناصر في الصفحة الواحدة
-  statusOptions: string[] = ['Pending', 'OnReview', 'Completed', 'Failed', 'Rejected', 'Canceled'];
+  statusOptions: { id: number, name: string }[] = []; // تحديث نوع البيانات لتخزين الـ id و name
   startDate: string = '';  // تخزين تاريخ البداية
   endDate: string = '';    // تخزين تاريخ النهاية
     filters: string[] = ['All', 'Deleted'];
     originalInvoices: any[] = [];
     constructor(
       private authService: AuthService,
+      private invoiceService :InvoiceService,
+
       private toastr: ToastrService
     ) {}
   
     ngOnInit(): void {
+    this.fetchStatuses(); // جلب الـ Statuses
+
       this.authService.fetchInvoices().subscribe({
         next: (data) => {
           this.invoices = data;
@@ -37,6 +42,17 @@ export class UsersComponent {
         error: (err) => {
           this.toastr.error('Error fetching invoices', 'Error');
           this.isLoading = false;
+        }
+      });
+    }
+
+    fetchStatuses(): void {
+      this.invoiceService.getStatuses().subscribe({
+        next: (statuses: { id: number, name: string }[]) => {
+          this.statusOptions = statuses; // تخزين الـ Statuses
+        },
+        error: (error) => {
+          console.error('Error fetching statuses:', error);
         }
       });
     }
@@ -86,27 +102,25 @@ export class UsersComponent {
           return 'status-review';
         case 'Completed':
           return 'status-completed';
-        case 'Failed':
-          return 'status-failed';
         case 'Rejected':
           return 'status-rejected';
         case 'Canceled':
           return 'status-canceled';
+        case 'Onprogress':
+          return 'status-onprogress';
         default:
           return '';
       }
     }
-     getDisplayedInvoices(): any[] {
-        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-        const endIndex = this.currentPage * this.itemsPerPage;
-        return this.invoices.slice(startIndex, endIndex);
-      }
-    getEntriesInfoText(): string {
-      const totalInvoices = this.invoices.length;
-      const displayedInvoices = this.getDisplayedInvoices().length;
-      const start = (this.currentPage - 1) * this.itemsPerPage + 1;
-      const end = Math.min(start + displayedInvoices - 1, totalInvoices);
-      return `Showing ${start} to ${end} of ${totalInvoices} entries`;
+    getDisplayedInvoices(): any[] {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.invoices.slice(startIndex, endIndex);
     }
+
+    // أضف دالة لحساب إجمالي الصفحات
+get totalPages(): number {
+  return Math.ceil(this.invoices.length / this.itemsPerPage);
+}
 
 }

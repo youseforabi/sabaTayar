@@ -89,6 +89,20 @@ export class TourService {
       return this.http.post<any>(`${this.apiUrl}/comments`, commentData, { headers });
     }
 
+    getAllToursGuide(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/Tour/GuideOfEgypt`);
+    }
+
+    getAllToursDay(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/Tour/Day_oF_Trip`);
+    }
+    
+    getAllToursClassic(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/Tour/ClassicalTours`);
+    }
+
+
+    
   
   
 }

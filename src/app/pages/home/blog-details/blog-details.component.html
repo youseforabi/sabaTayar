@@ -5,7 +5,7 @@
         <!-- حالة التحميل -->
         <div *ngIf="loading" class="text-center py-5">
           <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">جاري التحميل...</span>
+            <span class="visually-hidden">Loading.......</span>
           </div>
         </div>
   
@@ -36,30 +36,31 @@
           </div>
   
           <!-- الصورة الرئيسية -->
-          <div *ngIf="selectedBlog.mainImage" class="blog-main-image mb-4 m-2">
+          <!-- <div *ngIf="selectedBlog.mainImage" class="blog-main-image mb-4 m-2">
             <img [src]="selectedBlog.mainImage" alt="{{ selectedBlog.title }}" class="img-fluid rounded w-100">
           </div>
-  
+   -->
         <!-- الصور الإضافية في حالة وجودها -->
+<!-- الصور الإضافية في حالة وجودها -->
 <div *ngIf="mergedHeaderImages.length > 0" class="blog-header-images mb-4">
-    <div class="row g-3">
+  <div class="row g-3">
       <ng-container *ngIf="mergedHeaderImages.length === 1; else multipleImages">
-        <div class="col-md-6 mx-auto text-center">
-          <div class="header-image">
-            <img [src]="mergedHeaderImages[0]" alt="Header Image" class="img-fluid rounded">
+          <div class="col-12">
+              <div class="header-image-single">
+                  <img [src]="mergedHeaderImages[0]" alt="Header Image" class="img-fluid w-100">
+              </div>
           </div>
-        </div>
       </ng-container>
-  
+
       <ng-template #multipleImages>
-        <div *ngFor="let img of mergedHeaderImages" class="col-md-6">
-          <div class="header-image">
-            <img [src]="img" alt="Header Image" class="img-fluid rounded">
+          <div *ngFor="let img of mergedHeaderImages" class="col-md-6">
+              <div class="header-image-multiple">
+                  <img [src]="img" alt="Header Image" class="img-fluid w-100">
+              </div>
           </div>
-        </div>
       </ng-template>
-    </div>
   </div>
+</div>
   
           
           <!-- وصف المدونة -->
@@ -173,7 +174,7 @@
             <div class="blog-post" (click)="navigateToBlog(blog.id)" style="cursor: pointer;">
               <div class="card mb-4">
                 <div class="position-relative">
-                  <img [src]="blog.mainImage" class="card-img-top rounded-top" alt="Blog Image" />
+                  <img [src]="blog.mainImage" class="card-img-top" alt="Blog Image" />
                   <div class="date-box position-absolute d-flex flex-column align-items-center">
                     <span class="day">{{ blog.date | date: 'd' }}</span>
                     <span class="month">{{ blog.date | date: 'MMMM' }}</span>

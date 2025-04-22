@@ -1,10 +1,14 @@
 .component-class {
   font-family: 'Inter', sans-serif;
+  height: 100vh;
+  
 }
 .recent-tours {
-    padding: 16px;
-    margin: 16px auto;
-    width: 85%;
+    padding: 25px 15px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.701);
+  margin: 30px auto;
+  border-radius: 15px;
     
     
 }
@@ -49,6 +53,9 @@
   
 h2{
     color: #2D60FF;
+}
+.recent-tours.no-results {
+  background-color: #f0f0f0; /* أو أي لون آخر تفضله */
 }
 .tour-card {
     border: 1px solid #e0e0e0;

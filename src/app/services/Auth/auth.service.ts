@@ -13,6 +13,9 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 
   fetchInvoices(): Observable<any> {
     const token = this.getToken();
@@ -28,7 +31,6 @@ export class AuthService {
       .pipe(catchError(this.handleError));
   }
 
-  
   fetchWallet(): Observable<any> {
     const token = this.getToken();
     if (!token) {
@@ -71,13 +73,33 @@ export class AuthService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteCommentById(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/comments/delete-my-comment/${id}`);
+  }
 
-  register(userData: any) {
+  register(userData: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     
-    return this.http.post<any>(`${this.baseUrl}/Auth/register`, userData, { headers });
+    return this.http.post<any>(`${this.baseUrl}/Auth/register`, userData, { headers })
+      .pipe(
+        tap((res: any) => {
+          if (res?.token) {
+            localStorage.setItem('token', res.token);
+            if (res.userData) {
+              localStorage.setItem('userData', JSON.stringify(res.userData));
+              // Assuming the backend returns a profileImage in userData
+              if (res.userData.profileImage) {
+                localStorage.setItem('profileImage', res.userData.profileImage);
+              } else {
+                localStorage.setItem('profileImage', 'assets/default-profile.png');
+              }
+            }
+          }
+        }),
+        catchError(this.handleError)
+      );
   }
 
   login(email: string, password: string): Observable<any> {
@@ -90,10 +112,14 @@ export class AuthService {
         tap((res: any) => {
           if (res?.token) {
             localStorage.setItem('token', res.token);
-            
-            // Store user data including role
             if (res.userData) {
               localStorage.setItem('userData', JSON.stringify(res.userData));
+              // Handle profileImage in the login response
+              if (res.userData.profileImage) {
+                localStorage.setItem('profileImage', res.userData.profileImage);
+              } else {
+                localStorage.setItem('profileImage', 'assets/default-profile.png');
+              }
             }
           }
         }),
@@ -139,7 +165,6 @@ export class AuthService {
     return throwError(() => new Error('حدث خطأ ما، يرجى المحاولة لاحقاً'));
   }
 
-  // التحقق من OTP
   verifyOtp(email: string, otp: string): Observable<any> {
     const formData = new FormData();
     formData.append('Email', email);
@@ -149,7 +174,6 @@ export class AuthService {
       .pipe(catchError(this.handleError));
   }
 
-  // إعادة إرسال OTP
   resendOtp(email: string): Observable<any> {
     const formData = new FormData();
     formData.append('Email', email);
@@ -163,7 +187,15 @@ export class AuthService {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
       'Content-Type': 'application/json'
     });
-    return this.http.put(`${this.baseUrl}/Auth/update-profile`, userData, { headers });
+    return this.http.put(`${this.baseUrl}/Auth/update-profile`, userData, { headers })
+      .pipe(
+        tap((res: any) => {
+          if (res?.userData?.profileImage) {
+            localStorage.setItem('profileImage', res.userData.profileImage);
+          }
+        }),
+        catchError(this.handleError)
+      );
   }
 
   changePassword(OldPassword: string, NewPassword: string, ConfirmNewPassword: string): Observable<any> {

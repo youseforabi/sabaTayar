@@ -1,47 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/Auth/auth.service';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { SettingService } from '../../services/setting/setting.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-navbar',
-    standalone:true,
-
-    imports: [RouterModule,NgIf ],
-    templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.scss'
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [RouterModule, NgIf],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-    profileImage!: string;
-  private subscription: Subscription;
-  isDropdownOpen: boolean = false;
+  email: string = 'info@salesDraw.com';
+  profileImage: string = 'assets/default-profile.png';
+  private subscription: Subscription = new Subscription();
+  @ViewChild('userDropdown') userDropdown: any;
 
   userName: string = '';
   userRole: string = '';
-
-  
+  isLoggedIn: boolean = false;
 
   constructor(
     private settingService: SettingService,
     private authService: AuthService
   ) {
-    // Initialize profile image
-    const storedImage = localStorage.getItem('profileImage');
-    this.profileImage = storedImage ? storedImage : 'assets/default-profile.png';
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if (this.isLoggedIn) {
+      this.initializeUserData();
+    }
 
-    // Subscribe to profile image changes
-    this.subscription = this.settingService.profileImage$.subscribe(image => {
-      this.profileImage = image;
-      localStorage.setItem('profileImage', image);
-    });
+    this.subscription.add(
+      this.settingService.profileImage$.subscribe(image => {
+        if (image) {
+          this.profileImage = image;
+          localStorage.setItem('profileImage', image);
+        } else {
+          this.profileImage = 'assets/default-profile.png';
+          localStorage.setItem('profileImage', this.profileImage);
+        }
+      })
+    );
+  }
 
-    // Get user data for name and role
+  ngOnInit(): void {}
+
+  initializeUserData(): void {
     const userData = this.authService.getUserData();
     if (userData) {
       this.userName = userData.name || 'User';
-      // Map role ID to role name
       if (userData.roleId === 1) {
         this.userRole = 'Admin';
       } else if (userData.roleId === 2) {
@@ -49,29 +57,29 @@ export class NavbarComponent {
       } else {
         this.userRole = userData.roleName || '';
       }
+      if (userData.profilePicture) {
+        this.profileImage = userData.profilePicture;
+        localStorage.setItem('profileImage', this.profileImage);
+      } else {
+        const savedImage = localStorage.getItem('profileImage');
+        this.profileImage = savedImage || 'assets/default-profile.png';
+      }
     }
   }
 
-    
-  ngOnInit(): void {
-    const savedImage = localStorage.getItem('profileImage');
-    this.profileImage = savedImage ? savedImage : 'assets/default-profile.png';
+  toggleDropdown(): void {
+    this.userDropdown.nativeElement.classList.toggle('show');
   }
 
-  toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
+  logOut(): void {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.userName = '';
+    this.userRole = '';
+    this.profileImage = 'assets/default-profile.png';
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
-
-  logOut():void{
-    this.authService.logout()
-  }
-    
-
-
-  
-
 }

@@ -13,7 +13,8 @@
     "axe/name-role-value": [
       "default",
       {
-        "button-name": "off"
+        "button-name": "off",
+        "link-name": "off"
       }
     ],
     "axe/text-alternatives": [
@@ -32,7 +33,8 @@
     "axe/structure": [
       "default",
       {
-        "list": "off"
+        "list": "off",
+        "listitem": "off"
       }
     ],
     "no-inline-styles": "off"

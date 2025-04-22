@@ -25,15 +25,20 @@ export class TourssComponent {
   }
 
   loadTours() {
-    this.http.get<any[]>(`${this.baseUrl}/Tour/cities-with-tour-count`) // URL الـ API
+    this.http.get<any[]>(`${this.baseUrl}/Tour/cities-with-tour-count`)
       .subscribe(data => {
-        // هنا نقوم بتخزين البيانات القادمة من الـ API في مصفوفة destinations
-        this.destinations = data.map(tour => ({
-          name: tour.cityName,  // استخراج اسم المدينة
-          tours: tour.tourCount, // استخراج عدد الجولات
-          image: 'assets/giza-pyramids-sphinx-evening-egypt-e1669109796704.jpg' // هنا يمكن إضافة صورة افتراضية أو التعامل مع الصور القادمة من الـ API إذا كانت موجودة
+        // خلط البيانات عشوائياً
+        const shuffled = data.sort(() => 0.5 - Math.random());
+  
+        // أخذ أول 6 عناصر فقط بعد الخلط
+        const selected = shuffled.slice(0, 6);
+  
+        this.destinations = selected.map(tour => ({
+          name: tour.cityName,
+          tours: tour.tourCount,
+          image: 'assets/giza-pyramids-sphinx-evening-egypt-e1669109796704.jpg'
         }));
-
       });
   }
+  
 }

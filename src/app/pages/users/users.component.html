@@ -80,15 +80,27 @@
           </tr>
         </tbody>
   
-        <tfoot>
-          <tr>
-              <td colspan="7" class="table-footer">
-                <div class="entries-info">{{ getEntriesInfoText() }}</div>
-  
-              </td>
-          </tr>
-      </tfoot>
+      
       </table>
+
+      <div class="pagination-controls">
+        <button 
+          [disabled]="currentPage === 1" 
+          (click)="currentPage = currentPage - 1" 
+          class="btn btn-sm btn-outline-primary">
+          Previous
+        </button>
+        
+        <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+        
+        <button 
+          [disabled]="currentPage === totalPages" 
+          (click)="currentPage = currentPage + 1" 
+          class="btn btn-sm btn-outline-primary">
+          Next
+        </button>
+      </div>
+      
     </div>
     
   </div>

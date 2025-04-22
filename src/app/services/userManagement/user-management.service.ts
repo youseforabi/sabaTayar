@@ -34,6 +34,17 @@ export class UserManagementService {
       })
     );
   }
+
+  sendContactMessage(payload: any): Observable<any> {
+    return this.http.post(this.apiUrl, payload, { responseType: 'text' }).pipe(
+      catchError(error => {
+        console.error('Error sending contact message:', error);
+        return of(null); // إرجاع null في حالة الخطأ
+      })
+    );
+  }
+
+
   
 
   

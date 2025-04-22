@@ -1,18 +1,17 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { TourService } from '../../services/Tours/tour.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing-tours',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule],
+  imports: [NgFor, NgIf, FormsModule, RouterLink,NgClass],
   templateUrl: './listing-tours.component.html',
   styleUrls: ['./listing-tours.component.scss']
 })
 export class ListingToursComponent implements OnInit {
-
   searchCriteria = {
     place: '',
     tourType: '',
@@ -28,22 +27,31 @@ export class ListingToursComponent implements OnInit {
   peopleOptions = ['1', '2', '3', '4', '5', '6+'];
   allTours: any[] = [];
   filteredTours: any[] = [];
+  paginatedTours: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 6;
   topTags: any[] = [];
   recentComments: any[] = [];
 
+  // New properties for sorting and layout
+  sortOption: string = 'default';
+  toursPerRow: string = '3'; // Default to 3 tours per row
+
   get uniquePlaces(): string[] {
-    return [...new Set(this.allTours.map(tour => tour.places?.[0] || ''))].filter(place => place);
+    return [...new Set(this.allTours.flatMap(tour => tour.places || []))].filter(place => place);
   }
 
   get uniqueTourTypes(): string[] {
     return [...new Set(this.allTours.map(tour => tour.tourCategory))].filter(type => type);
   }
 
-  constructor(private tourService: TourService,
-    private router: Router  // Add router to constructor
+  get totalPages(): number[] {
+    return Array.from({ length: Math.ceil(this.filteredTours.length / this.itemsPerPage) }, (_, i) => i + 1);
+  }
 
+  constructor(
+    private tourService: TourService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -51,16 +59,14 @@ export class ListingToursComponent implements OnInit {
     this.getTopTags();
     this.getRecentComment();
   }
-  viewTourDetails(tourId: string): void {
-    this.router.navigate(['/tours', tourId]);
-  }
-  
+
   getAllToursWithComments(): void {
     this.tourService.getAllToursWithComments().subscribe({
       next: (data) => {
         this.allTours = data;
-        this.filteredTours = [...this.allTours];  // Initialize filtered tours with all the data
-        console.log(this.allTours);
+        this.filteredTours = [...this.allTours];
+        this.applySort();
+        this.updatePagination();
       },
       error: (err) => {
         console.error('Error fetching tours with comments:', err);
@@ -71,7 +77,7 @@ export class ListingToursComponent implements OnInit {
   getTopTags(): void {
     this.tourService.getTopTags().subscribe({
       next: (data) => {
-        this.topTags = data;
+        this.topTags = data.map((tag: any) => ({ ...tag, selected: false }));
       },
       error: (err) => {
         console.error('Error fetching top tags:', err);
@@ -82,7 +88,7 @@ export class ListingToursComponent implements OnInit {
   getRecentComment(): void {
     this.tourService.getRecentComment().subscribe({
       next: (data) => {
-        const uniqueUsers = Array.from(new Set(data.map(c => c.userName)));
+        const uniqueUsers = Array.from(new Set(data.map((c: any) => c.userName)));
         this.recentComments = uniqueUsers;
       },
       error: (err) => {
@@ -93,96 +99,90 @@ export class ListingToursComponent implements OnInit {
 
   applyFilters(): void {
     this.filteredTours = this.allTours.filter(tour => {
-      // For debugging
-      console.log('Filtering tour:', tour.tourTitle);
-      
       // Filter by place
-      if (this.searchCriteria.place && this.searchCriteria.place !== '') {
-        // Check if tour.places exists and contains the selected place
-        if (!tour.places || !tour.places.some(place => place === this.searchCriteria.place)) {
-          console.log(`Filtered out by place: ${this.searchCriteria.place}`);
-          return false;
-        }
-      }
-  
+      const matchesPlace = this.searchCriteria.place
+        ? tour.places && tour.places.some((place: string) => place === this.searchCriteria.place)
+        : true;
+
       // Filter by tour type
-      if (this.searchCriteria.tourType && this.searchCriteria.tourType !== '') {
-        if (tour.tourCategory !== this.searchCriteria.tourType) {
-          console.log(`Filtered out by tour type: ${this.searchCriteria.tourType}`);
-          return false;
-        }
-      }
-  
+      const matchesType = this.searchCriteria.tourType
+        ? tour.tourCategory === this.searchCriteria.tourType
+        : true;
+
       // Filter by date
-      if (this.searchCriteria.date && this.searchCriteria.date !== '') {
-        // Make sure tour.tourDate exists and is a valid date
-        if (!tour.tourDate && !tour.availableDates?.length) {
-          console.log('Filtered out by missing date');
-          return false;
-        }
-        
-        const tourDate = tour.tourDate ? new Date(tour.tourDate) : 
-                        (tour.availableDates?.length ? new Date(tour.availableDates[0].date) : null);
+      let matchesDate = true;
+      if (this.searchCriteria.date) {
         const selectedDate = new Date(this.searchCriteria.date);
-        
-        if (!tourDate || isNaN(tourDate.getTime()) || tourDate < selectedDate) {
-          console.log(`Filtered out by date: ${this.searchCriteria.date}`);
-          return false;
-        }
+        const tourDate = tour.tourDate
+          ? new Date(tour.tourDate)
+          : tour.availableDates?.length
+          ? new Date(tour.availableDates[0].date)
+          : null;
+        matchesDate = tourDate && !isNaN(tourDate.getTime()) && tourDate >= selectedDate;
       }
-  
+
       // Filter by people count
-      if (this.searchCriteria.people && this.searchCriteria.people !== '') {
-        const peopleCount = parseInt(this.searchCriteria.people);
-        
-        // Handle '6+' case specially
-        const maxPeople = this.searchCriteria.people === '6+' ? 6 : peopleCount;
-        
-        // Check either capacity or guestsCapabilityAdult
+      let matchesPeople = true;
+      if (this.searchCriteria.people) {
+        const peopleCount = this.searchCriteria.people === '6+' ? 6 : parseInt(this.searchCriteria.people);
         const tourCapacity = tour.capacity || tour.guestsCapabilityAdult || 0;
-        
-        if (tourCapacity < maxPeople) {
-          console.log(`Filtered out by people: ${this.searchCriteria.people}`);
-          return false;
-        }
+        matchesPeople = tourCapacity >= peopleCount;
       }
-  
+
       // Filter by price range
-      // Use tourPrice field based on the sample data
-      if ((tour.tourPrice < this.searchCriteria.priceMin) || 
-          (tour.tourPrice > this.searchCriteria.priceMax)) {
-        console.log(`Filtered out by price range: ${this.searchCriteria.priceMin}-${this.searchCriteria.priceMax}`);
-        return false;
-      }
-  
-      // Filter by tags - corrected to use tourTags
-      if (this.searchCriteria.selectedTags.length > 0) {
-        // Use tourTags instead of tags based on the sample data
-        if (!tour.tourTags || !Array.isArray(tour.tourTags) || 
-            !this.searchCriteria.selectedTags.some(tag => tour.tourTags.includes(tag))) {
-          console.log(`Filtered out by tags: ${this.searchCriteria.selectedTags.join(', ')}`);
-          return false;
-        }
-      }
-  
+      const matchesPrice =
+        tour.tourPrice >= this.searchCriteria.priceMin &&
+        tour.tourPrice <= this.searchCriteria.priceMax;
+
+      // Filter by tags
+      const matchesTags =
+        this.searchCriteria.selectedTags.length > 0
+          ? tour.tourTags &&
+            Array.isArray(tour.tourTags) &&
+            this.searchCriteria.selectedTags.some((tag: string) => tour.tourTags.includes(tag))
+          : true;
+
       // Filter by selected users' comments
-      if (this.searchCriteria.selectedUsers.length > 0) {
-        // Check if tour has comments and at least one comment from a selected user
-        // Based on the sample data structure, access the userName property correctly
-        if (!tour.comments.content   || !Array.isArray(tour.comments.content) || 
-        this.searchCriteria.selectedUsers.some(comment => tour.comments.content.includes(comment))) {
-          console.log(`Filtered out by comments: ${this.searchCriteria.selectedUsers.join(', ')}`);
-          return false;
-        }
-      }
-  
-      // Tour passed all filters
-      return true;
+      const matchesUsers =
+        this.searchCriteria.selectedUsers.length > 0
+          ? tour.comments?.content &&
+            Array.isArray(tour.comments.content) &&
+            tour.comments.content.some((comment: any) =>
+              this.searchCriteria.selectedUsers.includes(comment.userName)
+            )
+          : true;
+
+      return matchesPlace && matchesType && matchesDate && matchesPeople && matchesPrice && matchesTags && matchesUsers;
     });
-  
-    // Reset to first page when filters change
+
     this.currentPage = 1;
-    console.log(`Filtered tours: ${this.filteredTours.length} of ${this.allTours.length}`);
+    this.applySort();
+    this.updatePagination();
+  }
+
+  applySort(): void {
+    if (this.sortOption === 'price-asc') {
+      this.filteredTours.sort((a, b) => a.tourPrice - b.tourPrice);
+    } else if (this.sortOption === 'price-desc') {
+      this.filteredTours.sort((a, b) => b.tourPrice - a.tourPrice);
+    } else if (this.sortOption === 'rating-desc') {
+      this.filteredTours.sort((a, b) => b.rating - a.rating);
+    }
+    this.updatePagination();
+  }
+
+  updatePagination(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedTours = this.filteredTours.slice(startIndex, endIndex);
+  }
+
+  onSortChange(): void {
+    this.applySort();
+  }
+
+  onToursPerRowChange(): void {
+    this.updatePagination();
   }
 
   onTagFilterChange(tag: string, event: Event): void {
@@ -196,9 +196,7 @@ export class ListingToursComponent implements OnInit {
   }
 
   onUserToggle(userName: string, event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const checked = input.checked;
-
+    const checked = (event.target as HTMLInputElement).checked;
     if (checked) {
       this.searchCriteria.selectedUsers.push(userName);
     } else {
@@ -207,49 +205,47 @@ export class ListingToursComponent implements OnInit {
     this.applyFilters();
   }
 
-  get paginatedTours() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredTours.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
-  get totalPages(): number[] {
-    return Array.from({ length: Math.ceil(this.filteredTours.length / this.itemsPerPage) }, (_, i) => i + 1);
-  }
-
-  changePage(page: number) {
+  changePage(page: number): void {
+    if (page < 1 || page > this.totalPages.length) return;
     this.currentPage = page;
+    this.updatePagination();
   }
 
-  // Price range handlers
+  viewTourDetails(tourId: string): void {
+    this.router.navigate(['/tours', tourId]);
+  }
+
   updatePriceMin(event: Event): void {
     this.searchCriteria.priceMin = parseInt((event.target as HTMLInputElement).value);
+    if (this.searchCriteria.priceMin > this.searchCriteria.priceMax) {
+      this.searchCriteria.priceMin = this.searchCriteria.priceMax;
+    }
     this.applyFilters();
   }
 
   updatePriceMax(event: Event): void {
     this.searchCriteria.priceMax = parseInt((event.target as HTMLInputElement).value);
+    if (this.searchCriteria.priceMax < this.searchCriteria.priceMin) {
+      this.searchCriteria.priceMax = this.searchCriteria.priceMin;
+    }
     this.applyFilters();
   }
-  
-  // Handle place change
+
   onPlaceChange(event: Event): void {
     this.searchCriteria.place = (event.target as HTMLSelectElement).value;
     this.applyFilters();
   }
-  
-  // Handle tour type change
+
   onTourTypeChange(event: Event): void {
     this.searchCriteria.tourType = (event.target as HTMLSelectElement).value;
     this.applyFilters();
   }
-  
-  // Handle date change
+
   onDateChange(event: Event): void {
     this.searchCriteria.date = (event.target as HTMLInputElement).value;
     this.applyFilters();
   }
-  
-  // Handle people change
+
   onPeopleChange(event: Event): void {
     this.searchCriteria.people = (event.target as HTMLSelectElement).value;
     this.applyFilters();
