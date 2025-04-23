@@ -117,10 +117,12 @@ img{
     }
     
     .badge {
+      font-size: 12px;
       font-weight: 500;
     }
     
     .card {
+      background-color: rgba(128, 128, 128, 0.13);
       transition: transform 0.3s ease;
       
       &:hover {
@@ -403,5 +405,20 @@ img{
     padding-top: 0 !important;
   }
   
+.iiiii{
+  background-color: #EFEFEF;
+}
+.email-link{
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+ 
+}
+.phone-number{
+  cursor: pointer;
+}
 
   

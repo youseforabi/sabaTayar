@@ -20,7 +20,7 @@ export class BlogPostComponent implements OnInit {
   pageTitle = 'Blog Post';
 
   currentPage: number = 1;
-  itemsPerPage: number = 4; // يجب أن يكون عدد زوجي (2 مدونة في الصف × عدد الصفوف)
+  itemsPerPage: number = 10; // يجب أن يكون عدد زوجي (2 مدونة في الصف × عدد الصفوف)
 
   blogs: any[] = [];
   blogRows: any[][] = []; // لتخزين المدونات مصفوفة في صفوف

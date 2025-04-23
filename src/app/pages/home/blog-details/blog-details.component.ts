@@ -1,12 +1,15 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+// blog-details.component.ts
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BlogHomeService } from '../../../services/blogHome/blog-home.service';
 import { BlogPostSideBarComponent } from '../../blog-post-side-bar/blog-post-side-bar.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '../../../services/Auth/auth.interceptor';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 interface Comment {
   userName: string;
@@ -50,12 +53,13 @@ interface BlogPost {
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
 })
-export class BlogDetailsComponent implements OnInit {
+export class BlogDetailsComponent implements OnInit, OnDestroy {
   selectedBlog: BlogPost | null = null;
   loading = true;
   showAllComments = false;
   blogs: any[] = [];
   filteredBlogs: any[] = []; // Para almacenar los blogs filtrados sin el actual
+  private routeSubscription: Subscription | null = null;
 
   // نموذج التعليق الجديد
   newComment = {
@@ -64,18 +68,37 @@ export class BlogDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router, // Agregar Router para la navegación
+    private router: Router,
     private blogService: BlogHomeService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    // Primero obtener el ID del blog actual y sus detalles
-    const blogId = +this.route.snapshot.paramMap.get('id')!;
-    this.getBlogDetails(blogId);
+    // الاشتراك في تغييرات المسار
+    this.routeSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const blogId = +this.route.snapshot.paramMap.get('id')!;
+        this.loadBlogData(blogId);
+      });
 
-    // Obtener todos los blogs y filtrarlos
+    // تحميل البيانات الأولية
+    const blogId = +this.route.snapshot.paramMap.get('id')!;
+    this.loadBlogData(blogId);
+  }
+
+  ngOnDestroy(): void {
+    // إلغاء الاشتراك عند تدمير المكون
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
+  // دالة مساعدة لتحميل جميع بيانات المدونة
+  loadBlogData(blogId: number): void {
+    this.loading = true;
+    this.getBlogDetails(blogId);
     this.getBlogs(blogId);
   }
 
@@ -97,12 +120,14 @@ export class BlogDetailsComponent implements OnInit {
         this.filteredBlogs = this.blogs.filter(
           (blog) => blog.id !== currentBlogId
         );
+        this.cdr.detectChanges(); // تحديث الواجهة بعد تعديل البيانات
       },
       error: (err) => {
         console.error('Error fetching blogs:', err);
       },
     });
   }
+  
   get mergedHeaderImages(): string[] {
     const images: string[] = [];
     const arr = this.selectedBlog?.headerImages || [];
@@ -131,6 +156,7 @@ export class BlogDetailsComponent implements OnInit {
 
         this.selectedBlog = data;
         this.loading = false;
+        this.cdr.detectChanges(); // تحديث الواجهة بشكل صريح
       },
       error: (err) => {
         console.error('Error fetching blog details:', err);
@@ -141,19 +167,12 @@ export class BlogDetailsComponent implements OnInit {
 
   // Navegar a un blog al hacer clic
   navigateToBlog(blogId: number) {
-    // Guardar la posición actual de desplazamiento
-    const currentScrollPosition = window.scrollY;
-
-    // Navegar al blog seleccionado
-    this.router.navigate(['/blog', blogId]).then(() => {
-      // Desplazarse a la parte superior de la página después de la navegación
-      window.scrollTo(0, 0);
-
-      // Actualizar los datos
-      this.loading = true;
-      this.getBlogDetails(blogId);
-      this.getBlogs(blogId);
-    });
+    // التمرير إلى أعلى الصفحة
+    window.scrollTo(0, 0);
+    
+    // التنقل إلى المدونة الجديدة
+    this.router.navigate(['/blog', blogId]);
+    // لا داعي لتحميل البيانات هنا، سيتم تنفيذ ذلك عبر مراقبة تغيير المسار
   }
 
   toggleComments() {
@@ -162,53 +181,72 @@ export class BlogDetailsComponent implements OnInit {
 
   submitComment() {
     if (!this.newComment.content.trim()) return;
-
+  
     const token = localStorage.getItem('token');
     if (!token) {
-      console.error('No token found. Please log in.');
+      this.toastr.error('يرجى تسجيل الدخول لإضافة تعليق', 'خطأ في المصادقة');
       return;
     }
-
+  
     if (!this.selectedBlog?.id) {
       console.error('Blog ID is missing');
       return;
     }
-
+  
     const commentData = {
       content: this.newComment.content,
       blogId: this.selectedBlog.id,
     };
-
+  
     this.blogService.addComment(commentData).subscribe({
       next: (response: any) => {
-
-        // إنشاء كائن تعليق جديد مع البيانات المطلوبة
+        // 1. إضافة معالجة أكثر تفصيلاً للبيانات المستلمة
+        console.log('Comment response:', response);
+        
+        // 2. إنشاء كائن تعليق جديد مع مزيد من البيانات
         const newComment: Comment = {
-          userName: response.user?.name || 'Anonymous', // تعديل حسب هيكل الاستجابة
-          profilePicture:
-            response.user?.profilePicture || 'assets/images/default-avatar.png',
+          userName: response.userName || response.user?.name || 'Anonymous',
+          profilePicture: response.profilePicture || response.user?.profilePicture || 'assets/images/default-avatar.png',
           content: response.content,
           createdAt: response.createdAt || new Date().toISOString(),
         };
-
-        // تحديث القائمة مع إجبار تحديث الواجهة
+  
+        // 3. تحديث قائمة التعليقات بشكل أكثر وضوحاً
         if (this.selectedBlog) {
+          // إنشاء نسخة جديدة من المدونة المختارة
           this.selectedBlog = {
             ...this.selectedBlog,
-            comments: [newComment, ...(this.selectedBlog.comments || [])],
+            comments: this.selectedBlog.comments 
+              ? [newComment, ...this.selectedBlog.comments] 
+              : [newComment]
           };
-
+  
+          // 4. إفراغ نموذج التعليق
           this.newComment.content = '';
-          this.cdr.detectChanges(); // إجبار تحديث الواجهة
-
-          // حل إضافي: إعادة تحميل بيانات المدونة
-          this.getBlogDetails(this.selectedBlog.id);
+          
+          // 5. إظهار رسالة نجاح
+          this.toastr.success('Comment Posted Successfully' , 'Success');
+          
+          // 6. إجبار تحديث الواجهة
+          this.cdr.detectChanges();
+          
+          // 7. بدلاً من إعادة تحميل البيانات، نضمن أن التعليق الجديد قد تمت إضافته بشكل صحيح
+          setTimeout(() => {
+            // التمرير إلى قسم التعليقات
+            const commentsSection = document.querySelector('.comments-section');
+            if (commentsSection) {
+              commentsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
         }
       },
       error: (error) => {
         console.error('Error adding comment:', error);
+        // 8. معالجة أفضل للأخطاء
         if (error.status === 401) {
-          console.error('Unauthorized: Token is invalid or expired.');
+          this.toastr.error('جلسة المستخدم منتهية. يرجى تسجيل الدخول مرة أخرى', 'خطأ في المصادقة');
+        } else {
+          this.toastr.error('حدث خطأ أثناء إضافة التعليق', 'خطأ');
         }
       },
     });

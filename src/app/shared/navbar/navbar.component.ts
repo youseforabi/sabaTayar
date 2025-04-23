@@ -17,7 +17,15 @@ export class NavbarComponent {
   profileImage: string = 'assets/default-profile.png';
   private subscription: Subscription = new Subscription();
   @ViewChild('userDropdown') userDropdown: any;
+  phoneNumber: string = '201000676285';
 
+  callPhone() {
+    window.location.href = `tel:${this.phoneNumber}`;
+  }
+
+  sendEmail() {
+    window.location.href = `mailto:${this.email}`;
+  }
   userName: string = '';
   userRole: string = '';
   isLoggedIn: boolean = false;

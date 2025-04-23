@@ -101,6 +101,16 @@ interface TourDetails {
   styleUrl: './tour-details.component.scss'
 })
 export class TourDetailsComponent {
+  phoneNumber: string = '201000676285';
+  email:string= 'info@sabatours.com'
+
+  callPhone() {
+    window.location.href = `tel:${this.phoneNumber}`;
+  }
+
+  sendEmail() {
+    window.location.href = `mailto:${this.email}`;
+  }
   selectedBlog:any | null = null;
 
   tourId: number = 0;

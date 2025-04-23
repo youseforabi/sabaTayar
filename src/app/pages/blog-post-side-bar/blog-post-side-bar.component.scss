@@ -1,6 +1,9 @@
 .sidebar {
   padding: 20px;
-  background: #fff;
+margin-top:35px ;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  
 
   .section-title {
     font-size: 18px;
@@ -33,6 +36,8 @@
   }
 
   .categories {
+  background: gray;
+
     li {
       padding: 5px 0;
       a {
@@ -55,7 +60,8 @@
       border-radius: 5px;
     }
   }
-/* you-may-like.component.scss */
+
+/* تحديث أسلوب التحكم في المكتبة الدائرية */
 .you-may-like {
   position: relative;
   margin: 2rem 0;
@@ -68,39 +74,11 @@
   }
 }
 
-.carousel-controls {
-  position: absolute;
-  top: -40px;
-  right: 50px;
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  background-color: #0D62E2;
-  color: white;
-  border-radius: 50%;
-  margin: 0 5px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  opacity: 1;
-  transition: background-color 0.3s ease;
-  
-  &:hover {
-    background-color: darken(#0D62E2, 10%);
-  }
-}
-
 .carousel-inner {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
   
   img {
     height: 200px;
@@ -108,16 +86,82 @@
   }
 }
 
+/* إعادة تصميم عناصر التحكم في المكتبة الدائرية */
+.carousel-controls {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  display: flex;
+
+  justify-content: space-between;
+  padding: 0 10px;
+  z-index: 10;
+  pointer-events: none; 
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: white;
+  color: #0D62E2;
+  border-radius: 50%;
+  width: 40px;
+  
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  opacity: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto; /* إعادة تفعيل التفاعل مع الأزرار */
+  
+  &:hover {
+    background-color: #0D62E2;
+    color: white;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+/* تخصيص أيقونات الأسهم */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none !important;
+  display: inline-block;
+  width: 20px;
+
+
+  height: 20px;
+  position: relative;
+}
+
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  font-family: "bootstrap-icons";
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: currentColor;
+}
+
+.carousel-control-prev-icon::before {
+  content: "\F12F"; /* رمز السهم لليسار من Bootstrap Icons */
+}
+
+.carousel-control-next-icon::before {
+  content: "\F138"; /* رمز السهم لليمين من Bootstrap Icons */
+}
+
 .tour-info {
   background: #fff;
   padding: 20px;
-  
-  h5 {
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #222;
-    font-size: 1.1rem;
-  }
   
   .locations {
     color: #666;
@@ -184,8 +228,4 @@
         background-color: darken(#0D62E2, 10%);
       }
     }
-  }
-}
-  
-  
-}
+  }}}

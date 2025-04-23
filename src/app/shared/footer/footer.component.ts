@@ -12,8 +12,15 @@ import { CommonModule } from '@angular/common';
 })
 export class FooterComponent {
   email:string= 'info@sabatours.com'
+  phoneNumber: string = '201000676285';
 
+  callPhone() {
+    window.location.href = `tel:${this.phoneNumber}`;
+  }
 
+  sendEmail() {
+    window.location.href = `mailto:${this.email}`;
+  }
   showNavBarFooter: boolean = true;
 
   constructor(private router: Router) {

@@ -3,11 +3,13 @@
     <div class="d-flex justify-content-between align-items-center w-100">
       <div class="navbar-brand">
         <span>Welcome to Saba Tours</span>
-        <span class="d-none d-md-inline"><i class="bi bi-telephone-fill mx-2"></i> (+2)0100006782855</span>
+        <span class="d-none d-md-inline"  style="cursor: pointer;" (click)="callPhone()"><i class="bi bi-telephone-fill mx-2"></i> (+2)0100006782855</span>
       </div>
       <div class="navbar-contact">
-        <span class="d-none d-md-inline"><i class="bi bi-envelope-fill mx-2"></i> {{email}}</span>
-        <span class="d-none d-lg-inline"><i class="bi bi-geo-alt-fill mx-2"></i> Ouia AT Haram, El Omraniya, Giza Governorate</span>
+        <a href="mailto:{{email}}" class="email-link">
+          <i class="bi bi-envelope"></i>  {{email}}
+        </a>
+  <span class="d-none d-lg-inline"><i class="bi bi-geo-alt-fill mx-2"></i> Ouia AT Haram, El Omraniya, Giza Governorate</span>
       </div>
     </div>
   </div>
@@ -44,8 +46,9 @@
           </a>
           <ul class="dropdown-menu animate-dropdown" aria-labelledby="categoryDropdown">
             <li><a class="dropdown-item" routerLink="/guide" routerLinkActive="active-link">Guide Of Egypt</a></li>
-            <li><a class="dropdown-item" routerLink="/day" routerLinkActive="active-link">Day Of Trip</a></li>
-            <li><a class="dropdown-item" routerLink="/classical" routerLinkActive="active-link">Classical</a></li>
+            <li><a class="dropdown-item" routerLink="/classical" routerLinkActive="active-link">Classical Tour</a></li>
+
+            <li><a class="dropdown-item" routerLink="/day" routerLinkActive="active-link">Day Trips</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -113,8 +116,9 @@
         <div class="collapse" id="categoryMenu">
           <ul class="list-unstyled ps-3">
             <li><a class="dropdown-item" routerLink="/guide" routerLinkActive="active-link">Guide Of Egypt</a></li>
-            <li><a class="dropdown-item" routerLink="/day" routerLinkActive="active-link">Day Of Trip</a></li>
-            <li><a class="dropdown-item" routerLink="/classical" routerLinkActive="active-link">Classical</a></li>
+            <li><a class="dropdown-item" routerLink="/classical" routerLinkActive="active-link">Classical Tour</a></li>
+
+            <li><a class="dropdown-item" routerLink="/day" routerLinkActive="active-link">Day Trips</a></li>
           </ul>
         </div>
       </li>
