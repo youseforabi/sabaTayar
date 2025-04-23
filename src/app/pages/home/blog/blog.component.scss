@@ -127,9 +127,52 @@ span{
   background: #0056b3;
 }
 
-/* ✅ تحسين الاستجابة */
+/* ✅ تحسين التباعد في الهواتف */
 @media (max-width: 768px) {
+  .blog-section {
+    padding: 30px 15px;
+  }
+
+  .blog-title {
+    font-size: 30px;
+  }
+
+  .blog-subtitle {
+    font-size: 16px;
+  }
+
   .blog-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .blog-card {
+    text-align: left; /* في حال أردت محاذاة المحتوى لليسار في الموبايل */
+  }
+
+  .blog-heading {
+    font-size: 20px;
+  }
+
+  .blog-text {
+    font-size: 15px;
+  }
+
+  .blog-button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .blog-button-container {
+    text-align: center;
   }
 }
+
+/* ✅ تحسين العرض في الشاشات المتوسطة */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+

@@ -8,7 +8,7 @@ import { FormatCategoryPipe } from '../../../pipes/format-category.pipe';
 @Component({
   selector: 'app-featured',
   standalone: true,
-  imports: [NgFor, NgClass, NgIf,FormatCategoryPipe],
+  imports: [NgFor, NgClass, NgIf, FormatCategoryPipe],
   templateUrl: './featured.component.html',
   styleUrls: ['./featured.component.scss']
 })
@@ -62,5 +62,11 @@ export class FeaturedComponent {
 
   seeMore() {
     this.router.navigate(['/tours'], { queryParams: { category: this.activeCategory } });
+  }
+
+  viewTourDetails(tourId: string) {
+    this.router.navigate(['/tours', tourId]);
+    window.scrollTo(0, 0); // Scroll to top after navigation
+
   }
 }

@@ -58,18 +58,21 @@
 .backToHome {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #2d60ff;
   padding: 10px 20px;
-  width: 90%;
-  margin-left: 10px;
-  border-radius: 15px;
+  width: 95%;
+  margin-left: 5px;
+  border-radius: 25px;
   border: 1px solid #2d60ff;
   cursor: pointer;
 }
 
 .backToHome a {
   text-decoration: none;
+  font-weight: 600;
   color: white;
+  display: flex;
 }
 
 /* أيقونة الهوم */

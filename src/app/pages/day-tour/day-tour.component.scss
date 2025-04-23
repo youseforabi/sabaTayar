@@ -171,9 +171,14 @@ margin-bottom: 15px;
   }
   
   @media (max-width: 768px) {
-    .filter-background {
-      height: 200px;
+    .card{
+      margin: 0 15px;
     }
+
+    .filter-background {
+      height: 400px;
+    }
+  
   
     .filter-section {
       padding: 8px 12px;

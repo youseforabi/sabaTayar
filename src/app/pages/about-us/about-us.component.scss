@@ -281,6 +281,7 @@
         
         border-radius: 15px;
         margin-bottom: 40px;
+
       
         .booking-container {
           display: flex;
@@ -321,6 +322,17 @@
             flex: 1;
             display: flex;
             flex-direction: column; // Stack steps vertically
+            justify-content: center;
+            align-items: center;
+            img {
+              width: 40px;
+              margin-right: 15px;
+              transition: transform 0.5s ease; /* إضافة تأثير انتقال سلس */
+            }
+      
+            img:hover {
+              transform: rotate(360deg); /* دوران 360 درجة عند الـ hover */
+            }
       
             .step {
               text-align: left; // Align text to the left

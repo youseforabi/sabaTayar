@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
 import { environment } from '../../../environment/environment';
 
 @Injectable({
@@ -102,6 +102,17 @@ export class TourService {
     }
 
 
+    getUniquePlaces(): Observable<string[]> {
+      return this.getAllToursWithComments().pipe(
+        map(tours => [...new Set(tours.flatMap(tour => tour.places || []))].filter(place => place))
+      );
+    }
+  
+    getUniqueTourTypes(): Observable<string[]> {
+      return this.getAllToursWithComments().pipe(
+        map(tours => [...new Set(tours.map(tour => tour.tourCategory))].filter(type => type))
+      );
+    }
     
   
   

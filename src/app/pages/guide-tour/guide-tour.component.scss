@@ -158,9 +158,15 @@ margin-bottom: 15px;
     
     /* التوافق مع الشاشات الصغيرة */
     @media (max-width: 768px) {
-      .filter-background {
-        height: 200px; /* ارتفاع أكبر قليلاً للشاشات الصغيرة */
+
+      .card{
+        margin: 0 15px;
       }
+  
+      .filter-background {
+        height: 400px;
+      }
+    
     
       .filter-section {
         padding: 8px 12px;

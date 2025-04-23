@@ -1,4 +1,5 @@
-<div class="container-fluid ">
+
+<div class="container-fluid">
   <section class="hero-section">
     <div class="hero-content">
       <div class="h1">Adventure Awaits</div>
@@ -13,10 +14,7 @@
           <label for="Places">Places</label>
           <select class="form-select" [(ngModel)]="searchCriteria.place">
             <option value="">Select City...</option>
-            <option value="Cairo">Cairo</option>
-            <option value="Luxor">Luxor</option>
-            <option value="Sharm El Sheikh">Sharm El Sheikh</option>
-            <!-- Add more places here -->
+            <option *ngFor="let place of uniquePlaces" [value]="place">{{ place }}</option>
           </select>
         </div>
 
@@ -26,10 +24,7 @@
           <label for="TourType">Tour Type</label>
           <select class="form-select" [(ngModel)]="searchCriteria.tourType">
             <option value="">Select Type</option>
-            <option value="0">Guide Of Egypt</option>
-            <option value="1">Classical Tours</option>
-            <option value="2">Day Of Trip</option>
-            <!-- Add more tour types here -->
+            <option *ngFor="let type of uniqueTourTypes  " [value]="type">{{ type | formatCategory }}</option>
           </select>
         </div>
 
@@ -51,25 +46,29 @@
               <option value="">0 Adults</option>
               <option value="1">1 Person</option>
               <option value="2">2 Persons</option>
+              <option value="3">3 Persons</option>
+              <option value="4">4 Persons</option>
+              <option value="5">5 Persons</option>
+              <option value="6+">6+ Persons</option>
             </select>
           </div>
         </div>
 
         <div class="divider"></div>
-        
+
         <div class="button-group">
           <button class="filter-btn" (click)="toggleFilters()">
             <i class="bi bi-sliders"></i>
           </button>
           <button class="search-btn" (click)="onSearch()">
-            <i class="bi bi-search  me-2"></i> Search
+            <i class="bi bi-search me-2"></i> Search
           </button>
         </div>
       </div>
 
-      <!-- الفلاتر الإضافية -->
+      <!-- Additional Filters -->
       <div class="filters-container mt-3" [ngClass]="{'show': showFilters}">
-        <!-- نطاق السعر -->
+        <!-- Price Range -->
         <div class="filter-item price-range d-flex justify-content-center">
           <label class="fw-bold mb-4">Price</label>
           <div class="range-container">
@@ -82,20 +81,21 @@
           </div>
         </div>
 
-        <!-- وسائل الراحة -->
-        <div class="filter-item amenities">
-          <label class="fw-bold mb-4">All Amenities</label>
-          <div class="amenities-grid">
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.airConditioning" /> Air
-              Conditioning</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.laundry" /> Laundry</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.refrigerator" /> Refrigerator</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.alarmSystem" /> Alarm System</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.microwave" /> Microwave</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.shower" /> Shower</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.centralHeating" /> Central
-              Heating</label>
-            <label><input type="checkbox" [(ngModel)]="searchCriteria.amenities.pool" /> Pool</label>
+        <!-- Tags -->
+        <div class="filter-item tags">
+          <label class="fw-bold mb-4">Tags</label>
+          <div class="tags-grid">
+            <div class="form-check mb-2" *ngFor="let tag of topTags">
+              <input class="form-check-input"
+                     type="checkbox"
+                     [id]="tag.tagName"
+                     [value]="tag.tagName"
+                     [(ngModel)]="tag.selected"
+                     (change)="onTagFilterChange(tag.tagName, $event)">
+              <label class="form-check-label" [for]="tag.tagName">
+                {{ tag.tagName }}
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -105,16 +105,14 @@
         <img src="assets/user1jpg.jpg" alt="User 2" style="--i: 2" />
         <img src="assets/user1jpg.jpg" alt="User 3" style="--i: 3" />
         <img src="assets/user1jpg.jpg" alt="User 4" style="--i: 4" />
-        <div class="count-circle" >12k</div>
-
-      <div class="people" >+12k people Review & <br> using Services</div>
-        
+        <div class="count-circle">12k</div>
+        <div class="people">+12k people Review & <br> using Services</div>
       </div>
     </div>
 
+    <!-- Hero Image Section (Unchanged) -->
     <div class="hero-image">
-      <img class="background-image" src="assets/ancient-egyptian-culture-civilization-from (1).jpg"
-        alt="Background Layer" />
+      <img class="background-image" src="assets/ancient-egyptian-culture-civilization-from (1).jpg" alt="Background Layer" />
       <div class="floating-icon">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 511.982 511.982" xml:space="preserve" fill="#000000">
@@ -156,7 +154,7 @@
               d="M287.986,208.152c0,41.248-33.429,74.669-74.662,74.669c-41.232,0-74.661-33.421-74.661-74.669 c0-41.233,33.429-74.654,74.661-74.654C254.557,133.498,287.986,166.919,287.986,208.152z">
             </path>
             <path style="fill:#424953;"
-              d="M234.66,208.152c0,11.78-9.555,21.343-21.336,21.343c-11.78,0-21.335-9.563-21.335-21.343 c0-11.781,9.555-21.327,21.335-21.327C225.105,186.825,234.66,196.371,234.66,208.152z">
+              d="M234.66,208.152c0,11.78-9.555,21.343-21.336,21.343c-11.78,0-21.335-9.563-21.335-21.343 c0-11.781,9.555-21.327,21.335-21.327C225.105,186.825,234.66,196.371,234.60,208.152z">
             </path>
             <path style="fill:#5E9CEA;"
               d="M501.323,218.776h-85.342c-5.891,0-10.655,4.781-10.655,10.672s4.765,10.672,10.655,10.672h85.342 c5.874,0,10.655-4.781,10.655-10.672S507.197,218.776,501.323,218.776z">
@@ -165,7 +163,7 @@
               d="M479.98,154.825c-1.438,0-2.876-0.28-4.281-0.891c-168.026-73.497-278.21-69.762-341.06-53.685 c-66.482,17.016-94.091,50.296-94.356,50.623c-3.719,4.578-10.429,5.281-15.007,1.578c-4.578-3.718-5.273-10.437-1.563-15.015 c1.289-1.578,32.397-39.108,105.637-57.842c42.304-10.828,90.208-13.203,142.386-7.047c64.623,7.625,136.136,28.437,212.524,61.842 c5.391,2.359,7.844,8.641,5.5,14.046C488.01,152.434,484.09,154.825,479.98,154.825z">
             </path>
             <path style="fill:#5E9CEA;"
-              d="M424.231,222.698c-71.076-86.95-161.026-99.919-208.313-99.919 c-52.857,0-103.215,15.625-131.425,40.765c-8.883,7.922-16.094,14.953-22.46,21.171c-18.711,18.25-29.015,28.297-53.896,34.374 c-4.032,0.984-7.125,4.203-7.93,8.281c-0.813,4.063,0.805,8.234,4.147,10.688l0.095,0.063c5.038,3.702,23.874,16.765,54.787,29.201 c43.131,17.359,90.277,26.172,140.12,26.172c71.294,0,145.722-18.313,221.219-54.421c2.969-1.405,5.094-4.108,5.813-7.296 C427.105,228.573,426.31,225.229,424.231,222.698z M199.356,272.149c-80.138,0-136.8-24.64-164.213-39.889 c16.687-7.797,27.835-18.671,41.787-32.28c6.203-6.047,13.233-12.905,21.757-20.499c24.102-21.5,70.115-35.374,117.23-35.374 c41.537,0,118.863,10.905,182.799,81.606C330.485,256.541,263.479,272.149,199.356,272.149z">
+              d="M424.231,222.698c-71.076-86.95-161.026-99.919-208.313-99.919 c-52.857,0-103.215,15.625-131.425,40.765c-8.883,7.922-16.094,14.953-22.46,21.171c-18.711,18.25-29.015,28.297-53.896,34.374 c-4.032,0.984-7.125,4.203-7.93,8.281c-0.813,4.063,0.805,8.234,4.147,10.688l0.095,0.063c5.038,3.702,23.874,16.765,54.787,29.201 c43.131,17.359,90.277,26.172,140.12,26.172c71.294,0,145.722-18.313,221.219-54.421c2.969-1.405,5.094-4.108,5.813-7.296 C427.105,228.573,426.31,225.229,424.231,222.698z M199.356,272.149c-80.138,0-136.8-24.64-164.213-39.889 c16.687-7.797,27.835-18.671,41.787-32.280c6.203-6.047,13.233-12.905,21.757-20.499c24.102-21.5,70.115-35.374,117.23-35.374 c41.537,0,118.863,10.905,182.799,81.606C330.485,256.541,263.479,272.149,199.356,272.149z">
             </path>
           </g>
         </svg>
@@ -175,7 +173,6 @@
     </div>
   </section>
 </div>
-
 
 <app-home-cara></app-home-cara>
 
@@ -322,3 +319,5 @@
   <h2>Feel real adventure and very<br> close to nature</h2>
   <button class="explore-btn">Contact Us</button>
 </section>
+
+

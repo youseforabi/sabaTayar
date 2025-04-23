@@ -1,13 +1,14 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { TourService } from '../../services/Tours/tour.service';
+import { FormatCategoryPipe } from '../../pipes/format-category.pipe';
 
 @Component({
   selector: 'app-listing-tours',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, RouterLink,NgClass],
+  imports: [NgFor, NgIf, FormsModule, RouterLink, NgClass, FormatCategoryPipe],
   templateUrl: './listing-tours.component.html',
   styleUrls: ['./listing-tours.component.scss']
 })
@@ -32,29 +33,28 @@ export class ListingToursComponent implements OnInit {
   itemsPerPage: number = 6;
   topTags: any[] = [];
   recentComments: any[] = [];
-
-  // New properties for sorting and layout
   sortOption: string = 'default';
-  toursPerRow: string = '3'; // Default to 3 tours per row
-
-  get uniquePlaces(): string[] {
-    return [...new Set(this.allTours.flatMap(tour => tour.places || []))].filter(place => place);
-  }
-
-  get uniqueTourTypes(): string[] {
-    return [...new Set(this.allTours.map(tour => tour.tourCategory))].filter(type => type);
-  }
-
-  get totalPages(): number[] {
-    return Array.from({ length: Math.ceil(this.filteredTours.length / this.itemsPerPage) }, (_, i) => i + 1);
-  }
+  toursPerRow: string = '3';
 
   constructor(
     private tourService: TourService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    // Read queryParams from HomeComponent
+    this.route.queryParams.subscribe(params => {
+      this.searchCriteria.place = params['place'] || '';
+      this.searchCriteria.tourType = params['tourType'] || '';
+      this.searchCriteria.people = params['people'] || '';
+      this.searchCriteria.date = params['date'] || '';
+      this.searchCriteria.priceMin = params['priceMin'] ? parseInt(params['priceMin']) : 500;
+      this.searchCriteria.priceMax = params['priceMax'] ? parseInt(params['priceMax']) : 1000;
+      this.searchCriteria.selectedTags = params['selectedTags'] ? JSON.parse(params['selectedTags']) : [];
+      this.applyFilters();
+    });
+
     this.getAllToursWithComments();
     this.getTopTags();
     this.getRecentComment();
@@ -65,8 +65,12 @@ export class ListingToursComponent implements OnInit {
       next: (data) => {
         this.allTours = data;
         this.filteredTours = [...this.allTours];
-        this.applySort();
-        this.updatePagination();
+        // Update topTags to reflect selected tags from queryParams
+        this.topTags = this.topTags.map(tag => ({
+          ...tag,
+          selected: this.searchCriteria.selectedTags.includes(tag.tagName)
+        }));
+        this.applyFilters();
       },
       error: (err) => {
         console.error('Error fetching tours with comments:', err);
@@ -77,7 +81,10 @@ export class ListingToursComponent implements OnInit {
   getTopTags(): void {
     this.tourService.getTopTags().subscribe({
       next: (data) => {
-        this.topTags = data.map((tag: any) => ({ ...tag, selected: false }));
+        this.topTags = data.map((tag: any) => ({
+          ...tag,
+          selected: this.searchCriteria.selectedTags.includes(tag.tagName)
+        }));
       },
       error: (err) => {
         console.error('Error fetching top tags:', err);
@@ -97,19 +104,28 @@ export class ListingToursComponent implements OnInit {
     });
   }
 
+  get uniquePlaces(): string[] {
+    return [...new Set(this.allTours.flatMap(tour => tour.places || []))].filter(place => place);
+  }
+
+  get uniqueTourTypes(): string[] {
+    return [...new Set(this.allTours.map(tour => tour.tourCategory))].filter(type => type);
+  }
+
+  get totalPages(): number[] {
+    return Array.from({ length: Math.ceil(this.filteredTours.length / this.itemsPerPage) }, (_, i) => i + 1);
+  }
+
   applyFilters(): void {
     this.filteredTours = this.allTours.filter(tour => {
-      // Filter by place
       const matchesPlace = this.searchCriteria.place
         ? tour.places && tour.places.some((place: string) => place === this.searchCriteria.place)
         : true;
 
-      // Filter by tour type
       const matchesType = this.searchCriteria.tourType
         ? tour.tourCategory === this.searchCriteria.tourType
         : true;
 
-      // Filter by date
       let matchesDate = true;
       if (this.searchCriteria.date) {
         const selectedDate = new Date(this.searchCriteria.date);
@@ -121,7 +137,6 @@ export class ListingToursComponent implements OnInit {
         matchesDate = tourDate && !isNaN(tourDate.getTime()) && tourDate >= selectedDate;
       }
 
-      // Filter by people count
       let matchesPeople = true;
       if (this.searchCriteria.people) {
         const peopleCount = this.searchCriteria.people === '6+' ? 6 : parseInt(this.searchCriteria.people);
@@ -129,12 +144,10 @@ export class ListingToursComponent implements OnInit {
         matchesPeople = tourCapacity >= peopleCount;
       }
 
-      // Filter by price range
       const matchesPrice =
         tour.tourPrice >= this.searchCriteria.priceMin &&
         tour.tourPrice <= this.searchCriteria.priceMax;
 
-      // Filter by tags
       const matchesTags =
         this.searchCriteria.selectedTags.length > 0
           ? tour.tourTags &&
@@ -142,7 +155,6 @@ export class ListingToursComponent implements OnInit {
             this.searchCriteria.selectedTags.some((tag: string) => tour.tourTags.includes(tag))
           : true;
 
-      // Filter by selected users' comments
       const matchesUsers =
         this.searchCriteria.selectedUsers.length > 0
           ? tour.comments?.content &&

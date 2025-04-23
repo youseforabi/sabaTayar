@@ -32,8 +32,12 @@ export class AboutUsComponent {
       next: (comments) => {
         console.log(comments);
         
+        // خلط التعليقات بشكل عشوائي
         const shuffledComments = this.shuffleArray(comments);
-        this.slides = this.groupComments(shuffledComments, 3);
+        // اختيار أول 12 تعليقًا فقط (لأن 4 شرائح × 3 تعليقات = 12)
+        const selectedComments = shuffledComments.slice(0, 12);
+        // تقسيم التعليقات إلى 4 مجموعات
+        this.slides = this.groupComments(selectedComments, 3);
       },
       error: (error) => {
         console.error('Error fetching comments:', error);
@@ -45,8 +49,12 @@ export class AboutUsComponent {
           { id: 5, text: "I had an unforgettable trip thanks to this site. The itinerary was well-organized, and everything went smoothly from start to finish.", user: "Michael Brown", location: "Florida, USA" },
           { id: 6, text: "Great service and easy-to-use website. I found the perfect tour for my family, and we had an amazing time exploring new places.", user: "Emily Johnson", location: "Chicago, USA" }
         ];
+        // خلط التعليقات بشكل عشوائي
         const shuffledComments = this.shuffleArray(mockComments);
-        this.slides = this.groupComments(shuffledComments, 3);
+        // اختيار أول 12 تعليقًا فقط
+        const selectedComments = shuffledComments.slice(0, 12);
+        // تقسيم التعليقات إلى 4 مجموعات
+        this.slides = this.groupComments(selectedComments, 3);
       }
     });
   }

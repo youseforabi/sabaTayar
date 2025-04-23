@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./shared/navbar/navbar.component";
 import { FooterComponent } from "./shared/footer/footer.component";
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, NavbarComponent, FooterComponent, NgIf],
+    imports: [RouterOutlet, NavbarComponent, FooterComponent, NgIf,NgClass],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
@@ -14,6 +14,14 @@ export class AppComponent {
 
   title = 'SabaTours';
   showNavBarFooter : boolean = true;
+
+  showBackToTop = false;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.showBackToTop = window.scrollY > 300;
+  }
+
+  // الرجوع لأعلى الصفحة
 
   constructor(private router :Router){
 
@@ -28,4 +36,14 @@ export class AppComponent {
 
   }
 
+  
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 }
+
+
