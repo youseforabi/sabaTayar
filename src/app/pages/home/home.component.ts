@@ -14,6 +14,7 @@ import { HomeCaraComponent } from './home-cara/home-cara.component';
 import { HistoryExploreComponent } from './history-explore/history-explore.component';
 import { TourService } from '../../services/Tours/tour.service';
 import { FormatCategoryPipe } from '../../pipes/format-category.pipe';
+import { MorePackagesComponent } from "../more-packages/more-packages.component";
 
 @Component({
   selector: 'app-home',
@@ -26,15 +27,15 @@ import { FormatCategoryPipe } from '../../pipes/format-category.pipe';
     BlogComponent,
     TourssComponent,
     FeaturedComponent,
-    
     TestimonialsComponent,
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
     HomeCaraComponent,
     HistoryExploreComponent,
-    FormatCategoryPipe
-  ],
+    FormatCategoryPipe,
+    MorePackagesComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
