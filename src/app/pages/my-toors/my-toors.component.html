@@ -50,9 +50,10 @@
 
   
 
-  <div class="no-tours-message" *ngIf="filteredTours.length === 0">
-    <p>No tours available for this category.</p>
-  </div>
-
+<div class="no-tours-message" *ngIf="filteredTours.length === 0">
+  <p>No tours available for this category.</p>
+  <p>Current Filter: {{ currentFilter }}</p>
+  <p>Total Tours: {{ tours.length }}</p>
+</div>
   <!-- <button class="see-more">See more</button> -->
 </div>

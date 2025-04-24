@@ -8,7 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-blog-post-side-bar',
   standalone: true,
-  imports: [CommonModule, NgFor, RouterLink],
+  imports: [CommonModule, NgFor],
   templateUrl: './blog-post-side-bar.component.html',
   styleUrls: ['./blog-post-side-bar.component.scss']
 })

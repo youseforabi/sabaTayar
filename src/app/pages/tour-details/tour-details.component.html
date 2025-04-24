@@ -115,7 +115,7 @@
               </div>
               <div class="highlight-content">
                 <h5>Start</h5>
-                <p>{{ tourDetails.startTour | date:'dd MMM yyyy' }}</p>
+                <p>{{ tourDetails.startTour }}</p>
               </div>
             </div>
           
@@ -161,7 +161,7 @@
              <form [formGroup]="bookingForm">
                    <!-- Price -->
                    <div class="mb-3">
-                    <h1 class="text-primary fw-bold">${{ totalPrice }}</h1>
+                    <h1 class="text-primary fw-bold">${{ totalPrice + tourDetails.tourPrice }}</h1>
                     <small class="text-muted">Starting price per person</small>
                   </div>
             
@@ -222,36 +222,79 @@
                       </div>
                     </div>
                   </div>
-            
-                  <!-- Additional Services -->
-                  <div class="mb-3" *ngIf="tourDetails.additionalServiceFees && tourDetails.additionalServiceFees.length > 0">
-                    <label class="form-label fw-bold">Additional Services</label>
-                    <div class="form-check mb-2" *ngFor="let service of tourDetails.additionalServiceFees">
-                      <input 
-                        class="form-check-input" 
-                        type="checkbox" 
-                        [id]="'service-' + service.serviceName" 
-                        [checked]="isServiceSelected(service.serviceName)"
-                        (change)="toggleService(service.serviceName, service.price)">
-                      <label class="form-check-label d-flex justify-content-between" [for]="'service-' + service.serviceName">
-                        <span>{{ service.serviceName }}</span>
-                        <span>${{ service.price }}</span>
-                      </label>
-                      <small class="text-muted d-block">{{ service.description }}</small>
-                    </div>
-                  </div>
-            
-                  <!-- Total Price -->
-                  <div class="mb-3 p-3 bg-light rounded">
-                    <div class="d-flex justify-content-between">
-                      <span class="fw-bold">Total Price:</span>
-                      <span class="fw-bold text-primary"> ${{ totalPrice }} </span>
-                    </div>
-                  </div>
-            
-             </form>
-                <!-- Book Now Button -->
-                <button class="btn btn-primary w-100" (click)="bookNow()">Book Now</button>
+                  <!-- Add this section to your booking form right before the Total Price section -->
+<!-- Update the radio button labels to use the dynamic deposit percentage -->
+<!-- Updated Payment Option section using the getter -->
+<div class="mb-3">
+  <label class="form-label fw-bold">Payment Option</label>
+  <div class="form-check mb-2">
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      name="isDepositPayment" 
+      id="fullPayment" 
+      [value]="false" 
+      formControlName="isDepositPayment">
+    <label class="form-check-label d-flex justify-content-between" for="fullPayment">
+      <span>Full Payment</span>
+      <span>${{ finalAmount }}</span>
+    </label>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      name="isDepositPayment" 
+      id="depositPayment" 
+      [value]="true" 
+      formControlName="isDepositPayment">
+    <label class="form-check-label d-flex justify-content-between" for="depositPayment">
+      <span>Deposit ({{ getDepositPercentage }}%)</span>
+      <span>${{ depositAmount }}</span>
+    </label>
+    <small class="text-muted d-block">Pay {{ getDepositPercentage }}% now and the rest later</small>
+  </div>
+</div>
+
+<!-- Display price based on payment option -->
+<div class="mb-3 p-3 bg-light rounded">
+  <div class="d-flex justify-content-between">
+    <span class="fw-bold">{{ bookingForm.get('isDepositPayment')?.value ? 'Deposit Amount:' : 'Total Price:' }}</span>
+    <span class="fw-bold text-primary"> 
+      ${{ bookingForm.get('isDepositPayment')?.value ? depositAmount : totalPrice + tourDetails.tourPrice }} 
+    </span>
+  </div>
+  <div class="d-flex justify-content-between" *ngIf="bookingForm.get('isDepositPayment')?.value">
+    <span class="text-muted">Remaining Amount:</span>
+    <span class="text-muted">${{ (totalPrice + tourDetails.tourPrice) - depositAmount }}$</span>
+  </div>
+</div>
+
+<!-- Book Now button -->
+<button *ngIf="!session" type="button" class="btn btn-primary w-100" (click)="bookNow()" [disabled]="!bookingForm.valid || !bookingForm.get('selectedDate')?.value">
+  Book Now
+</button>
+</form>
+
+<!-- Payment form (only shown after booking is confirmed) -->
+<form id="paymentForm" action="https://test-nbe.gateway.mastercard.com/api/page/version/61/pay?charset=UTF-8" method="POST" style="display: none;">
+  <input type="hidden" name="session.id" value="">
+  <input type="hidden" name="merchant" value="TESTEGPTEST">
+  <input type="hidden" name="order.id" value="16">
+  <input type="hidden" name="order.description" value="OJ">
+  <input type="hidden" name="order.amount" value="100.00">
+  <input type="hidden" name="order.currency" value="EGP">
+  <input type="hidden" name="interaction.operation" value="PURCHASE">
+  <input type="hidden" name="interaction.merchant.name" value="Nbe Test">
+  <input type="hidden" name="interaction.merchant.address.line1" value="عنوان المتجر السطر 1">
+  <input type="hidden" name="interaction.merchant.address.line2" value="عنوان المتجر السطر 2">
+</form>
+<div *ngIf="session" class="text-center py-3">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Redirecting to payment...</span>
+  </div>
+  <p class="mt-2">Redirecting to payment gateway...</p>
+</div>
               </div>
             </div>
           </div>

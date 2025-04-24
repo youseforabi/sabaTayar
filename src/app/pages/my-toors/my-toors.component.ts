@@ -22,7 +22,7 @@ export class MyToorsComponent implements OnInit {
   private toostr = inject(ToastrService);
 
 
-  filters: string[] = ['GuideOfEgypt', 'ClassicalTours', 'DayOfTrips'];
+  filters: string[] = ['Guide_Of_Egypt', 'Classical_Tours', 'Day_Trips'];
 
 tours: any[] = [];
 filteredTours: any[] = [];
@@ -41,6 +41,9 @@ loadTours() {
   this.tourService.getAllTours().subscribe({
     next: (data) => {
       this.tours = data;
+      console.log('Loaded Tours:', data);
+      
+      // Ensure a default filter is applied
       this.filter('GuideOfEgypt');
     },
     error: (err) => {
@@ -62,7 +65,12 @@ filter(type: string) {
       }
     });
   } else {
-    this.filteredTours = this.tours.filter(tour => tour.tourCategory === type);
+    // Add more detailed logging
+    
+    this.filteredTours = this.tours.filter(tour => {
+      return tour.tourCategory === type;
+    });
+    
   }
 }
 

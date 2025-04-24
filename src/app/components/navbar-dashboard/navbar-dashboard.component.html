@@ -1,4 +1,3 @@
-<!-- navbar-dashboard.component.html -->
 <nav class="navbar">
   <h2>{{ pageTitle }}</h2>
   <div class="navbar-right">
@@ -9,9 +8,34 @@
       <i class="bi bi-chevron-down"></i>
     </div>
   
-    <!-- Notification Icon -->
-    <div class="notification rounded-circle-icon">
+    <!-- Notification Icon - Only show for specific roles -->
+    <div *ngIf="showNotifications" class="notification rounded-circle-icon" (click)="toggleNotifications()">
       <i class="bi bi-bell-fill notification-icon"></i>
+      <span *ngIf="unreadNotificationsCount > 0" class="notification-badge">
+        {{ unreadNotificationsCount }}
+      </span>
+    </div>
+
+    <!-- Notifications Dropdown - Only show if notifications are enabled -->
+    <div *ngIf="showNotifications && isNotificationOpen" class="notifications-dropdown">
+      <div class="notifications-header">
+        <h4>Recent Activities</h4>
+        <span (click)="toggleNotifications()" class="close-btn">&times;</span>
+      </div>
+      <div class="notifications-list">
+        <div *ngIf="recentActivities.length === 0" class="no-notifications">
+          No recent activities
+        </div>
+        <div *ngFor="let activity of recentActivities" class="notification-item">
+          <div class="notification-content">
+            <i class="bi bi-check-circle notification-icon"></i>
+            <div>
+              <p>{{ activity.description }}</p>
+              <small>{{ activity.date | date:'mediumDate' }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   
     <!-- User Info & Profile -->
@@ -28,5 +52,4 @@
       </div>
     </div>
   </div>
-  
 </nav>

@@ -1,3 +1,4 @@
+
 <section class="featured-tours">
   <div class="header">
     <h3>Featured Egypt Tours</h3>
@@ -6,19 +7,21 @@
 
   <div class="categories">
     <div 
-      class="category"
+      class="category view-all"
       [class.active]="activeCategory === 'all'"
       (click)="showAllTours()">
       View All
     </div>
     
     <!-- عرض الفئات الديناميكية -->
-    <div 
-      class="category"
-      *ngFor="let category of categories"
-      [class.active]="activeCategory === category"
-      (click)="filterTours(category)">
-      {{ category | formatCategory }}
+    <div class="category-wrapper">
+      <div 
+        class="category"
+        *ngFor="let category of categories"
+        [class.active]="activeCategory === category"
+        (click)="filterTours(category)">
+        {{ category | formatCategory }}
+      </div>
     </div>
   </div>
 

@@ -83,6 +83,7 @@ interface TourDetails {
   places: string[];
   tourTags: string[];
   tourPlans: TourPlan[];
+  depositPercentage:number;
   tourIncludes: string[];
   tourExcludes: string[];
   tourFacilities: TourFacility[];
@@ -101,6 +102,7 @@ interface TourDetails {
   styleUrl: './tour-details.component.scss'
 })
 export class TourDetailsComponent {
+  session : string = ''
   phoneNumber: string = '201000676285';
   email:string= 'info@sabatours.com'
 
@@ -153,22 +155,32 @@ export class TourDetailsComponent {
     return this.datePipe.transform(date, 'shortTime') || '';
   }
   ngOnInit(): void {
-    
     this.route.params.subscribe(params => {
       this.tourId = +params['id'];
       this.loadTourDetails();
     });
+    
     this.bookingForm = this.formBuilder.group({
-      selectedDate: new FormControl(''),  // Bind to the formControlName in the template
-      selectedTime: new FormControl(''),   // Bind to the formControlName in the template
-      adults: [1, [Validators.required, Validators.min(1)]], // يجب أن يكون هناك بالغين
-      children: [0, Validators.min(0)], // عدد الأطفال (يمكن أن يكون 0)
-      infants: [0, Validators.min(0)], // عدد الرضع (يمكن أن يكون 0)
-      additionalServices: [[]] // خدمات إضافية، يمكن أن تكون مصفوفة فارغة
+      selectedDate: new FormControl(''),
+      selectedTime: new FormControl(''),
+      adults: [1, [Validators.required, Validators.min(1)]],
+      children: [0, Validators.min(0)],
+      infants: [0, Validators.min(0)],
+      additionalServices: [[]],
+      isDepositPayment: [false]
     });
-   
+    
+    // Listen for changes to the deposit payment radio buttons
+    this.bookingForm.get('isDepositPayment')?.valueChanges.subscribe(value => {
+      console.log('Deposit payment option changed:', value);
+      // Recalculate price if needed
+      this.calculateTotalPrice();
+    });
   }
 
+  depositAmount: number = 0;
+// depositPercentage: number = 20; // 40% as mentioned in your requirements
+finalAmount: number = 0;
   nextImage(): void {
     if (this.tourDetails?.galleryImages) {
       this.modalImageIndex = (this.modalImageIndex + 1) % this.tourDetails.galleryImages.length;
@@ -189,11 +201,13 @@ export class TourDetailsComponent {
     this.tourService.getTourDetails(this.tourId).subscribe({
       next: (data) => {
         this.tourDetails = data;
-        console.log(data);
+        
+        // Add this debug log
+        console.log('Tour details loaded:', data);
+        console.log('Deposit percentage:', data.depositPercentage);
         
         this.calculateTotalPrice();
         this.generateCalendar();
-
         this.loading = false;
       },
       error: (err) => {
@@ -233,19 +247,23 @@ export class TourDetailsComponent {
     // تحديث إجمالي السعر بناءً على التغيير الجديد في عدد الضيوف
     this.calculateTotalPrice();
   }
+
+  get getDepositPercentage(): number {
+    return this.tourDetails?.depositPercentage || 40; // Fallback to 40% if not available
+  }
   
   calculateTotalPrice(): void {
     if (!this.tourDetails) return;
   
-    // احتساب السعر بناءً على نوع الضيوف
+    // Calculate base price based on guests
     let adultTotal = this.bookingForm.get('adults')?.value * (this.tourDetails.adultPrice || this.tourDetails.tourPrice);
     let childrenTotal = this.bookingForm.get('children')?.value * (this.tourDetails.childrenPrice || this.tourDetails.tourPrice * 0.5);
     let infantTotal = this.bookingForm.get('infants')?.value * (this.tourDetails.infantPrice || 0);
     
-    // احتساب السعر الإجمالي
+    // Calculate the total price
     let total = adultTotal + childrenTotal + infantTotal;
   
-    // إضافة الرسوم الإضافية للخدمات المختارة
+    // Add additional services
     if (this.tourDetails.additionalServiceFees) {
       for (const service of this.tourDetails.additionalServiceFees) {
         if (this.selectedServices[service.serviceName]) {
@@ -254,7 +272,11 @@ export class TourDetailsComponent {
       }
     }
   
-    this.totalPrice = total;  // تحديث السعر الإجمالي
+    this.totalPrice = total;
+    
+    // Use the getter to ensure we have a valid percentage
+    this.depositAmount = Math.round((this.totalPrice + this.tourDetails.tourPrice) * (this.getDepositPercentage / 100));
+    this.finalAmount = this.totalPrice + this.tourDetails.tourPrice;
   }
   
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -461,37 +483,67 @@ setModalImage(index: number): void {
     return dateObj.toISOString().split('T')[0];  // Format as yyyy-MM-dd
   }
   // دالة للحجز
-  bookNow() {
-    if (!this.tourDetails) return;
-  
-    // Get selected date and time from the form
-    const selectedDate = this.bookingForm.value.selectedDate;
-    const selectedTime = this.bookingForm.value.selectedTime;
-  
-    // Ensure you are formatting the date if necessary
-    const formattedDate = this.formatDate(selectedDate);  // You can use a date formatting function if needed
-  
-    // Prepare the booking data
-    const bookingData = {
-      tourId: this.tourDetails.id,
-      tourDate: formattedDate,  // Send the formatted date here
-      tourTime: selectedTime,   // Send the selected time
-      adultsCount: this.bookingForm.value.adults,
-      childrenCount: this.bookingForm.value.children,
-    };
-  
-    // Send the booking data
-    this.tourService.bookTour(bookingData).subscribe({
-      next: (response) => {
-        this.toastr.success('Tour booked successfully!', 'Success');  // رسالة نجاح
-        console.log('Booking response:', response);
-      },
-      error: (error) => {
-        console.error('Error booking tour:', error);
-        this.toastr.error('Failed to book tour. Please try again.', 'Error');  // رسالة فشل
+// Updated bookNow function to handle payment session with proper type casting
+// In your component.ts file - Update the bookNow function
+
+bookNow() {
+  if (!this.tourDetails) return;
+
+  // Get form values
+  const selectedDate = this.bookingForm.value.selectedDate;
+  const selectedTime = this.bookingForm.value.selectedTime;
+  const isDepositPayment = this.bookingForm.value.isDepositPayment;
+
+  // Format the date
+  const formattedDate = this.formatDate(selectedDate);
+
+  // Prepare booking data including the deposit payment option
+  const bookingData = {
+    tourId: this.tourDetails.id,
+    tourDate: formattedDate,
+    tourTime: selectedTime,
+    adultsCount: this.bookingForm.value.adults,
+    childrenCount: this.bookingForm.value.children,
+    isDepositPayment: isDepositPayment
+  };
+
+  // Send booking data to API
+  this.tourService.bookTour(bookingData).subscribe({
+    next: (response) => {
+      this.toastr.success('Tour booked successfully!', 'Success');
+      console.log('Booking response:', response);
+      
+      // If we have a payment URL from the response
+      if (response.paymentUrl) {
+        this.session = response.paymentUrl;
+        console.log('Payment session set:', this.session);
+        
+        // Update the session.id field
+        this.updatePaymentForm();
+        
+        // Automatically submit the payment form after a short delay to ensure DOM updates
+        setTimeout(() => {
+          const form = document.getElementById('paymentForm') as HTMLFormElement;
+          if (form) {
+            form.submit();
+          }
+        }, 300);
       }
-    });
-  
-  }
-  
+    },
+    error: (error) => {
+      console.error('Error booking tour:', error);
+      this.toastr.error('Failed to book tour. Please try again.', 'Error');
+    }
+  });
+}
+
+// Add this helper method to update the payment form
+updatePaymentForm() {
+  setTimeout(() => {
+    const sessionInput = document.querySelector('input[name="session.id"]') as HTMLInputElement;
+    if (sessionInput) {
+      sessionInput.value = this.session;
+    }
+  }, 100);
+}
 }

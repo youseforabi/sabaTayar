@@ -34,7 +34,6 @@ import { MainHomeComponent } from "../main-home/main-home.component";
     MatNativeDateModule,
     HomeCaraComponent,
     HistoryExploreComponent,
-    FormatCategoryPipe,
     MorePackagesComponent,
     MainHomeComponent
 ],

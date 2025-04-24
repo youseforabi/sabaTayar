@@ -38,7 +38,7 @@ export class DashboardService {
 
     createTour(tourData: any): Observable<any> {
       
-      return this.http.post<any>(`https://sabatoursapi.runasp.net/api/Tour`, tourData);
+      return this.http.post<any>(`https://sabatours.runasp.net/api/Tour`, tourData);
     }
 
 

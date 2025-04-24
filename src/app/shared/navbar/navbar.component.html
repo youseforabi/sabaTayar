@@ -1,15 +1,18 @@
+
 <div class="top-navbar">
   <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center w-100">
       <div class="navbar-brand">
         <span>Welcome to Saba Tours</span>
-        <span class="d-none d-md-inline"  style="cursor: pointer;" (click)="callPhone()"><i class="bi bi-telephone-fill mx-2"></i> (+2)0100006782855</span>
+        <span class="d-none d-md-inline" style="cursor: pointer;" (click)="callPhone()"><i class="bi bi-telephone-fill mx-2"></i> (+2)0100006782855</span>
       </div>
       <div class="navbar-contact">
         <a href="mailto:{{email}}" class="email-link">
-          <i class="bi bi-envelope"></i>  {{email}}
+          <i class="bi bi-envelope"></i> {{email}}
         </a>
-  <span class="d-none d-lg-inline"><i class="bi bi-geo-alt-fill mx-2"></i> Ouia AT Haram, El Omraniya, Giza Governorate</span>
+        <a href="https://www.google.com/maps/dir//X5V4%2B3GC+Oula+Al+Haram+El+Omraniya+Giza+Governorate/@29.9926875,31.1562656,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x145845da31b56e5d:0x9a9e3763d784b8f6!2m2!1d31.1562656!2d29.9926875?entry=ttu&g_ep=EgoyMDI1MDQyMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="location-link d-none d-lg-inline">
+          <i class="bi bi-geo-alt-fill mx-2"></i> Ouia AT Haram, El Omraniya, Giza Governorate
+        </a>
       </div>
     </div>
   </div>
@@ -78,7 +81,7 @@
             <span>Hi, {{ userRole }}</span>
             <i class="bi bi-chevron-down"></i>
           </div>
-          <img [src]="profileImage || 'assets/default-profile.png'" alt="Profile" class="profile-img">
+          <img [src]="profileImage || 'assets/WhatsApp Image 2025-04-24 at 14.52.36_a522ea2e.jpg'" alt="Profile" class="profile-img">
         </div>
       
         <ul class="dropdown-menu dropdown-menu-end">
